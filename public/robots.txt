@@ -1,0 +1,20 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /login
+Disallow: /ad/
+Disallow: /article/*/ad-click
+
+# Googlebot News & Search Optimizations
+User-agent: Googlebot
+Allow: /
+
+User-agent: Googlebot-News
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# XML Sitemaps
+Sitemap: /sitemap.xml
+Sitemap: /news-sitemap.xml

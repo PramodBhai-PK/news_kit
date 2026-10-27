@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 80" fill="none">
+  <defs>
+    <linearGradient id="brandGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E11D48"/>
+      <stop offset="100%" stop-color="#BE123C"/>
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F59E0B"/>
+      <stop offset="100%" stop-color="#D97706"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+  
+  <!-- Icon Badge -->
+  <rect x="8" y="12" width="56" height="56" rx="14" fill="url(#brandGrad)" filter="url(#glow)"/>
+  
+  <!-- Flame/News Flash Icon -->
+  <path d="M36 22C36 22 44 30 44 38C44 42.4183 40.4183 46 36 46C31.5817 46 28 42.4183 28 38C28 34 31 30 31 30C31 30 33 34 35 34C36 34 37 33 37 32C37 30 36 22 36 22Z" fill="url(#accentGrad)"/>
+  <circle cx="36" cy="54" r="3" fill="#FFFFFF"/>
+  
+  <!-- Brand Text -->
+  <text x="76" y="44" font-family="'Instrument Sans', 'Inter', -apple-system, sans-serif" font-weight="900" font-size="28" fill="currentColor" letter-spacing="-0.5">
+    LALLAN<tspan fill="#E11D48">TOP</tspan>
+  </text>
+  <text x="78" y="62" font-family="'Instrument Sans', 'Inter', -apple-system, sans-serif" font-weight="700" font-size="11" fill="#F59E0B" letter-spacing="3.5">
+    NEWS NETWORK
+  </text>
+  
+  <!-- Live Pulse Dot -->
+  <circle cx="280" cy="36" r="4" fill="#E11D48">
+    <animate attributeName="opacity" values="1;0.2;1" dur="1.5s" repeatCount="indefinite"/>
+  </circle>
+  <text x="290" y="39" font-family="sans-serif" font-weight="700" font-size="9" fill="#E11D48" letter-spacing="1">LIVE</text>
+</svg>
