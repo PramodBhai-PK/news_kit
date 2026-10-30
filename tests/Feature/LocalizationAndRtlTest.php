@@ -10,13 +10,28 @@ class LocalizationAndRtlTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_default_locale_is_hindi_and_ltr(): void
+    public function test_default_locale_is_english_and_ltr(): void
     {
         $response = $this->get('/');
 
         $response->assertStatus(200);
-        $response->assertSee('lang="hi"', false);
+        $response->assertSee('lang="en"', false);
         $response->assertSee('dir="ltr"', false);
+        $response->assertSee('Home');
+    }
+
+    public function test_can_switch_to_hindi_ltr(): void
+    {
+        $response = $this->get('/locale/hi');
+
+        $response->assertRedirect();
+        $response->assertSessionHas('locale', 'hi');
+
+        $portalResponse = $this->withSession(['locale' => 'hi'])->get('/');
+        $portalResponse->assertStatus(200);
+        $portalResponse->assertSee('lang="hi"', false);
+        $portalResponse->assertSee('dir="ltr"', false);
+        $portalResponse->assertSee('होम');
     }
 
     public function test_can_switch_to_urdu_rtl(): void
@@ -62,12 +77,12 @@ class LocalizationAndRtlTest extends TestCase
         $portalResponse->assertSee('Home');
     }
 
-    public function test_invalid_locale_fallback_to_hindi(): void
+    public function test_invalid_locale_fallback_to_english(): void
     {
         $response = $this->get('/locale/french_invalid');
 
         $response->assertRedirect();
-        $this->assertEquals('hi', session('locale', 'hi'));
+        $this->assertEquals('en', session('locale', 'en'));
     }
 
     public function test_category_display_name_localizes_correctly(): void

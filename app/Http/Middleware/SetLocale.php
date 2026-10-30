@@ -13,20 +13,22 @@ class SetLocale
 {
     /**
      * Supported locales and their RTL attributes
+     * Default locale is 'en' (English), tailored for international commercial release (e.g. CodeCanyon)
      */
     public const SUPPORTED_LOCALES = [
-        'hi' => ['name' => 'हिंदी', 'native' => 'हिंदी', 'dir' => 'ltr', 'flag' => '🇮🇳'],
         'en' => ['name' => 'English', 'native' => 'English', 'dir' => 'ltr', 'flag' => '🌐'],
+        'hi' => ['name' => 'हिंदी', 'native' => 'हिंदी', 'dir' => 'ltr', 'flag' => '🇮🇳'],
         'ur' => ['name' => 'Urdu', 'native' => 'اردو', 'dir' => 'rtl', 'flag' => '🇵🇰'],
         'ar' => ['name' => 'Arabic', 'native' => 'العربية', 'dir' => 'rtl', 'flag' => '🇦🇪'],
     ];
 
     public function handle(Request $request, Closure $next): Response
     {
-        $locale = $request->query('lang', Session::get('locale', 'hi'));
+        $defaultLocale = config('app.locale', 'en');
+        $locale = $request->query('lang', Session::get('locale', $defaultLocale));
 
         if (!array_key_exists($locale, self::SUPPORTED_LOCALES)) {
-            $locale = 'hi';
+            $locale = $defaultLocale;
         }
 
         Session::put('locale', $locale);

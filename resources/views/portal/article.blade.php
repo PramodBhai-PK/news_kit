@@ -97,7 +97,66 @@
 @endsection
 
 @section('content')
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+
+    <!-- Sticky Floating Left Share Rail (Visible on XL screens) -->
+    <aside class="hidden xl:flex flex-col gap-2.5 fixed left-4 2xl:left-10 top-1/3 z-30 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md p-2 rounded-2xl border border-slate-200/80 dark:border-slate-800 shadow-xl" aria-label="Quick Share Rail">
+        <span class="text-[9px] font-black uppercase text-center text-slate-400 py-0.5 tracking-wider">{{ __('शेयर') }}</span>
+        <!-- WhatsApp -->
+        <a href="https://api.whatsapp.com/send?text={{ urlencode('🔴 *' . $article->title . "*\n\n" . url()->current()) }}" 
+           target="_blank" rel="noopener noreferrer" 
+           class="w-9 h-9 rounded-xl bg-[#25D366]/10 text-[#25D366] hover:bg-[#25D366] hover:text-white flex items-center justify-center transition-all shadow-2xs group" title="WhatsApp">
+            <svg class="w-4 h-4 fill-current transition-transform group-hover:scale-110" viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2M12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 15 3.81 13.47 3.81 11.91C3.81 7.37 7.5 3.67 12.05 3.67Z"/></svg>
+        </a>
+        <!-- Facebook -->
+        <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(url()->current()) }}" 
+           target="_blank" rel="noopener noreferrer" 
+           class="w-9 h-9 rounded-xl bg-[#1877F2]/10 text-[#1877F2] hover:bg-[#1877F2] hover:text-white flex items-center justify-center transition-all shadow-2xs group" title="Facebook">
+            <svg class="w-4 h-4 fill-current transition-transform group-hover:scale-110" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        </a>
+        <!-- X (Twitter) -->
+        <a href="https://twitter.com/intent/tweet?text={{ urlencode($article->title) }}&url={{ urlencode(url()->current()) }}" 
+           target="_blank" rel="noopener noreferrer" 
+           class="w-9 h-9 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 hover:bg-black hover:text-white flex items-center justify-center transition-all shadow-2xs group" title="X (Twitter)">
+            <svg class="w-4 h-4 fill-current transition-transform group-hover:scale-110" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </a>
+        <!-- Telegram -->
+        <a href="https://t.me/share/url?url={{ urlencode(url()->current()) }}&text={{ urlencode($article->title) }}" 
+           target="_blank" rel="noopener noreferrer" 
+           class="w-9 h-9 rounded-xl bg-[#229ED9]/10 text-[#229ED9] hover:bg-[#229ED9] hover:text-white flex items-center justify-center transition-all shadow-2xs group" title="Telegram">
+            <svg class="w-4 h-4 fill-current transition-transform group-hover:scale-110" viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.295-.6.295-.002 0-.003 0-.005 0l.213-3.054 5.56-5.022c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.46c.536-.195 1.006.128.832.941z"/></svg>
+        </a>
+        <!-- Instagram / News Card Maker -->
+        <button type="button" 
+                class="open-news-poster-btn w-9 h-9 rounded-xl bg-gradient-to-tr from-purple-600 via-pink-600 to-amber-500 text-white flex items-center justify-center transition-all shadow-2xs group cursor-pointer" 
+                title="{{ __('इंस्टाग्राम स्टोरी व पोस्ट कार्ड') }}"
+                data-title="{{ $article->title }}"
+                data-category="{{ $article->category->display_name }}"
+                data-category-color="{{ $article->category->color }}"
+                data-location="{{ $article->location_badge ?? '' }}"
+                data-author="{{ $article->author->name }}"
+                data-author-avatar="{{ $article->author->avatar ?: '' }}"
+                data-image="{{ $article->featured_image_url }}"
+                data-date="{{ $article->published_at ? $article->published_at->format('d M, Y') : now()->format('d M, Y') }}"
+                data-url="{{ url()->current() }}">
+            <svg class="w-4 h-4 fill-current transition-transform group-hover:scale-110" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        </button>
+        <!-- Copy Link -->
+        <button type="button" 
+                class="btn-copy-link w-9 h-9 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-brand-primary hover:text-white flex items-center justify-center transition-all shadow-2xs group" 
+                data-url="{{ url()->current() }}" 
+                title="{{ __('लिंक कॉपी करें') }}">
+            <svg class="w-4 h-4 fill-none stroke-current transition-transform group-hover:scale-110" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+        </button>
+        <!-- Bookmark -->
+        <button type="button" 
+                class="btn-bookmark w-9 h-9 rounded-xl bg-amber-50 dark:bg-amber-950/40 text-amber-600 hover:bg-amber-500 hover:text-white flex items-center justify-center transition-all shadow-2xs group" 
+                data-article-id="{{ $article->id }}" 
+                title="{{ __('बुकमार्क में सहेजें') }}">
+            <svg class="w-4 h-4 fill-none stroke-current transition-transform group-hover:scale-110" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/></svg>
+        </button>
+    </aside>
+
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
 
         <!-- ========================================== -->
@@ -283,33 +342,87 @@
                 </div>
             @endif
 
-            <!-- Share & Bookmark Action Bar -->
-            <div class="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm flex flex-wrap items-center justify-between gap-4">
-                <div class="flex items-center gap-3">
-                    <span class="text-xs font-bold uppercase tracking-wider text-slate-500">{{ __('शेयर करें:') }}</span>
-                    
-                    <!-- WhatsApp Share -->
-                    <a href="https://api.whatsapp.com/send?text={{ urlencode($article->title . ' ' . url()->current()) }}" 
-                       target="_blank" rel="noopener" aria-label="Share on WhatsApp"
-                       class="w-9 h-9 rounded-xl bg-emerald-50 text-emerald-600 hover:bg-emerald-600 hover:text-white flex items-center justify-center transition-all">
-                        <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2M12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 15 3.81 13.47 3.81 11.91C3.81 7.37 7.5 3.67 12.05 3.67Z"/></svg>
-                    </a>
+            <!-- Share & Bookmark Action Bar (Complete Multi-Platform Social Suite) -->
+            @php
+                $shareUrl = url()->current();
+                $shareTitle = $article->title;
+                $encodedUrl = urlencode($shareUrl);
+                $encodedTitle = urlencode($shareTitle);
+                $waText = urlencode("🔴 *" . $shareTitle . "*\n\n" . $shareUrl);
+                $fbUrl = "https://www.facebook.com/sharer/sharer.php?u=" . $encodedUrl;
+                $twUrl = "https://twitter.com/intent/tweet?text=" . $encodedTitle . "&url=" . $encodedUrl;
+                $tgUrl = "https://t.me/share/url?url=" . $encodedUrl . "&text=" . $encodedTitle;
+                $liUrl = "https://www.linkedin.com/sharing/share-offsite/?url=" . $encodedUrl;
+                $waUrl = "https://api.whatsapp.com/send?text=" . $waText;
+            @endphp
+            <div class="p-5 sm:p-6 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-md space-y-4">
+                <div class="flex items-center justify-between gap-3 border-b border-slate-100 dark:border-slate-800 pb-3">
+                    <div class="flex items-center gap-2">
+                        <span class="p-1.5 rounded-lg bg-rose-50 dark:bg-rose-950/60 text-brand-primary">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/></svg>
+                        </span>
+                        <h4 class="text-xs font-black uppercase tracking-wider text-slate-800 dark:text-slate-200">
+                            {{ __('शेयर करें:') }} <span class="text-slate-400 font-normal">({{ __('सोशल मीडिया पर खबर साझा करें') }})</span>
+                        </h4>
+                    </div>
 
-                    <!-- Twitter / X Share -->
-                    <a href="https://twitter.com/intent/tweet?text={{ urlencode($article->title) }}&url={{ urlencode(url()->current()) }}" 
-                       target="_blank" rel="noopener" aria-label="Share on X"
-                       class="w-9 h-9 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 hover:bg-slate-900 hover:text-white flex items-center justify-center transition-all">
-                        <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-                    </a>
-
-                    <!-- Copy Link -->
-                    <button class="btn-copy-link w-9 h-9 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-brand-primary hover:text-white flex items-center justify-center transition-all" title="{{ __('लिंक कॉपी करें') }}">
-                        <svg class="w-4 h-4 fill-none stroke-current" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+                    <!-- Bookmark Button -->
+                    <button class="btn-bookmark inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:text-brand-primary text-xs font-bold transition-all" data-article-id="{{ $article->id }}" title="{{ __('बुकमार्क में सहेजें') }}">
+                        <svg class="w-4 h-4 fill-none stroke-current" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/></svg>
+                        <span class="hidden sm:inline">{{ __('बुकमार्क') }}</span>
                     </button>
+                </div>
 
-                    <!-- Automatic Graphic Card Maker Button -->
+                <!-- 1-Click Multi-Platform Sharing Buttons Grid -->
+                <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-7 gap-2.5">
+                    <!-- 1. WhatsApp -->
+                    <a href="{{ $waUrl }}" 
+                       target="_blank" rel="noopener noreferrer" 
+                       aria-label="Share on WhatsApp"
+                       class="flex flex-col sm:flex-row items-center justify-center gap-2 p-2.5 rounded-2xl bg-[#25D366]/10 hover:bg-[#25D366] text-[#25D366] hover:text-white border border-[#25D366]/30 transition-all font-bold text-xs group shadow-2xs">
+                        <svg class="w-4 h-4 fill-current shrink-0 transition-transform group-hover:scale-110" viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2M12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 15 3.81 13.47 3.81 11.91C3.81 7.37 7.5 3.67 12.05 3.67Z"/></svg>
+                        <span>WhatsApp</span>
+                    </a>
+
+                    <!-- 2. Facebook -->
+                    <a href="{{ $fbUrl }}" 
+                       target="_blank" rel="noopener noreferrer" 
+                       aria-label="Share on Facebook"
+                       class="flex flex-col sm:flex-row items-center justify-center gap-2 p-2.5 rounded-2xl bg-[#1877F2]/10 hover:bg-[#1877F2] text-[#1877F2] hover:text-white border border-[#1877F2]/30 transition-all font-bold text-xs group shadow-2xs">
+                        <svg class="w-4 h-4 fill-current shrink-0 transition-transform group-hover:scale-110" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                        <span>Facebook</span>
+                    </a>
+
+                    <!-- 3. X (Twitter) -->
+                    <a href="{{ $twUrl }}" 
+                       target="_blank" rel="noopener noreferrer" 
+                       aria-label="Share on X"
+                       class="flex flex-col sm:flex-row items-center justify-center gap-2 p-2.5 rounded-2xl bg-slate-900/10 dark:bg-slate-800 hover:bg-black dark:hover:bg-slate-950 text-slate-900 dark:text-slate-100 hover:text-white border border-slate-300 dark:border-slate-700 transition-all font-bold text-xs group shadow-2xs">
+                        <svg class="w-4 h-4 fill-current shrink-0 transition-transform group-hover:scale-110" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                        <span>X (Twitter)</span>
+                    </a>
+
+                    <!-- 4. Telegram -->
+                    <a href="{{ $tgUrl }}" 
+                       target="_blank" rel="noopener noreferrer" 
+                       aria-label="Share on Telegram"
+                       class="flex flex-col sm:flex-row items-center justify-center gap-2 p-2.5 rounded-2xl bg-[#229ED9]/10 hover:bg-[#229ED9] text-[#229ED9] hover:text-white border border-[#229ED9]/30 transition-all font-bold text-xs group shadow-2xs">
+                        <svg class="w-4 h-4 fill-current shrink-0 transition-transform group-hover:scale-110" viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.295-.6.295-.002 0-.003 0-.005 0l.213-3.054 5.56-5.022c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.46c.536-.195 1.006.128.832.941z"/></svg>
+                        <span>Telegram</span>
+                    </a>
+
+                    <!-- 5. LinkedIn -->
+                    <a href="{{ $liUrl }}" 
+                       target="_blank" rel="noopener noreferrer" 
+                       aria-label="Share on LinkedIn"
+                       class="flex flex-col sm:flex-row items-center justify-center gap-2 p-2.5 rounded-2xl bg-[#0A66C2]/10 hover:bg-[#0A66C2] text-[#0A66C2] hover:text-white border border-[#0A66C2]/30 transition-all font-bold text-xs group shadow-2xs">
+                        <svg class="w-4 h-4 fill-current shrink-0 transition-transform group-hover:scale-110" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                        <span>LinkedIn</span>
+                    </a>
+
+                    <!-- 6. Instagram & News Card Maker (Automatic Graphic Card Studio 1080p) -->
                     <button type="button" 
-                            class="open-news-poster-btn inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white text-xs font-bold shadow-md hover:shadow-lg transition-all cursor-pointer"
+                            class="open-news-poster-btn flex flex-col sm:flex-row items-center justify-center gap-1.5 p-2.5 rounded-2xl bg-gradient-to-r from-purple-600 via-pink-600 to-amber-500 hover:brightness-110 text-white font-bold text-xs shadow-md shadow-pink-600/20 transition-all cursor-pointer group"
                             title="{{ __('सोशल मीडिया न्यूज़ कार्ड बनाएं') }}"
                             data-title="{{ $article->title }}"
                             data-category="{{ $article->category->display_name }}"
@@ -320,17 +433,29 @@
                             data-image="{{ $article->featured_image_url }}"
                             data-date="{{ $article->published_at ? $article->published_at->format('d M, Y') : now()->format('d M, Y') }}"
                             data-url="{{ url()->current() }}">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                        <svg class="w-4 h-4 fill-current shrink-0 transition-transform group-hover:scale-110" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
                         <span>{{ __('📸 न्यूज़ कार्ड बनाएं') }}</span>
                     </button>
-                </div>
 
-                <div>
-                    <!-- Bookmark Button -->
-                    <button class="btn-bookmark inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:text-brand-primary text-xs font-bold transition-all" data-article-id="{{ $article->id }}">
-                        <svg class="w-4 h-4 fill-none stroke-current" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/></svg>
-                        <span>{{ __('बुकमार्क में सहेजें') }}</span>
-                    </button>
+                    <!-- 7. Copy Link & Native Share Dual Action -->
+                    <div class="col-span-2 sm:col-span-2 md:col-span-1 flex items-center gap-1.5">
+                        <!-- Native Share Button for Mobile -->
+                        <button type="button" 
+                                class="btn-native-share flex-1 flex items-center justify-center p-2.5 rounded-2xl bg-indigo-50 dark:bg-indigo-950/60 hover:bg-indigo-600 hover:text-white text-indigo-600 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-800 transition-all font-bold text-xs" 
+                                data-title="{{ $article->title }}" 
+                                data-url="{{ $shareUrl }}"
+                                title="{{ __('अधिक शेयर विकल्प') }}">
+                            <svg class="w-4 h-4 fill-none stroke-current" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/></svg>
+                        </button>
+
+                        <!-- Copy Link Button -->
+                        <button type="button" 
+                                class="btn-copy-link flex-1 flex items-center justify-center p-2.5 rounded-2xl bg-slate-100 dark:bg-slate-800 hover:bg-brand-primary hover:text-white text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 transition-all font-bold text-xs" 
+                                data-url="{{ $shareUrl }}" 
+                                title="{{ __('लिंक कॉपी करें') }}">
+                            <svg class="w-4 h-4 fill-none stroke-current" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+                        </button>
+                    </div>
                 </div>
             </div>
 
@@ -500,6 +625,9 @@
                     </div>
                 @endforeach
             @endif
+
+            <!-- 2.5 WhatsApp Channel Connect Card with Live QR Code -->
+            @include('components.whatsapp-channel-card')
 
             <!-- 3. Trending Stories Widget in Sidebar -->
             @if(isset($trendingArticles) && $trendingArticles->isNotEmpty())

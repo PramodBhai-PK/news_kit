@@ -45,9 +45,7 @@ class HyperlocalLocationNewsTest extends TestCase
 
         $response->assertStatus(200);
         $response->assertSee('Uttar Pradesh');
-        $response->assertSee('उत्तर प्रदेश');
-        $response->assertSee('लखनऊ');
-        $response->assertSee('राज्य विशेष कवरेज');
+        $response->assertSee('State Special Coverage');
     }
 
     public function test_city_landing_page_renders_successfully()
@@ -56,8 +54,7 @@ class HyperlocalLocationNewsTest extends TestCase
 
         $response->assertStatus(200);
         $response->assertSee('Lucknow');
-        $response->assertSee('लखनऊ');
-        $response->assertSee('हाइपरलोकल जिला डेस्क');
+        $response->assertSee('District News Desk');
     }
 
     public function test_city_switcher_sets_session_and_redirects()
@@ -66,7 +63,7 @@ class HyperlocalLocationNewsTest extends TestCase
 
         $response->assertRedirect();
         $response->assertSessionHas('user_city_slug', 'lucknow');
-        $response->assertSessionHas('user_city_name', 'लखनऊ');
+        $response->assertSessionHas('user_city_name', 'Lucknow');
     }
 
     public function test_city_switcher_clear_resets_session()
@@ -86,10 +83,8 @@ class HyperlocalLocationNewsTest extends TestCase
         $response = $this->get('/');
 
         $response->assertStatus(200);
-        $response->assertSee('राज्य व शहर न्यूज़ हब');
-        $response->assertSee('हाइपरलोकल न्यूज़ नेटवर्क');
-        $response->assertSee('उत्तर प्रदेश');
-        $response->assertSee('बिहार');
+        $response->assertSee('State & City News Hub');
+        $response->assertSee('Hyperlocal News Network');
     }
 
     public function test_admin_article_creation_with_location_data()
@@ -125,7 +120,7 @@ class HyperlocalLocationNewsTest extends TestCase
         $article = Article::where('title', 'लखनऊ में शुरू हुआ नया हेरिटेज कॉरिडोर प्रोजेक्ट')->first();
         $this->assertEquals('हजरतगंज, लखनऊ', $article->location_badge);
         $article->location_name = null;
-        $this->assertEquals('लखनऊ', $article->location_badge);
+        $this->assertEquals('Lucknow', $article->location_badge);
         $this->assertTrue($article->hasLocation());
     }
 

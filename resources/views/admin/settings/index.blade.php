@@ -273,6 +273,14 @@
                 </div>
 
                 <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Facebook Page Link</label>
+                    <input type="url" name="social_facebook" value="{{ $settings['social_facebook'] ?? setting('social_facebook', 'https://facebook.com/newskit') }}" class="w-full bg-slate-50 text-sm rounded-xl px-4 py-2.5 border border-slate-200">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Instagram Profile Link</label>
+                    <input type="url" name="social_instagram" value="{{ $settings['social_instagram'] ?? setting('social_instagram', 'https://instagram.com/newskit') }}" class="w-full bg-slate-50 text-sm rounded-xl px-4 py-2.5 border border-slate-200">
+                </div>
+                <div>
                     <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">X (Twitter) Link</label>
                     <input type="url" name="social_twitter" value="{{ $settings['social_twitter'] ?? setting('social_twitter') }}" class="w-full bg-slate-50 text-sm rounded-xl px-4 py-2.5 border border-slate-200">
                 </div>
@@ -281,8 +289,45 @@
                     <input type="url" name="social_youtube" value="{{ $settings['social_youtube'] ?? setting('social_youtube') }}" class="w-full bg-slate-50 text-sm rounded-xl px-4 py-2.5 border border-slate-200">
                 </div>
                 <div>
-                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">WhatsApp Channel</label>
-                    <input type="url" name="social_whatsapp" value="{{ $settings['social_whatsapp'] ?? setting('social_whatsapp') }}" class="w-full bg-slate-50 text-sm rounded-xl px-4 py-2.5 border border-slate-200">
+                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Telegram Channel Link</label>
+                    <input type="url" name="social_telegram" value="{{ $settings['social_telegram'] ?? setting('social_telegram', 'https://t.me/newskit') }}" class="w-full bg-slate-50 text-sm rounded-xl px-4 py-2.5 border border-slate-200">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">LinkedIn Page Link</label>
+                    <input type="url" name="social_linkedin" value="{{ $settings['social_linkedin'] ?? setting('social_linkedin', 'https://linkedin.com/company/newskit') }}" class="w-full bg-slate-50 text-sm rounded-xl px-4 py-2.5 border border-slate-200">
+                </div>
+            </div>
+
+            <!-- WhatsApp Channel & QR Code Customization Block -->
+            <div class="pt-6 border-t border-slate-200/80 space-y-4">
+                <div class="flex items-center gap-2">
+                    <span class="w-7 h-7 rounded-lg bg-emerald-500 text-white flex items-center justify-center">
+                        <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2M12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 15 3.81 13.47 3.81 11.91C3.81 7.37 7.5 3.67 12.05 3.67Z"/></svg>
+                    </span>
+                    <h4 class="font-bold text-sm text-slate-800">व्हाट्सएप चैनल एवं क्यूआर कोड सेटिंग्स (WhatsApp Channel & QR Code)</h4>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">WhatsApp Channel URL *</label>
+                        <input type="url" name="social_whatsapp" value="{{ $settings['social_whatsapp'] ?? setting('social_whatsapp', 'https://whatsapp.com/channel/newskit') }}" placeholder="https://whatsapp.com/channel/..." class="w-full bg-slate-50 text-sm rounded-xl px-4 py-2.5 border border-slate-200">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">कार्ड हेडिंग (Title)</label>
+                        <input type="text" name="whatsapp_channel_title" value="{{ $settings['whatsapp_channel_title'] ?? setting('whatsapp_channel_title', 'व्हाट्सएप चैनल से जुड़ें') }}" class="w-full bg-slate-50 text-sm rounded-xl px-4 py-2.5 border border-slate-200">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">सब्सक्राइबर्स बैज (Followers Count)</label>
+                        <input type="text" name="whatsapp_subscribers_count" value="{{ $settings['whatsapp_subscribers_count'] ?? setting('whatsapp_subscribers_count', '50,000+') }}" placeholder="उदा. 50,000+" class="w-full bg-slate-50 text-sm rounded-xl px-4 py-2.5 border border-slate-200">
+                    </div>
+                    <div class="md:col-span-2">
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">कस्टम QR कोड इमेज अपलोड (वैकल्पिक)</label>
+                        <input type="file" name="whatsapp_qr_file" accept="image/*" class="w-full bg-slate-50 text-xs text-slate-600 rounded-xl px-4 py-2 border border-slate-200 file:mr-4 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-emerald-50 file:text-emerald-700 hover:file:bg-emerald-100">
+                        <p class="text-[11px] text-slate-400 mt-1">यदि अपलोड नहीं करेंगे तो सिस्टम ऊपर दिए गए WhatsApp Channel URL से हाई-रेज़ोल्यूशन QR कोड स्वतः जनरेट कर देगा।</p>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">QR कोड इमेज URL (या डायरेक्ट लिंक)</label>
+                        <input type="text" name="whatsapp_qr_url" value="{{ $settings['whatsapp_qr_url'] ?? setting('whatsapp_qr_url') }}" placeholder="https://.../qr.png" class="w-full bg-slate-50 text-sm rounded-xl px-4 py-2.5 border border-slate-200">
+                    </div>
                 </div>
             </div>
         </div>

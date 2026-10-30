@@ -558,8 +558,8 @@
                                 <button class="btn-bookmark hover:text-brand-primary transition-colors" data-article-id="{{ $art->id }}" title="{{ __('बुकमार्क करें') }}">
                                     <svg class="w-4 h-4 fill-none stroke-current" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/></svg>
                                 </button>
-                                <!-- Share Button -->
-                                <button class="btn-copy-link hover:text-brand-primary transition-colors" data-url="{{ route('portal.article', $art->slug) }}" title="{{ __('लिंक कॉपी करें') }}">
+                                <!-- Share Button (Native Share on Mobile / Copy Link on Desktop) -->
+                                <button class="btn-native-share hover:text-brand-primary transition-colors" data-title="{{ $art->title }}" data-url="{{ route('portal.article', $art->slug) }}" title="{{ __('शेयर करें') }}">
                                     <svg class="w-4 h-4 fill-none stroke-current" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/></svg>
                                 </button>
                             </div>
@@ -636,6 +636,9 @@
                     </button>
                 </form>
             </div>
+
+            <!-- 1.6 WhatsApp Channel Connect Card with Live QR Code -->
+            @include('components.whatsapp-channel-card')
 
             <!-- HOMEPAGE SIDEBAR ADVERTISEMENTS (MULTIPLE UNITS) -->
             @if(isset($homepageSidebarAds) && $homepageSidebarAds->isNotEmpty())

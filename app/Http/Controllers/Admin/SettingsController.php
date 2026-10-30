@@ -35,7 +35,7 @@ class SettingsController extends Controller
             abort(403, 'केवल प्रधान संपादक (Super Admin) को ब्रांडिंग सेटिंग्स बदलने की अनुमति है।');
         }
 
-        $inputs = $request->except(['_token', 'logo_file', 'favicon_file']);
+        $inputs = $request->except(['_token', 'logo_file', 'favicon_file', 'whatsapp_qr_file']);
 
         // Handle Logo Upload
         if ($request->hasFile('logo_file')) {
@@ -47,6 +47,12 @@ class SettingsController extends Controller
         if ($request->hasFile('favicon_file')) {
             $path = $request->file('favicon_file')->store('branding', 'public');
             $inputs['favicon_url'] = Storage::url($path);
+        }
+
+        // Handle WhatsApp Channel QR Upload
+        if ($request->hasFile('whatsapp_qr_file')) {
+            $path = $request->file('whatsapp_qr_file')->store('branding', 'public');
+            $inputs['whatsapp_qr_url'] = Storage::url($path);
         }
 
         foreach ($inputs as $key => $val) {

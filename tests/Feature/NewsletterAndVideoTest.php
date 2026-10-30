@@ -116,7 +116,7 @@ class NewsletterAndVideoTest extends TestCase
         $response = $this->get("/article/{$article->slug}");
         $response->assertStatus(200);
         $response->assertSee('youtube.com/embed/dQw4w9WgXcQ');
-        $response->assertSee('यूट्यूब वीडियो विशेष कवरेज');
+        $response->assertSee('YouTube Video Coverage');
     }
 
     public function test_article_with_direct_mp4_video_renders_video_tag(): void
@@ -137,7 +137,7 @@ class NewsletterAndVideoTest extends TestCase
         $response->assertStatus(200);
         $response->assertSee('<video', false);
         $response->assertSee('https://example.com/stream.mp4');
-        $response->assertSee('एक्सक्लूसिव डिजिटल वीडियो रिपोर्ट');
+        $response->assertSee('Exclusive Digital Video Report');
     }
 
     public function test_homepage_renders_video_bulletin_gallery(): void
@@ -156,7 +156,7 @@ class NewsletterAndVideoTest extends TestCase
 
         $response = $this->get('/');
         $response->assertStatus(200);
-        $response->assertSee('वीडियो बुलेटिन व विशेष कवरेज');
+        $response->assertSee('Video Bulletin & Special Coverage');
         $response->assertSee('Featured Video for Bulletin');
     }
 

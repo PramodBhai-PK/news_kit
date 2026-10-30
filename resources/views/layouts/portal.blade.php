@@ -34,7 +34,7 @@
     <meta property="og:url" content="@yield('canonical_url', url()->current())">
     <meta property="og:image" content="@yield('og_image', asset(setting('logo_url', '/images/logo.svg')))">
     <meta property="og:image:alt" content="@yield('title', setting('site_name'))">
-    <meta property="og:locale" content="{{ ($currentLocale ?? 'hi') === 'hi' ? 'hi_IN' : (($currentLocale ?? '') === 'en' ? 'en_US' : (($currentLocale ?? '') === 'ur' ? 'ur_PK' : 'ar_SA')) }}">
+    <meta property="og:locale" content="{{ ($currentLocale ?? 'en') === 'en' ? 'en_US' : (($currentLocale ?? '') === 'hi' ? 'hi_IN' : (($currentLocale ?? '') === 'ur' ? 'ur_PK' : 'ar_SA')) }}">
 
     <!-- Twitter / X Cards (Large Image Preview for Viral Sharing) -->
     <meta name="twitter:card" content="summary_large_image">
@@ -151,8 +151,8 @@
                 <div class="relative shrink-0" id="lang-switcher-wrapper">
                     <button id="lang-switcher-btn" type="button" aria-expanded="false"
                             class="flex items-center gap-1.5 py-1 px-2.5 rounded-md bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white transition-colors text-xs font-semibold border border-slate-700/80 shadow-xs focus:outline-none">
-                        <span class="text-sm leading-none">{{ $supportedLocales[$currentLocale ?? 'hi']['flag'] ?? '🇮🇳' }}</span>
-                        <span class="tracking-wide">{{ $supportedLocales[$currentLocale ?? 'hi']['native'] ?? 'हिंदी' }}</span>
+                        <span class="text-sm leading-none">{{ $supportedLocales[$currentLocale ?? 'en']['flag'] ?? '🌐' }}</span>
+                        <span class="tracking-wide">{{ $supportedLocales[$currentLocale ?? 'en']['native'] ?? 'English' }}</span>
                         @if($isRtl ?? false)
                             <span class="bg-amber-500/20 text-amber-300 text-[9px] font-black px-1 py-0.5 rounded uppercase tracking-wider">RTL</span>
                         @endif
@@ -170,7 +170,7 @@
                         <div class="py-1">
                             @foreach($supportedLocales as $locCode => $locMeta)
                                 <a href="{{ route('portal.locale', $locCode) }}" 
-                                   class="flex items-center justify-between px-3 py-2 hover:bg-slate-800 transition-colors {{ ($currentLocale ?? 'hi') === $locCode ? 'text-brand-primary bg-slate-800/70 font-bold' : 'text-slate-200' }}">
+                                   class="flex items-center justify-between px-3 py-2 hover:bg-slate-800 transition-colors {{ ($currentLocale ?? 'en') === $locCode ? 'text-brand-primary bg-slate-800/70 font-bold' : 'text-slate-200' }}">
                                     <div class="flex items-center gap-2">
                                         <span class="text-base leading-none">{{ $locMeta['flag'] }}</span>
                                         <span>{{ $locMeta['native'] }}</span>
@@ -179,7 +179,7 @@
                                         @if($locMeta['dir'] === 'rtl')
                                             <span class="text-[9px] font-bold px-1 py-0.5 rounded bg-amber-500/20 text-amber-300">RTL</span>
                                         @endif
-                                        @if(($currentLocale ?? 'hi') === $locCode)
+                                        @if(($currentLocale ?? 'en') === $locCode)
                                             <svg class="w-3.5 h-3.5 text-brand-primary" fill="currentColor" viewBox="0 0 20 20">
                                                 <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
                                             </svg>
@@ -348,7 +348,7 @@
                     <div class="grid grid-cols-2 gap-2">
                         @foreach($supportedLocales as $locCode => $locMeta)
                             <a href="{{ route('portal.locale', $locCode) }}" 
-                               class="flex items-center justify-center gap-1.5 py-1.5 px-2 rounded-lg text-xs font-semibold border transition-colors {{ ($currentLocale ?? 'hi') === $locCode ? 'bg-brand-primary text-white border-brand-primary' : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-transparent hover:border-slate-300 dark:hover:border-slate-700' }}">
+                               class="flex items-center justify-center gap-1.5 py-1.5 px-2 rounded-lg text-xs font-semibold border transition-colors {{ ($currentLocale ?? 'en') === $locCode ? 'bg-brand-primary text-white border-brand-primary' : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-transparent hover:border-slate-300 dark:hover:border-slate-700' }}">
                                 <span>{{ $locMeta['flag'] }}</span>
                                 <span>{{ $locMeta['native'] }}</span>
                                 @if($locMeta['dir'] === 'rtl')
@@ -457,15 +457,31 @@
                     <p class="text-xs text-slate-400 leading-relaxed">
                         {{ setting('footer_about', 'NewsKit Bharat का सबसे विश्वसनीय और निष्पक्ष डिजिटल न्यूज़ नेटवर्क है।') }}
                     </p>
-                    <div class="pt-2 flex items-center gap-3">
-                        <a href="{{ setting('social_twitter', 'https://twitter.com') }}" target="_blank" rel="noopener" aria-label="Twitter" class="w-8 h-8 rounded-lg bg-slate-900 hover:bg-brand-primary hover:text-white flex items-center justify-center transition-colors">
+                    <div class="pt-2 flex items-center gap-2 flex-wrap">
+                        <!-- Facebook -->
+                        <a href="{{ setting('social_facebook', 'https://facebook.com') }}" target="_blank" rel="noopener noreferrer" aria-label="Facebook" class="w-8 h-8 rounded-lg bg-slate-900 hover:bg-[#1877F2] hover:text-white flex items-center justify-center transition-colors">
+                            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                        </a>
+                        <!-- Twitter / X -->
+                        <a href="{{ setting('social_twitter', 'https://twitter.com') }}" target="_blank" rel="noopener noreferrer" aria-label="Twitter / X" class="w-8 h-8 rounded-lg bg-slate-900 hover:bg-black hover:text-white flex items-center justify-center transition-colors">
                             <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
                         </a>
-                        <a href="{{ setting('social_youtube', 'https://youtube.com') }}" target="_blank" rel="noopener" aria-label="YouTube" class="w-8 h-8 rounded-lg bg-slate-900 hover:bg-brand-primary hover:text-white flex items-center justify-center transition-colors">
+                        <!-- Instagram -->
+                        <a href="{{ setting('social_instagram', 'https://instagram.com') }}" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="w-8 h-8 rounded-lg bg-slate-900 hover:bg-[#E1306C] hover:text-white flex items-center justify-center transition-colors">
+                            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                        </a>
+                        <!-- YouTube -->
+                        <a href="{{ setting('social_youtube', 'https://youtube.com') }}" target="_blank" rel="noopener noreferrer" aria-label="YouTube" class="w-8 h-8 rounded-lg bg-slate-900 hover:bg-[#FF0000] hover:text-white flex items-center justify-center transition-colors">
                             <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
                         </a>
-                        <a href="{{ setting('social_whatsapp', 'https://whatsapp.com') }}" target="_blank" rel="noopener" aria-label="WhatsApp" class="w-8 h-8 rounded-lg bg-slate-900 hover:bg-emerald-600 hover:text-white flex items-center justify-center transition-colors">
-                            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2M12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 15 3.81 13.47 3.81 11.91C3.81 7.37 7.5 3.67 12.05 3.67Z"/></svg>
+                        <!-- Telegram -->
+                        <a href="{{ setting('social_telegram', 'https://t.me') }}" target="_blank" rel="noopener noreferrer" aria-label="Telegram" class="w-8 h-8 rounded-lg bg-slate-900 hover:bg-[#229ED9] hover:text-white flex items-center justify-center transition-colors">
+                            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.295-.6.295-.002 0-.003 0-.005 0l.213-3.054 5.56-5.022c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.46c.536-.195 1.006.128.832.941z"/></svg>
+                        </a>
+                        <!-- WhatsApp Channel Button -->
+                        <a href="{{ setting('social_whatsapp', 'https://whatsapp.com') }}" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp Channel" class="h-8 px-2.5 rounded-lg bg-emerald-600/20 hover:bg-emerald-600 text-emerald-400 hover:text-white flex items-center gap-1.5 transition-colors text-xs font-bold border border-emerald-500/30">
+                            <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2M12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 15 3.81 13.47 3.81 11.91C3.81 7.37 7.5 3.67 12.05 3.67Z"/></svg>
+                            <span>WhatsApp Channel</span>
                         </a>
                     </div>
                 </div>

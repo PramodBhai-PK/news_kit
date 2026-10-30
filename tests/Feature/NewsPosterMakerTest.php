@@ -59,7 +59,7 @@ class NewsPosterMakerTest extends TestCase
 
     public function test_public_article_page_includes_graphic_card_maker_button_and_modal()
     {
-        $response = $this->get(route('portal.article', $this->article->slug));
+        $response = $this->withSession(['locale' => 'hi'])->get(route('portal.article', $this->article->slug));
 
         $response->assertStatus(200);
         
