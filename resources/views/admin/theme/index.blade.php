@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
-@section('title', 'थीम कलर स्टूडियो व लाइव प्रीव्यू')
-@section('page_title', 'थीम कलर स्टूडियो व लाइव प्रीव्यू (Theme & Styling Studio)')
+@section('title', __('Theme & Styling Studio'))
+@section('page_title', __('Theme & Styling Studio'))
 
 @section('content')
 <div class="space-y-6 pb-12">
@@ -11,16 +11,16 @@
         <div>
             <div class="flex items-center gap-2 mb-1">
                 <span class="px-2.5 py-0.5 rounded-full text-[11px] font-black uppercase tracking-wider bg-white/20 backdrop-blur-md">
-                    Live Portal Styler
+                    {{ __('Live Portal Styler') }}
                 </span>
                 <span id="sync-status-badge" class="px-2.5 py-0.5 rounded-full text-[11px] font-black uppercase tracking-wider bg-emerald-400/20 text-emerald-200 border border-emerald-400/30 flex items-center gap-1.5">
                     <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 live-pulse"></span>
-                    <span id="sync-status-text">लाइव पब्लिश है (In Sync)</span>
+                    <span id="sync-status-text">{{ __('Published (In Sync)') }}</span>
                 </span>
             </div>
-            <h2 class="text-xl sm:text-2xl font-black tracking-tight">न्यूज़ पोर्टल लाइव थीम व कलर कस्टमाइज़र</h2>
+            <h2 class="text-xl sm:text-2xl font-black tracking-tight">{{ __('Live News Portal Theme & Color Customizer') }}</h2>
             <p class="text-xs text-rose-100 mt-1 max-w-3xl leading-relaxed">
-                यहाँ से आप पूरे न्यूज़ पोर्टल का रंग लाइव बदलकर देख सकते हैं। दाहिनी तरफ पोर्टल का रियल-टाइम प्रीव्यू दिखेगा। जब आपको नया रंग पसंद आ जाए, तो <strong class="text-white underline">"थीम लाइव पब्लिश करें"</strong> पर क्लिक करके इसे सभी पाठकों के लिए तुरंत लागू करें!
+                {{ __('Customize your news portal colors live. Preview changes in real-time on the right, and click "Publish Theme Live" to apply immediately across your entire website.') }}
             </p>
         </div>
 
@@ -28,12 +28,12 @@
         <div class="flex items-center gap-3 shrink-0">
             <button type="button" id="btn-reset-theme" class="px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-xs transition-all flex items-center gap-2 border border-white/15">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
-                <span>रीसेट करें</span>
+                <span>{{ __('Reset') }}</span>
             </button>
 
             <button type="button" id="btn-publish-theme-top" class="px-6 py-2.5 rounded-xl bg-white text-slate-900 hover:bg-rose-50 font-black text-xs transition-all shadow-lg flex items-center gap-2 active:scale-95">
                 <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                <span>थीम लाइव पब्लिश करें</span>
+                <span>{{ __('Publish Theme Live') }}</span>
             </button>
         </div>
     </div>
@@ -54,8 +54,8 @@
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4 4.5 4.5 0 011.5-3.322l11-11a2.121 2.121 0 013 3L6.828 17.172A4.5 4.5 0 013 21z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7l2 2"/></svg>
                         </span>
                         <div>
-                            <h3 class="font-black text-slate-900 text-sm">कस्टम कलर पिकर (Color Pickers)</h3>
-                            <p class="text-[11px] text-slate-500 font-medium">रंग बदलते ही प्रीव्यू तुरंत अपडेट होगा</p>
+                            <h3 class="font-black text-slate-900 text-sm">{{ __('Color Pickers') }}</h3>
+                            <p class="text-[11px] text-slate-500 font-medium">{{ __('Preview updates in real-time as colors change') }}</p>
                         </div>
                     </div>
                 </div>
@@ -65,9 +65,9 @@
                     <div class="flex items-center justify-between">
                         <label for="picker-primary" class="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center gap-1.5">
                             <span class="w-2.5 h-2.5 rounded-full" id="indicator-primary" style="background-color: {{ $currentPrimary }};"></span>
-                            <span>प्राइमरी ब्रांड कलर (Primary)</span>
+                            <span>{{ __('Primary Brand Color (Primary)') }}</span>
                         </label>
-                        <span class="text-[10px] font-semibold text-slate-400">हेडर्स, बटन्स, टिकर</span>
+                        <span class="text-[10px] font-semibold text-slate-400">{{ __('Headers, buttons, ticker') }}</span>
                     </div>
 
                     <div class="flex items-center gap-3">
@@ -88,9 +88,9 @@
                     <div class="flex items-center justify-between">
                         <label for="picker-accent" class="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center gap-1.5">
                             <span class="w-2.5 h-2.5 rounded-full" id="indicator-accent" style="background-color: {{ $currentAccent }};"></span>
-                            <span>एक्सेंट / हाइलाइट कलर (Accent)</span>
+                            <span>{{ __('Accent / Highlight Color (Accent)') }}</span>
                         </label>
-                        <span class="text-[10px] font-semibold text-slate-400">बैज, सब-हेडर्स, स्टार्स</span>
+                        <span class="text-[10px] font-semibold text-slate-400">{{ __('Badges, sub-headings, highlights') }}</span>
                     </div>
 
                     <div class="flex items-center gap-3">
@@ -108,7 +108,7 @@
 
                 <!-- Dual Swatch Preview Bar -->
                 <div class="p-3.5 rounded-2xl bg-slate-900 text-white flex items-center justify-between shadow-inner">
-                    <span class="text-[11px] font-bold text-slate-300">करंट ड्राफ्ट पैलेट:</span>
+                    <span class="text-[11px] font-bold text-slate-300">{{ __('Current Draft Palette:') }}</span>
                     <div class="flex items-center gap-2">
                         <span id="draft-pill-primary" class="px-2.5 py-1 rounded-lg text-xs font-black shadow-sm text-white" style="background-color: {{ $currentPrimary }};">
                             Primary
@@ -125,9 +125,9 @@
                 <div class="flex items-center justify-between pb-3 border-b border-slate-100">
                     <h3 class="font-black text-slate-900 text-sm flex items-center gap-2">
                         <span class="text-amber-500">✨</span>
-                        <span>रेडीमेड प्रो पैलेट्स (One-Click Presets)</span>
+                        <span>{{ __('Ready-made Pro Palettes (One-Click Presets)') }}</span>
                     </h3>
-                    <span class="text-[10px] text-slate-400 font-bold uppercase">८ न्यूज़ थीम्स</span>
+                    <span class="text-[10px] text-slate-400 font-bold uppercase">{{ count($presets) }} {{ __('Themes') }}</span>
                 </div>
 
                 <div class="grid grid-cols-1 gap-2.5" id="presets-container">
@@ -142,8 +142,8 @@
                                     <span class="w-6 h-6 rounded-full ring-2 ring-white shadow-xs" style="background-color: {{ $p['accent'] }}"></span>
                                 </div>
                                 <div>
-                                    <span class="block font-black text-xs text-slate-800 group-hover:text-slate-950">{{ $p['name'] }}</span>
-                                    <span class="block text-[10px] text-slate-400 font-medium">{{ $p['tagline'] }}</span>
+                                    <span class="block font-black text-xs text-slate-800 group-hover:text-slate-950">{{ __($p['name']) }}</span>
+                                    <span class="block text-[10px] text-slate-400 font-medium">{{ __($p['tagline']) }}</span>
                                 </div>
                             </div>
                             <span class="text-[10px] font-mono text-slate-400 group-hover:text-slate-700 font-semibold">{{ $p['primary'] }}</span>
@@ -156,24 +156,24 @@
             <div class="bg-white rounded-3xl p-6 border border-slate-200/90 shadow-sm space-y-4">
                 <h3 class="font-black text-slate-900 text-sm pb-3 border-b border-slate-100 flex items-center gap-2">
                     <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-                    <span>प्रीव्यू पेज व मोड्स (Preview Target)</span>
+                    <span>{{ __('Preview Target') }}</span>
                 </h3>
 
                 <!-- Pages Switcher -->
                 <div class="space-y-2">
-                    <label class="block text-[11px] font-bold text-slate-500 uppercase tracking-wider">प्रीव्यू पेज बदलें:</label>
+                    <label class="block text-[11px] font-bold text-slate-500 uppercase tracking-wider">{{ __('Change Preview Page:') }}</label>
                     <div class="grid grid-cols-3 gap-2 text-xs font-bold">
                         <button type="button" data-url="{{ route('portal.index') }}" class="page-switch-btn active py-2 px-2.5 rounded-xl border border-slate-200 bg-slate-900 text-white transition-all text-center">
-                            🏠 होमपेज
+                            🏠 {{ __('Homepage') }}
                         </button>
                         @if($sampleArticle)
                             <button type="button" data-url="{{ route('portal.article', $sampleArticle->slug) }}" class="page-switch-btn py-2 px-2.5 rounded-xl border border-slate-200 bg-slate-50 hover:bg-slate-100 text-slate-700 transition-all text-center truncate">
-                                📰 आर्टिकल
+                                📰 {{ __('Article') }}
                             </button>
                         @endif
                         @if($sampleCategory)
                             <button type="button" data-url="{{ route('portal.category', $sampleCategory->slug) }}" class="page-switch-btn py-2 px-2.5 rounded-xl border border-slate-200 bg-slate-50 hover:bg-slate-100 text-slate-700 transition-all text-center truncate">
-                                📂 कैटेगरी
+                                📂 {{ __('Category') }}
                             </button>
                         @endif
                     </div>
@@ -181,7 +181,7 @@
 
                 <!-- Dark Mode & RTL Switches -->
                 <div class="pt-2 border-t border-slate-100 flex items-center justify-between">
-                    <span class="text-xs font-bold text-slate-700">डार्क मोड में प्रीव्यू:</span>
+                    <span class="text-xs font-bold text-slate-700">{{ __('Preview in Dark Mode:') }}</span>
                     <button type="button" id="btn-toggle-dark-preview" class="px-3 py-1.5 rounded-xl text-xs font-bold border border-slate-200 bg-slate-100 hover:bg-slate-200 text-slate-800 transition-all flex items-center gap-1.5">
                         <span id="dark-mode-icon">🌙</span>
                         <span id="dark-mode-text">Dark Mode Off</span>
@@ -192,7 +192,7 @@
             <!-- Big Bottom Publish Button -->
             <button type="button" id="btn-publish-theme-bottom" class="w-full py-4 rounded-2xl bg-brand-primary hover:brightness-110 text-white font-black text-sm tracking-wide shadow-xl transition-all flex items-center justify-center gap-2 active:scale-98">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                <span>थीम लाइव पोर्टल पर पब्लिश करें</span>
+                <span>{{ __('Publish Theme Live to Portal') }}</span>
             </button>
 
         </div>
@@ -208,26 +208,26 @@
                 <div class="flex items-center gap-1.5 bg-slate-100 p-1 rounded-xl">
                     <button type="button" data-device="desktop" class="device-btn active px-3 py-1.5 rounded-lg text-xs font-bold bg-white text-slate-900 shadow-xs transition-all flex items-center gap-1.5">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-                        <span>डेस्कटॉप</span>
+                        <span>{{ __('Desktop') }}</span>
                     </button>
                     <button type="button" data-device="tablet" class="device-btn px-3 py-1.5 rounded-lg text-xs font-bold text-slate-600 hover:text-slate-900 transition-all flex items-center gap-1.5">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
-                        <span>टैबलेट (768px)</span>
+                        <span>{{ __('Tablet (768px)') }}</span>
                     </button>
                     <button type="button" data-device="mobile" class="device-btn px-3 py-1.5 rounded-lg text-xs font-bold text-slate-600 hover:text-slate-900 transition-all flex items-center gap-1.5">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
-                        <span>मोबाइल (375px)</span>
+                        <span>{{ __('Mobile (375px)') }}</span>
                     </button>
                 </div>
 
                 <!-- Preview Actions -->
                 <div class="flex items-center gap-2">
-                    <button type="button" id="btn-reload-preview" title="रिफ्रेश प्रीव्यू" class="p-2 rounded-xl text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition-all">
+                    <button type="button" id="btn-reload-preview" title="{{ __('Refresh Preview') }}" class="p-2 rounded-xl text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition-all">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
                     </button>
-                    <a id="btn-open-live-window" href="{{ route('portal.index') }}" target="_blank" title="नई विंडो में लाइव साइट खोलें" class="p-2 rounded-xl text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition-all flex items-center gap-1.5 text-xs font-bold">
+                    <a id="btn-open-live-window" href="{{ route('portal.index') }}" target="_blank" title="{{ __('Open live site in new window') }}" class="p-2 rounded-xl text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition-all flex items-center gap-1.5 text-xs font-bold">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-                        <span>लाइव साइट</span>
+                        <span>{{ __('Live Site') }}</span>
                     </a>
                 </div>
             </div>
@@ -268,7 +268,7 @@
                         <!-- Loading Overlay -->
                         <div id="iframe-loader" class="absolute inset-0 bg-white/80 dark:bg-slate-950/80 backdrop-blur-xs flex flex-col items-center justify-center gap-3 z-10 transition-opacity duration-200">
                             <div class="w-8 h-8 rounded-full border-3 border-slate-200 border-t-brand-primary animate-spin"></div>
-                            <span class="text-xs font-bold text-slate-600 dark:text-slate-400">पोर्टल प्रीव्यू लोड हो रहा है...</span>
+                            <span class="text-xs font-bold text-slate-600 dark:text-slate-400">{{ __('Loading portal preview...') }}</span>
                         </div>
 
                         <!-- Live News Portal Iframe -->
@@ -294,8 +294,8 @@
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
         </span>
         <div>
-            <h4 class="font-black text-sm text-white">थीम सफलतापूर्वक लाइव पब्लिश हो गई!</h4>
-            <p class="text-xs text-slate-300 mt-0.5 leading-relaxed">नए कलर्स तुरंत पूरे लाइव न्यूज़ पोर्टल पर सभी पाठकों के लिए लागू कर दिए गए हैं।</p>
+            <h4 class="font-black text-sm text-white">{{ __('Theme published live successfully!') }}</h4>
+            <p class="text-xs text-slate-300 mt-0.5 leading-relaxed">{{ __('New color palette is now active across the entire live news portal.') }}</p>
         </div>
     </div>
 </div>
@@ -347,10 +347,10 @@ document.addEventListener('DOMContentLoaded', function () {
                             accent.toLowerCase() !== publishedAccent.toLowerCase());
         
         if (isModified) {
-            syncStatusText.textContent = 'ड्राफ्ट मोड (Preview Only - Unsaved)';
+            syncStatusText.textContent = 'Draft Mode (Unsaved Preview)';
             syncStatusBadge.className = 'px-2.5 py-0.5 rounded-full text-[11px] font-black uppercase tracking-wider bg-amber-400/20 text-amber-200 border border-amber-400/30 flex items-center gap-1.5';
         } else {
-            syncStatusText.textContent = 'लाइव पब्लिश है (In Sync)';
+            syncStatusText.textContent = 'Published (In Sync)';
             syncStatusBadge.className = 'px-2.5 py-0.5 rounded-full text-[11px] font-black uppercase tracking-wider bg-emerald-400/20 text-emerald-200 border border-emerald-400/30 flex items-center gap-1.5';
         }
 
@@ -539,7 +539,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             if (data.success) {
                 // Update live published status
-                syncStatusText.textContent = 'लाइव पब्लिश है (In Sync)';
+                syncStatusText.textContent = 'Published (In Sync)';
                 syncStatusBadge.className = 'px-2.5 py-0.5 rounded-full text-[11px] font-black uppercase tracking-wider bg-emerald-400/20 text-emerald-200 border border-emerald-400/30 flex items-center gap-1.5';
 
                 // Show floating notification toast
@@ -549,7 +549,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 }, 4000);
             }
         } catch (err) {
-            alert('थीम पब्लिश करने में समस्या हुई। कृपया पुनः प्रयास करें।');
+            alert('Failed to publish theme. Please try again.');
         } finally {
             publishBtns.forEach(btn => {
                 if (btn) {

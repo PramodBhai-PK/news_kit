@@ -13,7 +13,7 @@ class SettingsController extends Controller
     public function index()
     {
         if (!auth()->user()->isAdmin()) {
-            abort(403, 'केवल प्रधान संपादक (Super Admin) को ब्रांडिंग सेटिंग्स बदलने की अनुमति है।');
+            abort(403, 'Only Super Admin is authorized to access branding settings.');
         }
 
         $settings = Setting::all()->pluck('value', 'key')->toArray();
@@ -32,7 +32,7 @@ class SettingsController extends Controller
     public function update(Request $request)
     {
         if (!auth()->user()->isAdmin()) {
-            abort(403, 'केवल प्रधान संपादक (Super Admin) को ब्रांडिंग सेटिंग्स बदलने की अनुमति है।');
+            abort(403, 'Only Super Admin is authorized to update branding settings.');
         }
 
         $inputs = $request->except(['_token', 'logo_file', 'favicon_file', 'whatsapp_qr_file']);
@@ -79,6 +79,6 @@ class SettingsController extends Controller
         }
 
         return redirect()->route('admin.settings.index')
-            ->with('success', 'पूरी वेबसाइट और CMS की ब्रांडिंग, लोगो और सेटिंग्स सफलतापूर्वक अपडेट हो गई हैं!');
+            ->with('success', 'Website branding, logos, and settings updated successfully!');
     }
 }

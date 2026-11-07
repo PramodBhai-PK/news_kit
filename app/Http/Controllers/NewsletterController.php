@@ -28,10 +28,10 @@ class NewsletterController extends Controller
         if ($request->wantsJson()) {
             return response()->json([
                 'success' => true,
-                'message' => 'धन्यवाद! आपका ईमेल (' . $subscriber->email . ') दैनिक न्यूज़लेटर के लिए सफलतापूर्वक पंजीकृत हो गया है।',
+                'message' => 'Thank you! Your email (' . $subscriber->email . ') has been successfully subscribed to our newsletter.',
             ]);
         }
 
-        return back()->with('success', 'धन्यवाद! आपका ईमेल सफलतापूर्वक दैनिक न्यूज़लेटर के लिए पंजीकृत हो गया है।');
+        return back()->with('success', 'Thank you! Your email has been successfully subscribed to our newsletter.');
     }
 }

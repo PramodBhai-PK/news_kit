@@ -15,7 +15,7 @@ class AdvertisementSeeder extends Seeder
 
         // Ad 1: Top Leaderboard Banner for Homepage Header
         Advertisement::create([
-            'title' => 'अमेज़न व फ्लिपकार्ट मेगा इलेक्ट्रॉनिक्स कार्निवल 2026',
+            'title' => 'Mega Electronics Carnival 2026 - Up to 40% Off',
             'type' => 'image',
             'image_url' => 'https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=1200&auto=format&fit=crop&q=80',
             'destination_url' => 'https://amazon.in',
@@ -47,7 +47,7 @@ class AdvertisementSeeder extends Seeder
 HTML;
 
         Advertisement::create([
-            'title' => 'Google AdSense (क्लाउड व AI रिस्पॉन्सिव बैनर)',
+            'title' => 'Google AdSense (Cloud & AI Responsive Banner)',
             'type' => 'code',
             'html_code' => $adsenseMockHtml,
             'placement' => 'in_feed',
@@ -59,7 +59,7 @@ HTML;
 
         // Ad 3: Smartphone sale banner (Sidebar)
         Advertisement::create([
-            'title' => 'सैमसंग गैलेक्सी AI अल्ट्रा - भारी छूट व नो-कॉस्ट EMI',
+            'title' => 'Samsung Galaxy AI Ultra - Exchange Bonus & No Cost EMI',
             'type' => 'image',
             'image_url' => 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=600&auto=format&fit=crop&q=80',
             'destination_url' => 'https://samsung.com',
@@ -72,7 +72,7 @@ HTML;
 
         // Ad 4: Tech Gadgets Banner (Sidebar)
         Advertisement::create([
-            'title' => 'सोनी ब्राविया 4K स्मार्ट टीवी - एक्सक्लूसिव एक्सचेंज बोनस',
+            'title' => 'Sony Bravia 4K Smart OLED TV - Exclusive Festive Offer',
             'type' => 'image',
             'image_url' => 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=600&auto=format&fit=crop&q=80',
             'destination_url' => 'https://sony.co.in',
@@ -87,7 +87,7 @@ HTML;
         $aiArticle = Article::where('slug', 'chatgpt-5-and-gemini-next-gen-launch-features')->first();
         if ($aiArticle) {
             $aiArticle->update([
-                'custom_ad_title' => 'विशेष ऑफर: फुल-स्टैक AI इंजीनियर सर्टिफिकेशन (50% फ्लैट छूट)',
+                'custom_ad_title' => 'Special Offer: Full-Stack AI Engineer Certification (50% Off)',
                 'custom_ad_type' => 'image',
                 'custom_ad_image' => 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=600&auto=format&fit=crop&q=80',
                 'custom_ad_link' => 'https://example.com/ai-masterclass',
@@ -102,16 +102,16 @@ HTML;
         <span>Google AdSense Partner</span>
         <span class="bg-amber-500 text-white px-1.5 py-0.5 rounded text-[9px] font-black">AD</span>
     </div>
-    <h5 class="font-black text-sm text-slate-900 dark:text-white mb-1">IRCTC देखो अपना देश: स्पेशल समर टूर पैकेजेस</h5>
-    <p class="text-xs text-slate-600 dark:text-slate-300 mb-3">वंदे भारत स्लीपर और लग्जरी होटल्स बुकिंग पर 20% तक की भारी बचत।</p>
-    <a href="https://irctctourism.com" target="_blank" rel="noopener sponsored" class="inline-block px-4 py-1.5 bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs rounded-xl shadow transition-colors">
-        अभी सीट बुक करें →
+    <h5 class="font-black text-sm text-slate-900 dark:text-white mb-1">Global Travel: Special Summer Tour Packages</h5>
+    <p class="text-xs text-slate-600 dark:text-slate-300 mb-3">Save up to 20% on high-speed rail and luxury hotel bookings.</p>
+    <a href="https://example.com/travel" target="_blank" rel="noopener sponsored" class="inline-block px-4 py-1.5 bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs rounded-xl shadow transition-colors">
+        Book Now →
     </a>
 </div>
 HTML;
 
             $vandeArticle->update([
-                'custom_ad_title' => 'आईआरसीटीसी स्पेशल टूर पार्टनर (Google AdSense)',
+                'custom_ad_title' => 'Travel Partner Sponsored Ad (Google AdSense)',
                 'custom_ad_type' => 'code',
                 'custom_ad_code' => $irctcAdHtml,
             ]);

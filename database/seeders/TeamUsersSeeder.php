@@ -15,12 +15,12 @@ class TeamUsersSeeder extends Seeder
         $admin = User::updateOrCreate(
             ['email' => 'admin@newskit.com'],
             [
-                'name' => 'सौरभ त्रिपाठी (प्रधान संपादक)',
+                'name' => 'John Anderson (Editor-in-Chief)',
                 'password' => Hash::make('password123'),
                 'role' => 'admin',
-                'phone' => '+91 98765 43210',
+                'phone' => '+1 (555) 019-2830',
                 'is_active' => true,
-                'bio' => 'संपादकीय नीति और राष्ट्रीय मुद्दों के विशेषज्ञ। 15+ वर्षों का निष्पक्ष पत्रकारिता अनुभव।',
+                'bio' => 'Expertise in editorial policy and national investigative affairs. 15+ years of verified journalism experience.',
                 'avatar' => 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80',
             ]
         );
@@ -29,12 +29,12 @@ class TeamUsersSeeder extends Seeder
         $editor = User::updateOrCreate(
             ['email' => 'editor@newskit.com'],
             [
-                'name' => 'नेहा कश्यप (वरिष्ठ संपादक)',
+                'name' => 'Sarah Mitchell (Senior Editor)',
                 'password' => Hash::make('password123'),
                 'role' => 'editor',
-                'phone' => '+91 98765 43211',
+                'phone' => '+1 (555) 019-2831',
                 'is_active' => true,
-                'bio' => 'राजनीति और कूटनीति की गहरी समझ। देश-विदेश के राजनीतिक विश्लेषण में माहिर।',
+                'bio' => 'Deep expertise in politics, diplomacy, and global affairs.',
                 'avatar' => 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=200&auto=format&fit=crop&q=80',
             ]
         );
@@ -43,12 +43,12 @@ class TeamUsersSeeder extends Seeder
         $publisher = User::updateOrCreate(
             ['email' => 'publisher@newskit.com'],
             [
-                'name' => 'विकास वर्मा (डिजिटल प्रकाशक)',
+                'name' => 'Marcus Vance (Digital Publisher)',
                 'password' => Hash::make('password123'),
                 'role' => 'publisher',
-                'phone' => '+91 98765 43213',
+                'phone' => '+1 (555) 019-2833',
                 'is_active' => true,
-                'bio' => 'डिजिटल मीडिया हेड एवं कंटेंट डिस्ट्रीब्यूशन लीड। ऑडियंस रीच व पब्लिशिंग स्ट्रैटेजिस्ट।',
+                'bio' => 'Head of digital media and multi-platform distribution strategy.',
                 'avatar' => 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&auto=format&fit=crop&q=80',
             ]
         );
@@ -57,31 +57,31 @@ class TeamUsersSeeder extends Seeder
         $reporter1 = User::updateOrCreate(
             ['email' => 'reporter@newskit.com'],
             [
-                'name' => 'अमित शर्मा (विशेष संवाददाता)',
+                'name' => 'David Miller (Senior Field Reporter)',
                 'password' => Hash::make('password123'),
                 'role' => 'reporter',
-                'phone' => '+91 98765 43212',
+                'phone' => '+1 (555) 019-2832',
                 'is_active' => true,
-                'bio' => 'ज़मीनी रिपोर्टर, खेल व सिनेमा जगत की अंदरूनी ख़बरों पर पैनी नज़र।',
+                'bio' => 'Ground investigative correspondent focusing on sports and entertainment features.',
                 'avatar' => 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&auto=format&fit=crop&q=80',
             ]
         );
 
         // 5. Reporter 2
         $reporter2 = User::updateOrCreate(
-            ['email' => 'priya.reporter@newskit.com'],
+            ['email' => 'elena.reporter@newskit.com'],
             [
-                'name' => 'प्रिया राजदान (टेक व साइंस रिपोर्टर)',
+                'name' => 'Elena Rostova (Tech & Science Correspondent)',
                 'password' => Hash::make('password123'),
                 'role' => 'reporter',
-                'phone' => '+91 98765 43214',
+                'phone' => '+1 (555) 019-2834',
                 'is_active' => true,
-                'bio' => 'AI, स्पेस मिशन (ISRO/NASA) और गैजेट्स पर विशेष कवरेज करने वाली टेक जर्नलिस्ट।',
+                'bio' => 'Specializing in artificial intelligence, space missions, and emerging consumer tech.',
                 'avatar' => 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&auto=format&fit=crop&q=80',
             ]
         );
 
-        // Assign some existing stories to Reporter 1 (Amit) and Reporter 2 (Priya)
+        // Assign some existing stories to Reporter 1 (David) and Reporter 2 (Elena)
         Article::where('slug', 'like', '%t20%')
             ->orWhere('slug', 'like', '%rohit%')
             ->orWhere('slug', 'like', '%bollywood%')

@@ -157,14 +157,14 @@ class ArticleController extends Controller
         }
 
         return redirect()->route('admin.articles.index')
-            ->with('success', 'ख़बर सफलतापूर्वक प्रकाशित/सहेज दी गई है!');
+            ->with('success', 'Article saved successfully!');
     }
 
     public function edit(Article $article)
     {
         // Prevent reporter from editing other authors' articles
         if (auth()->user()->isReporter() && $article->user_id !== auth()->id()) {
-            abort(403, 'आपको केवल अपने द्वारा लिखे गए आर्टिकल्स एडिट करने की अनुमति है।');
+            abort(403, 'You are only authorized to edit your own articles.');
         }
         $categories = Category::where('is_active', true)->orderBy('order')->get();
         $tags = Tag::orderBy('name')->get();
@@ -178,7 +178,7 @@ class ArticleController extends Controller
     {
         // Prevent reporter from updating other authors' articles
         if (auth()->user()->isReporter() && $article->user_id !== auth()->id()) {
-            abort(403, 'आपको केवल अपने आर्टिकल्स अपडेट करने की अनुमति है।');
+            abort(403, 'You are only authorized to update your own articles.');
         }
         $validated = $request->validate([
             'title' => ['required', 'string', 'max:255'],
@@ -284,19 +284,19 @@ class ArticleController extends Controller
         }
 
         return redirect()->route('admin.articles.index')
-            ->with('success', 'ख़बर सफलतापूर्वक अपडेट हो गई है!');
+            ->with('success', 'Article updated successfully!');
     }
 
     public function destroy(Article $article)
     {
         // Prevent reporter from deleting other authors' articles
         if (auth()->user()->isReporter() && $article->user_id !== auth()->id()) {
-            abort(403, 'आपको केवल अपने आर्टिकल्स हटाने की अनुमति है।');
+            abort(403, 'You are only authorized to delete your own articles.');
         }
 
         $article->delete();
 
         return redirect()->route('admin.articles.index')
-            ->with('success', 'ख़बर सफलतापूर्वक हटा दी गई है।');
+            ->with('success', 'Article deleted successfully.');
     }
 }

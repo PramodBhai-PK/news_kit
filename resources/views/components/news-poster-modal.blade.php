@@ -1,5 +1,5 @@
 <!-- ========================================================================= -->
-<!-- AUTOMATIC NEWS POSTER & GRAPHIC CARD MAKER (ऑटोमैटिक ग्राफिक कार्ड स्टूडियो) -->
+<!-- AUTOMATIC NEWS POSTER & GRAPHIC CARD MAKER                                 -->
 <!-- ========================================================================= -->
 <div id="news-poster-studio-modal" class="fixed inset-0 z-[100] hidden overflow-y-auto bg-slate-950/85 backdrop-blur-md transition-all duration-200">
     <div class="min-h-screen px-3 sm:px-6 py-6 flex items-center justify-center">
@@ -14,15 +14,15 @@
                     </span>
                     <div>
                         <div class="flex items-center gap-2">
-                            <h3 class="font-black text-base sm:text-lg text-white tracking-tight">ऑटोमैटिक न्यूज़ पोस्टर व ग्राफिक कार्ड मेकर</h3>
+                            <h3 class="font-black text-base sm:text-lg text-white tracking-tight">{{ __('Automatic News Poster & Graphic Card Maker') }}</h3>
                             <span class="px-2 py-0.5 rounded-full text-[10px] font-black uppercase bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">HD 1080p</span>
                         </div>
-                        <p class="text-xs text-slate-400">दैनिक भास्कर व लल्लनटॉप स्टाइल सोशल मीडिया कार्ड जनरेटर (WhatsApp, Insta, FB, X)</p>
+                        <p class="text-xs text-slate-400">{{ __('Pro social media card generator for WhatsApp, Instagram, Facebook & X') }}</p>
                     </div>
                 </div>
 
                 <div class="flex items-center gap-2">
-                    <button type="button" id="poster-studio-close-btn" class="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800 transition-colors" title="बंद करें (Esc)">
+                    <button type="button" id="poster-studio-close-btn" class="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800 transition-colors" title="{{ __('Close (Esc)') }}">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
                     </button>
                 </div>
@@ -40,7 +40,7 @@
                             <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
                             <span id="poster-canvas-dimen-badge" class="font-mono font-bold text-slate-300">1080 × 1080 px (1:1 Square)</span>
                         </span>
-                        <span class="text-[11px] text-slate-500 hidden sm:inline">लाइव रेंडरिंग • कोई वॉटरमार्क नहीं</span>
+                        <span class="text-[11px] text-slate-500 hidden sm:inline">{{ __('Live rendering • No watermark') }}</span>
                     </div>
 
                     <!-- Canvas Stage Wrapper with Subtle Grid Background -->
@@ -51,7 +51,7 @@
                         <div id="poster-canvas-loader" class="absolute inset-0 bg-slate-900/80 backdrop-blur-xs flex items-center justify-center hidden">
                             <div class="flex items-center gap-2 text-rose-500 font-bold text-sm">
                                 <svg class="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
-                                <span>पोस्टर तैयार हो रहा है...</span>
+                                <span>{{ __('Rendering poster...') }}</span>
                             </div>
                         </div>
                     </div>
@@ -61,19 +61,19 @@
                         <!-- Download HD PNG -->
                         <button type="button" id="poster-download-png-btn" class="flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-gradient-to-r from-rose-600 to-brand-primary hover:brightness-110 text-white font-extrabold text-xs shadow-lg shadow-rose-600/30 transition-all">
                             <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
-                            <span>HD इमेज डाउनलोड करें</span>
+                            <span>{{ __('Download HD Image') }}</span>
                         </button>
 
                         <!-- Copy to Clipboard -->
                         <button type="button" id="poster-copy-btn" class="flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs border border-slate-700 transition-all">
                             <svg class="w-4 h-4 shrink-0 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
-                            <span>क्लिपबोर्ड में कॉपी करें</span>
+                            <span>{{ __('Copy to Clipboard') }}</span>
                         </button>
 
                         <!-- WhatsApp Share -->
                         <button type="button" id="poster-share-whatsapp-btn" class="flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs shadow-md shadow-emerald-600/20 transition-all">
                             <svg class="w-4 h-4 shrink-0 fill-current" viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2M12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 15 3.81 13.47 3.81 11.91C3.81 7.37 7.5 3.67 12.05 3.67Z"/></svg>
-                            <span>WhatsApp शेयर</span>
+                            <span>{{ __('Share on WhatsApp') }}</span>
                         </button>
                     </div>
 
@@ -86,53 +86,53 @@
                     
                     <!-- 1. Aspect Ratio Selector -->
                     <div>
-                        <label class="block text-[11px] font-black uppercase tracking-wider text-slate-400 mb-2">1. कार्ड का आकार (Aspect Ratio)</label>
+                        <label class="block text-[11px] font-black uppercase tracking-wider text-slate-400 mb-2">{{ __('1. Aspect Ratio') }}</label>
                         <div class="grid grid-cols-3 gap-2">
                             <button type="button" data-ratio="1:1" class="poster-ratio-btn active-ratio flex flex-col items-center justify-center p-2.5 rounded-xl border border-rose-500 bg-rose-500/10 text-white font-bold text-xs transition-all">
                                 <span class="text-sm">🔲 1:1</span>
-                                <span class="text-[10px] text-slate-300 font-normal">वर्ग / पोस्ट</span>
+                                <span class="text-[10px] text-slate-300 font-normal">{{ __('Square / Post') }}</span>
                             </button>
                             <button type="button" data-ratio="9:16" class="poster-ratio-btn flex flex-col items-center justify-center p-2.5 rounded-xl border border-slate-800 bg-slate-950 hover:border-slate-700 text-slate-400 font-bold text-xs transition-all">
                                 <span class="text-sm">📱 9:16</span>
-                                <span class="text-[10px] text-slate-400 font-normal">स्टोरी / स्टेटस</span>
+                                <span class="text-[10px] text-slate-400 font-normal">{{ __('Story / Status') }}</span>
                             </button>
                             <button type="button" data-ratio="16:9" class="poster-ratio-btn flex flex-col items-center justify-center p-2.5 rounded-xl border border-slate-800 bg-slate-950 hover:border-slate-700 text-slate-400 font-bold text-xs transition-all">
                                 <span class="text-sm">🖥️ 16:9</span>
-                                <span class="text-[10px] text-slate-400 font-normal">X / यूट्यूब</span>
+                                <span class="text-[10px] text-slate-400 font-normal">{{ __('X / YouTube') }}</span>
                             </button>
                         </div>
                     </div>
 
                     <!-- 2. Design Theme Selector -->
                     <div>
-                        <label class="block text-[11px] font-black uppercase tracking-wider text-slate-400 mb-2">2. डिज़ाइन थीम (Themes)</label>
+                        <label class="block text-[11px] font-black uppercase tracking-wider text-slate-400 mb-2">{{ __('2. Design Theme') }}</label>
                         <div class="grid grid-cols-2 gap-2">
                             <button type="button" data-theme="breaking_crimson" class="poster-theme-btn active-theme flex items-center gap-2 p-2 rounded-xl border border-rose-500 bg-rose-950/40 text-left text-xs font-bold text-white transition-all">
                                 <span class="w-3.5 h-3.5 rounded-full bg-rose-600 ring-2 ring-rose-400"></span>
                                 <div>
-                                    <span class="block leading-tight">ब्रेकिंग डार्क</span>
-                                    <span class="block text-[9px] text-slate-400 font-normal">रेड क्रिमसन</span>
+                                    <span class="block leading-tight">{{ __('Breaking Dark') }}</span>
+                                    <span class="block text-[9px] text-slate-400 font-normal">{{ __('Red Crimson') }}</span>
                                 </div>
                             </button>
                             <button type="button" data-theme="editorial_navy" class="poster-theme-btn flex items-center gap-2 p-2 rounded-xl border border-slate-800 bg-slate-950 hover:border-slate-700 text-left text-xs font-bold text-slate-300 transition-all">
                                 <span class="w-3.5 h-3.5 rounded-full bg-blue-600 ring-2 ring-blue-400"></span>
                                 <div>
-                                    <span class="block leading-tight">क्लासिक नेवी</span>
-                                    <span class="block text-[9px] text-slate-400 font-normal">प्रीमियम ब्लू</span>
+                                    <span class="block leading-tight">{{ __('Classic Navy') }}</span>
+                                    <span class="block text-[9px] text-slate-400 font-normal">{{ __('Premium Blue') }}</span>
                                 </div>
                             </button>
                             <button type="button" data-theme="golden_impact" class="poster-theme-btn flex items-center gap-2 p-2 rounded-xl border border-slate-800 bg-slate-950 hover:border-slate-700 text-left text-xs font-bold text-slate-300 transition-all">
                                 <span class="w-3.5 h-3.5 rounded-full bg-amber-500 ring-2 ring-amber-300"></span>
                                 <div>
-                                    <span class="block leading-tight">गोल्डन इम्पैक्ट</span>
-                                    <span class="block text-[9px] text-slate-400 font-normal">ब्लैक & गोल्ड</span>
+                                    <span class="block leading-tight">{{ __('Golden Impact') }}</span>
+                                    <span class="block text-[9px] text-slate-400 font-normal">{{ __('Black & Gold') }}</span>
                                 </div>
                             </button>
                             <button type="button" data-theme="quote_statement" class="poster-theme-btn flex items-center gap-2 p-2 rounded-xl border border-slate-800 bg-slate-950 hover:border-slate-700 text-left text-xs font-bold text-slate-300 transition-all">
                                 <span class="w-3.5 h-3.5 rounded-full bg-purple-600 ring-2 ring-purple-400"></span>
                                 <div>
-                                    <span class="block leading-tight">बयान / कोट कार्ड</span>
-                                    <span class="block text-[9px] text-slate-400 font-normal">नेता/VIP स्टेटमेंट</span>
+                                    <span class="block leading-tight">{{ __('Quote Card') }}</span>
+                                    <span class="block text-[9px] text-slate-400 font-normal">{{ __('VIP Statement') }}</span>
                                 </div>
                             </button>
                         </div>
@@ -141,14 +141,14 @@
                     <!-- 3. Headline & Font Size -->
                     <div class="space-y-2">
                         <div class="flex items-center justify-between">
-                            <label for="poster-ctrl-headline" class="block text-[11px] font-black uppercase tracking-wider text-slate-400">3. मुख्य शीर्षक (Headline)</label>
-                            <span id="poster-headline-length" class="text-[10px] text-slate-500 font-mono">0 अक्षर</span>
+                            <label for="poster-ctrl-headline" class="block text-[11px] font-black uppercase tracking-wider text-slate-400">{{ __('3. Main Headline') }}</label>
+                            <span id="poster-headline-length" class="text-[10px] text-slate-500 font-mono">0 chars</span>
                         </div>
-                        <textarea id="poster-ctrl-headline" rows="3" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm font-bold text-white focus:border-rose-500 outline-none leading-relaxed resize-none" placeholder="यहाँ खबर का मुख्य शीर्षक लिखें..."></textarea>
+                        <textarea id="poster-ctrl-headline" rows="3" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm font-bold text-white focus:border-rose-500 outline-none leading-relaxed resize-none" placeholder="{{ __('Enter news headline here...') }}"></textarea>
                         
                         <!-- Font Size Slider -->
                         <div class="flex items-center gap-3 pt-1">
-                            <span class="text-[10px] text-slate-400 shrink-0 font-bold">फ़ॉन्ट साइज़:</span>
+                            <span class="text-[10px] text-slate-400 shrink-0 font-bold">{{ __('Font Size:') }}</span>
                             <input type="range" id="poster-ctrl-fontsize" min="32" max="68" value="48" step="2" class="w-full accent-rose-500 h-1.5 bg-slate-800 rounded-lg cursor-pointer">
                             <span id="poster-ctrl-fontsize-val" class="text-[11px] font-mono text-rose-400 font-bold shrink-0">48px</span>
                         </div>
@@ -158,42 +158,42 @@
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         <!-- Category Input & Color -->
                         <div>
-                            <label class="block text-[11px] font-bold text-slate-400 mb-1">श्रेणी (Category):</label>
+                            <label class="block text-[11px] font-bold text-slate-400 mb-1">{{ __('Category:') }}</label>
                             <div class="flex items-center gap-1.5">
-                                <input type="text" id="poster-ctrl-category" value="ब्रेकिंग न्यूज़" class="flex-1 bg-slate-950 border border-slate-800 rounded-lg px-2.5 py-1.5 text-xs text-white outline-none focus:border-rose-500">
-                                <input type="color" id="poster-ctrl-category-color" value="#E11D48" class="w-8 h-8 rounded-lg border-0 bg-transparent cursor-pointer shrink-0" title="श्रेणी का रंग बदलें">
+                                <input type="text" id="poster-ctrl-category" value="BREAKING NEWS" class="flex-1 bg-slate-950 border border-slate-800 rounded-lg px-2.5 py-1.5 text-xs text-white outline-none focus:border-rose-500">
+                                <input type="color" id="poster-ctrl-category-color" value="#E11D48" class="w-8 h-8 rounded-lg border-0 bg-transparent cursor-pointer shrink-0" title="{{ __('Change category color') }}">
                             </div>
                         </div>
 
                         <!-- Location Badge -->
                         <div>
                             <div class="flex items-center justify-between mb-1">
-                                <label class="text-[11px] font-bold text-slate-400">लोकेशन (Location):</label>
+                                <label class="text-[11px] font-bold text-slate-400">{{ __('Location:') }}</label>
                                 <label class="inline-flex items-center cursor-pointer">
                                     <input type="checkbox" id="poster-ctrl-show-location" checked class="sr-only peer">
                                     <div class="w-7 h-4 bg-slate-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-3 after:w-3 after:transition-all peer-checked:bg-rose-600"></div>
                                 </label>
                             </div>
-                            <input type="text" id="poster-ctrl-location" value="📍 लखनऊ, उत्तर प्रदेश" placeholder="📍 शहर या राज्य" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-2.5 py-1.5 text-xs text-white outline-none focus:border-rose-500">
+                            <input type="text" id="poster-ctrl-location" value="📍 Capital Bureau" placeholder="📍 City or State" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-2.5 py-1.5 text-xs text-white outline-none focus:border-rose-500">
                         </div>
                     </div>
 
                     <!-- 5. Background Image & Dark Overlay Scrim -->
                     <div class="p-3 rounded-xl bg-slate-950 border border-slate-800/80 space-y-2">
                         <div class="flex items-center justify-between">
-                            <span class="text-[11px] font-bold text-slate-300">फ़ोटो व बैकग्राउंड डार्कनेस</span>
-                            <span id="poster-ctrl-darkness-val" class="text-[10px] font-mono text-slate-400">75% डार्क</span>
+                            <span class="text-[11px] font-bold text-slate-300">{{ __('Photo & Background Darkness') }}</span>
+                            <span id="poster-ctrl-darkness-val" class="text-[10px] font-mono text-slate-400">75% Dark</span>
                         </div>
 
                         <!-- Image File Upload or URL -->
                         <div class="flex items-center gap-2">
                             <label class="cursor-pointer flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs text-slate-300 transition-colors">
                                 <svg class="w-4 h-4 text-rose-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
-                                <span>कंप्यूटर/मोबाइल से फ़ोटो चुनें</span>
+                                <span>{{ __('Choose photo from device') }}</span>
                                 <input type="file" id="poster-ctrl-image-file" accept="image/*" class="hidden">
                             </label>
-                            <button type="button" id="poster-ctrl-clear-img" class="px-2.5 py-2 rounded-lg bg-slate-800 hover:bg-rose-950 hover:text-rose-400 text-slate-400 text-xs" title="फ़ोटो हटाएं (डार्क बैकग्राउंड रखें)">
-                                हटाएँ
+                            <button type="button" id="poster-ctrl-clear-img" class="px-2.5 py-2 rounded-lg bg-slate-800 hover:bg-rose-950 hover:text-rose-400 text-slate-400 text-xs" title="Remove photo">
+                                {{ __('Remove') }}
                             </button>
                         </div>
 
@@ -208,36 +208,36 @@
                         <!-- Reporter Info -->
                         <div>
                             <div class="flex items-center justify-between mb-1">
-                                <label class="text-[11px] font-bold text-slate-400">रिपोर्टर नाम:</label>
+                                <label class="text-[11px] font-bold text-slate-400">{{ __('Reporter Name:') }}</label>
                                 <label class="inline-flex items-center cursor-pointer">
                                     <input type="checkbox" id="poster-ctrl-show-author" checked class="sr-only peer">
                                     <div class="w-7 h-4 bg-slate-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-3 after:w-3 after:transition-all peer-checked:bg-rose-600"></div>
                                 </label>
                             </div>
-                            <input type="text" id="poster-ctrl-author" value="डिजिटल डेस्क" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-2.5 py-1.5 text-xs text-white outline-none focus:border-rose-500">
+                            <input type="text" id="poster-ctrl-author" value="Editorial Desk" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-2.5 py-1.5 text-xs text-white outline-none focus:border-rose-500">
                         </div>
 
                         <!-- Watermark Site Name -->
                         <div>
                             <div class="flex items-center justify-between mb-1">
-                                <label class="text-[11px] font-bold text-slate-400">वेबसाइट वॉटरमार्क:</label>
+                                <label class="text-[11px] font-bold text-slate-400">{{ __('Watermark:') }}</label>
                                 <label class="inline-flex items-center cursor-pointer">
                                     <input type="checkbox" id="poster-ctrl-show-watermark" checked class="sr-only peer">
                                     <div class="w-7 h-4 bg-slate-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-3 after:w-3 after:transition-all peer-checked:bg-rose-600"></div>
                                 </label>
                             </div>
-                            <input type="text" id="poster-ctrl-watermark" value="{{ setting('site_name', 'The LallanTop News') }}" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-2.5 py-1.5 text-xs text-white outline-none focus:border-rose-500">
+                            <input type="text" id="poster-ctrl-watermark" value="{{ setting('site_name', 'NewsKit Portal') }}" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-2.5 py-1.5 text-xs text-white outline-none focus:border-rose-500">
                         </div>
                     </div>
 
                     <!-- 7. Alert Badge Text & Date -->
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         <div>
-                            <label class="block text-[11px] font-bold text-slate-400 mb-1">अलर्ट बैज टेक्स्ट:</label>
-                            <input type="text" id="poster-ctrl-badge" value="🔴 ब्रेकिंग न्यूज़" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-2.5 py-1.5 text-xs text-white outline-none focus:border-rose-500">
+                            <label class="block text-[11px] font-bold text-slate-400 mb-1">{{ __('Alert Badge Text:') }}</label>
+                            <input type="text" id="poster-ctrl-badge" value="🔴 BREAKING NEWS" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-2.5 py-1.5 text-xs text-white outline-none focus:border-rose-500">
                         </div>
                         <div>
-                            <label class="block text-[11px] font-bold text-slate-400 mb-1">तारीख / समय:</label>
+                            <label class="block text-[11px] font-bold text-slate-400 mb-1">{{ __('Date / Time:') }}</label>
                             <input type="text" id="poster-ctrl-date" value="{{ now()->format('d M, Y') }}" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-2.5 py-1.5 text-xs text-white outline-none focus:border-rose-500">
                         </div>
                     </div>
@@ -245,7 +245,7 @@
                     <!-- Reset to defaults button -->
                     <div class="pt-2 text-right">
                         <button type="button" id="poster-ctrl-reset-btn" class="text-xs text-slate-500 hover:text-slate-300 font-semibold transition-colors">
-                            🔄 फ़ील्ड्स रीसेट करें
+                            🔄 {{ __('Reset Fields') }}
                         </button>
                     </div>
 
@@ -267,19 +267,19 @@
         theme: 'breaking_crimson', // 'breaking_crimson', 'editorial_navy', 'golden_impact', 'quote_statement'
         width: 1080,
         height: 1080,
-        headline: 'यहाँ अपनी बड़ी खबर या ब्रेकिंग न्यूज़ का शीर्षक लिखें...',
+        headline: 'Enter breaking news headline here...',
         fontSize: 48,
-        category: 'ताज़ा ख़बर',
+        category: 'NEWS',
         categoryColor: '#E11D48',
-        location: '📍 लखनऊ, उत्तर प्रदेश',
+        location: '📍 Capital Bureau',
         showLocation: true,
-        author: 'डिजिटल डेस्क',
+        author: 'Editorial Desk',
         showAuthor: true,
         authorAvatar: null,
         authorAvatarImg: null,
-        watermark: @json(setting('site_name', 'The LallanTop News')),
+        watermark: @json(setting('site_name', 'NewsKit Portal')),
         showWatermark: true,
-        badgeText: '🔴 ब्रेकिंग न्यूज़',
+        badgeText: '🔴 BREAKING NEWS',
         dateText: @json(now()->format('d M, Y')),
         articleUrl: @json(url('/')),
         bgImageSrc: null,
@@ -350,10 +350,9 @@
 
         for (let i = 0; i < words.length; i++) {
             const word = words[i];
-            const testLine = currentLine ? (currentLine + ' ' + word) : word;
+            const testLine = currentLine ? currentLine + ' ' + word : word;
             const metrics = ctx.measureText(testLine);
-
-            if (metrics.width > maxWidth && currentLine) {
+            if (metrics.width > maxWidth && currentLine !== '') {
                 lines.push(currentLine);
                 currentLine = word;
             } else {
@@ -363,109 +362,82 @@
         if (currentLine) {
             lines.push(currentLine);
         }
-        return lines;
+        return lines.slice(0, 6);
     }
 
-    // Helper: Show Feedback Toast
-    function showToast(msg) {
-        if (!toast) return;
-        toast.textContent = msg;
-        toast.classList.remove('hidden');
-        setTimeout(() => {
-            toast.classList.add('hidden');
-        }, 3500);
+    // Helper: Load author avatar
+    function loadAuthorAvatar(src) {
+        if (!src) {
+            posterState.authorAvatarImg = null;
+            return;
+        }
+        const img = new Image();
+        img.crossOrigin = 'anonymous';
+        img.onload = function() {
+            posterState.authorAvatarImg = img;
+            renderPoster();
+        };
+        img.onerror = function() {
+            posterState.authorAvatarImg = null;
+            renderPoster();
+        };
+        img.src = src;
     }
 
-    // Main Canvas Render Engine
+    // Main Renderer
     function renderPoster() {
-        const { width, height } = ratioDimensions[posterState.ratio];
+        const width = posterState.width;
+        const height = posterState.height;
+
         canvas.width = width;
         canvas.height = height;
 
         ctx.clearRect(0, 0, width, height);
 
-        // 1. Render Background
+        // 1. BACKGROUND RENDER
         if (posterState.bgImageObj && posterState.bgImageObj.complete && posterState.bgImageObj.naturalWidth > 0) {
-            // Draw image with "cover" aspect fit
             const img = posterState.bgImageObj;
-            const hRatio = width / img.width;
-            const vRatio = height / img.height;
-            const ratio = Math.max(hRatio, vRatio);
-            const centerShiftX = (width - img.width * ratio) / 2;
-            const centerShiftY = (height - img.height * ratio) / 2;
-            ctx.drawImage(img, 0, 0, img.width, img.height, centerShiftX, centerShiftY, img.width * ratio, img.height * ratio);
+            const scale = Math.max(width / img.naturalWidth, height / img.naturalHeight);
+            const sw = width / scale;
+            const sh = height / scale;
+            const sx = (img.naturalWidth - sw) / 2;
+            const sy = (img.naturalHeight - sh) / 2;
 
-            // Scrim Overlay: Gradient from subtle top to dark bottom where text lives
+            ctx.drawImage(img, sx, sy, sw, sh, 0, 0, width, height);
+
+            // Dark Scrim Overlay
+            const darkness = posterState.darkness || 0.75;
             const scrim = ctx.createLinearGradient(0, 0, 0, height);
-            const dark = posterState.darkness;
-            scrim.addColorStop(0, 'rgba(5, 5, 10, ' + Math.min(0.7, dark * 0.6) + ')');
-            scrim.addColorStop(0.35, 'rgba(10, 10, 15, ' + Math.min(0.8, dark * 0.75) + ')');
-            scrim.addColorStop(0.65, 'rgba(5, 5, 10, ' + dark + ')');
-            scrim.addColorStop(1, 'rgba(0, 0, 5, ' + Math.min(0.98, dark + 0.15) + ')');
+            scrim.addColorStop(0, `rgba(10, 15, 30, ${Math.max(0.4, darkness - 0.2)})`);
+            scrim.addColorStop(0.4, `rgba(10, 15, 30, ${darkness})`);
+            scrim.addColorStop(1, `rgba(5, 8, 20, ${Math.min(0.98, darkness + 0.15)})`);
+
             ctx.fillStyle = scrim;
             ctx.fillRect(0, 0, width, height);
         } else {
-            // No Image: Procedural Theme Gradient
+            // Procedural Theme Background
             const bgGrad = ctx.createLinearGradient(0, 0, width, height);
-            if (posterState.theme === 'breaking_crimson') {
-                bgGrad.addColorStop(0, '#1a050b');
-                bgGrad.addColorStop(0.5, '#2e0712');
-                bgGrad.addColorStop(1, '#0d0205');
-            } else if (posterState.theme === 'editorial_navy') {
-                bgGrad.addColorStop(0, '#070f26');
-                bgGrad.addColorStop(0.5, '#0f1d4a');
-                bgGrad.addColorStop(1, '#050814');
+            if (posterState.theme === 'editorial_navy') {
+                bgGrad.addColorStop(0, '#0a192f');
+                bgGrad.addColorStop(0.5, '#020c1b');
+                bgGrad.addColorStop(1, '#000814');
             } else if (posterState.theme === 'golden_impact') {
-                bgGrad.addColorStop(0, '#17140b');
-                bgGrad.addColorStop(0.5, '#261e0f');
-                bgGrad.addColorStop(1, '#0d0b07');
+                bgGrad.addColorStop(0, '#1c1917');
+                bgGrad.addColorStop(0.5, '#0c0a09');
+                bgGrad.addColorStop(1, '#000000');
+            } else if (posterState.theme === 'quote_statement') {
+                bgGrad.addColorStop(0, '#2e1065');
+                bgGrad.addColorStop(0.5, '#0f172a');
+                bgGrad.addColorStop(1, '#020617');
             } else {
-                bgGrad.addColorStop(0, '#160d24');
-                bgGrad.addColorStop(0.5, '#221138');
-                bgGrad.addColorStop(1, '#0a0512');
+                // breaking_crimson default
+                bgGrad.addColorStop(0, '#4c0519');
+                bgGrad.addColorStop(0.5, '#1e0711');
+                bgGrad.addColorStop(1, '#0f050b');
             }
             ctx.fillStyle = bgGrad;
             ctx.fillRect(0, 0, width, height);
-
-            // Subtle Background Geometric Grid / Particle Rings
-            ctx.save();
-            ctx.strokeStyle = 'rgba(255, 255, 255, 0.03)';
-            ctx.lineWidth = 1;
-            for (let x = 0; x < width; x += 60) {
-                ctx.beginPath();
-                ctx.moveTo(x, 0);
-                ctx.lineTo(x, height);
-                ctx.stroke();
-            }
-            for (let y = 0; y < height; y += 60) {
-                ctx.beginPath();
-                ctx.moveTo(0, y);
-                ctx.lineTo(width, y);
-                ctx.stroke();
-            }
-            ctx.restore();
         }
-
-        // Theme Specific Accent Trim & Corner Elements
-        ctx.save();
-        if (posterState.theme === 'breaking_crimson') {
-            ctx.strokeStyle = '#E11D48';
-            ctx.lineWidth = 6;
-            ctx.strokeRect(0, 0, width, height);
-        } else if (posterState.theme === 'golden_impact') {
-            ctx.strokeStyle = '#F59E0B';
-            ctx.lineWidth = 6;
-            ctx.strokeRect(0, 0, width, height);
-        } else if (posterState.theme === 'editorial_navy') {
-            ctx.strokeStyle = '#38BDF8';
-            ctx.lineWidth = 5;
-            ctx.strokeRect(0, 0, width, height);
-        } else {
-            ctx.strokeStyle = '#A855F7';
-            ctx.lineWidth = 5;
-            ctx.strokeRect(0, 0, width, height);
-        }
-        ctx.restore();
 
         // Safe padding calculation based on ratio
         const padX = width * 0.065;
@@ -475,8 +447,8 @@
         ctx.save();
         
         // Category Pill
-        const catText = (posterState.category || 'समाचार').toUpperCase();
-        ctx.font = 'bold 22px "Noto Sans Devanagari", "Outfit", sans-serif';
+        const catText = (posterState.category || 'NEWS').toUpperCase();
+        ctx.font = 'bold 22px "Outfit", sans-serif';
         const catWidth = ctx.measureText(catText).width + 36;
         const catHeight = 40;
 
@@ -489,10 +461,10 @@
         ctx.textBaseline = 'middle';
         ctx.fillText(catText, padX + 18, topY + (catHeight / 2));
 
-        // Alert Badge (e.g. 🔴 ब्रेकिंग न्यूज़ or ⚡ विशेष रिपोर्ट)
+        // Alert Badge
         if (posterState.badgeText) {
             const badgeX = padX + catWidth + 14;
-            ctx.font = 'bold 20px "Noto Sans Devanagari", "Outfit", sans-serif';
+            ctx.font = 'bold 20px "Outfit", sans-serif';
             const badgeMetrics = ctx.measureText(posterState.badgeText);
             const badgeW = badgeMetrics.width + 30;
 
@@ -511,7 +483,7 @@
         // Top Right: Portal Branding & Logo Text
         if (posterState.showWatermark && posterState.watermark) {
             ctx.textAlign = 'right';
-            ctx.font = '900 24px "Outfit", "Noto Sans Devanagari", sans-serif';
+            ctx.font = '900 24px "Outfit", sans-serif';
             ctx.fillStyle = '#FFFFFF';
             ctx.shadowColor = 'rgba(0, 0, 0, 0.8)';
             ctx.shadowBlur = 8;
@@ -532,10 +504,10 @@
 
         // 4. MAIN HEADLINE SECTION
         ctx.save();
-        const headline = posterState.headline || 'यहाँ अपनी खबर का शीर्षक लिखें...';
+        const headline = posterState.headline || 'Enter your headline here...';
         const fontSize = parseInt(posterState.fontSize, 10) || 48;
         const lineHeight = fontSize * 1.38;
-        ctx.font = `800 ${fontSize}px "Noto Sans Devanagari", "Outfit", system-ui, sans-serif`;
+        ctx.font = `800 ${fontSize}px "Outfit", system-ui, sans-serif`;
         
         const maxHeadlineWidth = width - (padX * 2);
         const headlineLines = getWrappedLines(ctx, headline, maxHeadlineWidth);
@@ -554,7 +526,7 @@
         // Location Badge (Rendered right above headline if enabled)
         if (posterState.showLocation && posterState.location) {
             const locY = headlineStartY - 38;
-            ctx.font = 'bold 22px "Noto Sans Devanagari", "Outfit", sans-serif';
+            ctx.font = 'bold 22px "Outfit", sans-serif';
             ctx.fillStyle = '#FBBF24'; // Warm Gold/Amber
             ctx.textAlign = 'left';
             ctx.shadowColor = 'rgba(0, 0, 0, 0.9)';
@@ -641,7 +613,7 @@
             }
 
             // Reporter Byline text
-            ctx.font = 'bold 22px "Noto Sans Devanagari", "Outfit", sans-serif';
+            ctx.font = 'bold 22px "Outfit", sans-serif';
             ctx.fillStyle = '#FFFFFF';
             ctx.textAlign = 'left';
             ctx.textBaseline = 'middle';
@@ -649,32 +621,32 @@
             ctx.shadowBlur = 6;
             ctx.fillText(posterState.author, textLeftX, footerY - 14);
 
-            ctx.font = '600 16px "Noto Sans Devanagari", "Outfit", sans-serif';
+            ctx.font = '600 16px "Outfit", sans-serif';
             ctx.fillStyle = '#94A3B8';
-            ctx.fillText('विशेष रिपोर्टर • ' + (posterState.dateText || ''), textLeftX, footerY + 12);
+            ctx.fillText('Special Reporter • ' + (posterState.dateText || ''), textLeftX, footerY + 12);
         } else {
             // Date only on left
-            ctx.font = '600 18px "Noto Sans Devanagari", "Outfit", sans-serif';
+            ctx.font = '600 18px "Outfit", sans-serif';
             ctx.fillStyle = '#CBD5E1';
             ctx.textAlign = 'left';
             ctx.textBaseline = 'middle';
-            ctx.fillText('प्रकाशित: ' + (posterState.dateText || ''), padX, footerY);
+            ctx.fillText('Published: ' + (posterState.dateText || ''), padX, footerY);
         }
 
         // Right side: Web Domain / Read More CTA
         ctx.textAlign = 'right';
         ctx.textBaseline = 'middle';
-        ctx.font = '800 20px "Outfit", "Noto Sans Devanagari", sans-serif';
+        ctx.font = '800 20px "Outfit", sans-serif';
         ctx.fillStyle = '#F1F5F9';
         ctx.shadowColor = 'rgba(0, 0, 0, 0.8)';
         ctx.shadowBlur = 6;
         
-        let displayHost = 'lallantopnews.com';
+        let displayHost = 'newskit.test';
         try {
             const parsed = new URL(posterState.articleUrl);
             displayHost = parsed.hostname.replace('www.', '');
         } catch(e) {}
-        ctx.fillText(displayHost + ' • पूरी ख़बर पढ़ें →', width - padX, footerY);
+        ctx.fillText(displayHost + ' • Read Full Story →', width - padX, footerY);
 
         ctx.restore();
     }
@@ -700,51 +672,46 @@
         img.src = src;
     }
 
-    // Helper: Safely load author avatar
-    function loadAuthorAvatar(src) {
-        if (!src) {
-            posterState.authorAvatarImg = null;
-            return;
-        }
-        const img = new Image();
-        img.crossOrigin = 'anonymous';
-        img.onload = function() {
-            posterState.authorAvatarImg = img;
-            renderPoster();
-        };
-        img.onerror = function() {
-            posterState.authorAvatarImg = null;
-        };
-        img.src = src;
+    // Feedback Toast Utility
+    function showToast(msg) {
+        if (!toast) return;
+        toast.textContent = msg;
+        toast.classList.remove('hidden');
+        setTimeout(function() {
+            toast.classList.add('hidden');
+        }, 3200);
     }
 
-    // Ratio Switch Event Handlers
+    // Ratio Switch Handlers
     document.querySelectorAll('.poster-ratio-btn').forEach(btn => {
         btn.addEventListener('click', function() {
             document.querySelectorAll('.poster-ratio-btn').forEach(b => {
                 b.classList.remove('active-ratio', 'border-rose-500', 'bg-rose-500/10', 'text-white');
                 b.classList.add('border-slate-800', 'bg-slate-950', 'text-slate-400');
             });
-            this.classList.add('active-ratio', 'border-rose-500', 'bg-rose-500/10', 'text-white');
             this.classList.remove('border-slate-800', 'bg-slate-950', 'text-slate-400');
+            this.classList.add('active-ratio', 'border-rose-500', 'bg-rose-500/10', 'text-white');
 
-            posterState.ratio = this.getAttribute('data-ratio');
-            if (dimenBadge) {
-                dimenBadge.textContent = ratioDimensions[posterState.ratio].label;
+            const r = this.getAttribute('data-ratio');
+            posterState.ratio = r;
+            if (ratioDimensions[r]) {
+                posterState.width = ratioDimensions[r].width;
+                posterState.height = ratioDimensions[r].height;
+                if (dimenBadge) dimenBadge.textContent = ratioDimensions[r].label;
             }
             renderPoster();
         });
     });
 
-    // Theme Switch Event Handlers
+    // Theme Switch Handlers
     document.querySelectorAll('.poster-theme-btn').forEach(btn => {
         btn.addEventListener('click', function() {
             document.querySelectorAll('.poster-theme-btn').forEach(b => {
                 b.classList.remove('active-theme', 'border-rose-500', 'bg-rose-950/40', 'text-white');
                 b.classList.add('border-slate-800', 'bg-slate-950', 'text-slate-300');
             });
-            this.classList.add('active-theme', 'border-rose-500', 'bg-rose-950/40', 'text-white');
             this.classList.remove('border-slate-800', 'bg-slate-950', 'text-slate-300');
+            this.classList.add('active-theme', 'border-rose-500', 'bg-rose-950/40', 'text-white');
 
             posterState.theme = this.getAttribute('data-theme');
             renderPoster();
@@ -755,7 +722,7 @@
     if (headlineInput) {
         headlineInput.addEventListener('input', function() {
             posterState.headline = this.value;
-            if (headlineLen) headlineLen.textContent = `${this.value.length} अक्षर`;
+            if (headlineLen) headlineLen.textContent = `${this.value.length} chars`;
             renderPoster();
         });
     }
@@ -841,7 +808,7 @@
     if (darknessInput) {
         darknessInput.addEventListener('input', function() {
             posterState.darkness = parseInt(this.value, 10) / 100;
-            if (darknessVal) darknessVal.textContent = `${this.value}% डार्क`;
+            if (darknessVal) darknessVal.textContent = `${this.value}% Dark`;
             renderPoster();
         });
     }
@@ -856,7 +823,7 @@
             reader.onload = function(event) {
                 loadPosterImage(event.target.result, function() {
                     renderPoster();
-                    showToast('✅ फ़ोटो सफलतापूर्वक लोड हो गई!');
+                    showToast('✅ Photo loaded successfully!');
                 });
             };
             reader.readAsDataURL(file);
@@ -868,7 +835,7 @@
             posterState.bgImageObj = null;
             if (imageFileInput) imageFileInput.value = '';
             renderPoster();
-            showToast('बैकग्राउंड फ़ोटो हटा दी गई');
+            showToast('Background photo removed');
         });
     }
 
@@ -880,7 +847,7 @@
             if (fontSizeVal) fontSizeVal.textContent = '48px';
             posterState.darkness = 0.75;
             if (darknessInput) darknessInput.value = 75;
-            if (darknessVal) darknessVal.textContent = '75% डार्क';
+            if (darknessVal) darknessVal.textContent = '75% Dark';
             posterState.showLocation = true;
             if (showLocationCheck) showLocationCheck.checked = true;
             posterState.showAuthor = true;
@@ -888,7 +855,7 @@
             posterState.showWatermark = true;
             if (showWatermarkCheck) showWatermarkCheck.checked = true;
             renderPoster();
-            showToast('सेटिंग्स रीसेट हो गई हैं');
+            showToast('Settings reset to defaults');
         });
     }
 
@@ -899,17 +866,17 @@
                 const dataUrl = canvas.toDataURL('image/png');
                 const link = document.createElement('a');
                 const cleanName = (posterState.headline || 'news-poster')
-                    .replace(/[^a-zA-Z0-9\u0900-\u097F]/g, '-')
+                    .replace(/[^a-zA-Z0-9]/g, '-')
                     .substring(0, 40);
                 link.download = `${cleanName}-${posterState.ratio.replace(':', 'x')}-${Date.now()}.png`;
                 link.href = dataUrl;
                 document.body.appendChild(link);
                 link.click();
                 document.body.removeChild(link);
-                showToast('🎉 HD इमेज डाउनलोड हो गई!');
+                showToast('🎉 HD image downloaded!');
             } catch(e) {
                 console.error(e);
-                showToast('⚠️ डाउनलोड विफल: कृपया स्थानीय फ़ोटो अपलोड करके पुनः प्रयास करें।');
+                showToast('⚠️ Download failed: Please upload an image directly and retry.');
             }
         });
     }
@@ -920,22 +887,22 @@
             try {
                 canvas.toBlob(async function(blob) {
                     if (!blob) {
-                        showToast('इमेज क्लिपबोर्ड में कॉपी नहीं हो सकी।');
+                        showToast('Failed to copy image to clipboard.');
                         return;
                     }
                     try {
                         await navigator.clipboard.write([
                             new ClipboardItem({ 'image/png': blob })
                         ]);
-                        showToast('📋 इमेज क्लिपबोर्ड में कॉपी हो गई! कहीं भी Ctrl+V करें।');
+                        showToast('📋 Image copied to clipboard! Paste with Ctrl+V.');
                     } catch(err) {
                         console.warn('ClipboardItem write failed:', err);
-                        showToast('क्लिपबोर्ड में कॉपी करने की अनुमति नहीं मिली। कृपया इमेज डाउनलोड करें।');
+                        showToast('Clipboard access not granted. Please download the image.');
                     }
                 }, 'image/png');
             } catch(e) {
                 console.error(e);
-                showToast('इमेज कॉपी नहीं हो सकी।');
+                showToast('Could not copy image.');
             }
         });
     }
@@ -943,7 +910,7 @@
     // WhatsApp Share Action
     if (shareWhatsappBtn) {
         shareWhatsappBtn.addEventListener('click', async function() {
-            const shareTitle = posterState.headline || 'बड़ी खबर';
+            const shareTitle = posterState.headline || 'Top Story';
             const shareUrl = posterState.articleUrl || window.location.href;
 
             // Attempt Native File Web Share API (Mobile Support)
@@ -955,10 +922,10 @@
                             try {
                                 await navigator.share({
                                     title: shareTitle,
-                                    text: `${shareTitle}\n\nपूरी खबर पढ़ें: ${shareUrl}`,
+                                    text: `${shareTitle}\n\nRead full story: ${shareUrl}`,
                                     files: [file]
                                 });
-                                showToast('सफलतापूर्वक शेयर किया गया!');
+                                showToast('Shared successfully!');
                                 return;
                             } catch(err) {
                                 // Fallback to normal WhatsApp URL
@@ -966,11 +933,11 @@
                         }
                     }
                     // Web URL Fallback
-                    const waText = encodeURIComponent(`🔴 *${shareTitle}*\n\nपूरी ख़बर यहाँ पढ़ें:\n${shareUrl}`);
+                    const waText = encodeURIComponent(`🔴 *${shareTitle}*\n\nRead full story:\n${shareUrl}`);
                     window.open(`https://api.whatsapp.com/send?text=${waText}`, '_blank');
                 }, 'image/png');
             } else {
-                const waText = encodeURIComponent(`🔴 *${shareTitle}*\n\nपूरी ख़बर यहाँ पढ़ें:\n${shareUrl}`);
+                const waText = encodeURIComponent(`🔴 *${shareTitle}*\n\nRead full story:\n${shareUrl}`);
                 window.open(`https://api.whatsapp.com/send?text=${waText}`, '_blank');
             }
         });
@@ -1023,7 +990,7 @@
 
         // Sync UI inputs
         if (headlineInput) headlineInput.value = posterState.headline;
-        if (headlineLen) headlineLen.textContent = `${posterState.headline.length} अक्षर`;
+        if (headlineLen) headlineLen.textContent = `${posterState.headline.length} chars`;
         if (fontSizeInput) fontSizeInput.value = posterState.fontSize;
         if (fontSizeVal) fontSizeVal.textContent = `${posterState.fontSize}px`;
         if (categoryInput) categoryInput.value = posterState.category;
@@ -1064,10 +1031,10 @@
         e.preventDefault();
         const data = {
             title: btn.getAttribute('data-title') || '',
-            category: btn.getAttribute('data-category') || 'ताज़ा ख़बर',
+            category: btn.getAttribute('data-category') || 'TOP STORY',
             categoryColor: btn.getAttribute('data-category-color') || '#E11D48',
             location: btn.getAttribute('data-location') || '',
-            author: btn.getAttribute('data-author') || 'संपादक',
+            author: btn.getAttribute('data-author') || 'Editor',
             authorAvatar: btn.getAttribute('data-author-avatar') || '',
             image: btn.getAttribute('data-image') || '',
             date: btn.getAttribute('data-date') || '',

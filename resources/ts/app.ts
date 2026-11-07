@@ -88,7 +88,7 @@ function initNewsletterForms(): void {
             const originalBtnText = submitBtn ? submitBtn.innerHTML : '';
             if (submitBtn) {
                 submitBtn.disabled = true;
-                submitBtn.innerHTML = 'कृपया प्रतीक्षा करें...';
+                submitBtn.innerHTML = 'Please wait...';
             }
 
             try {
@@ -109,14 +109,14 @@ function initNewsletterForms(): void {
                 const data = await response.json();
 
                 if (response.ok && data.success) {
-                    showToast(data.message || 'धन्यवाद! आपका ईमेल न्यूज़लेटर के लिए पंजीकृत हो गया है।', 'success');
+                    showToast(data.message || 'Thank you! Your email has been subscribed to our newsletter.', 'success');
                     if (emailInput) emailInput.value = '';
                 } else {
-                    const msg = data.errors?.email ? data.errors.email[0] : (data.message || 'पंजीकरण में त्रुटि हुई।');
+                    const msg = data.errors?.email ? data.errors.email[0] : (data.message || 'An error occurred during subscription.');
                     showToast(msg, 'error');
                 }
             } catch (err) {
-                showToast('सर्वर से संपर्क करने में असमर्थ। कृपया पुनः प्रयास करें।', 'error');
+                showToast('Unable to connect to the server. Please try again.', 'error');
             } finally {
                 if (submitBtn) {
                     submitBtn.disabled = false;

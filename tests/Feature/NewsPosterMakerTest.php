@@ -37,42 +37,42 @@ class NewsPosterMakerTest extends TestCase
 
         $this->category = Category::create([
             'name' => 'Politics',
-            'hindi_name' => 'राजनीति',
+            'hindi_name' => 'Politics',
             'slug' => 'politics',
             'color' => '#E11D48',
         ]);
 
         $this->article = Article::create([
-            'title' => 'विधानसभा चुनाव 2026: लखनऊ में मतदान केंद्रों पर भारी सुरक्षा, मतदाताओं में दिखा भारी उत्साह',
-            'slug' => 'assembly-election-2026-lucknow-polling',
-            'excerpt' => 'राजधानी लखनऊ में सुबह 7 बजे से ही मतदान केंद्रों पर लंबी कतारें देखी जा रही हैं।',
-            'content' => '<p>लखनऊ में शांतिपूर्ण मतदान जारी है। सुरक्षा बलों ने कड़े इंतजाम किए हैं।</p>',
+            'title' => 'Global Technology Summit 2026: Innovations in AI and Clean Energy Announced',
+            'slug' => 'global-technology-summit-2026',
+            'excerpt' => 'Leaders and engineers gather to showcase next-generation computing breakthroughs.',
+            'content' => '<p>The international technology summit concluded today with major partnership announcements.</p>',
             'category_id' => $this->category->id,
             'user_id' => $this->reporter->id,
             'status' => 'published',
             'is_breaking' => true,
             'views_count' => 5400,
-            'location_name' => 'हजरतगंज चौराहा, लखनऊ',
+            'location_name' => 'Silicon Valley Convention Center',
             'published_at' => now(),
         ]);
     }
 
     public function test_public_article_page_includes_graphic_card_maker_button_and_modal()
     {
-        $response = $this->withSession(['locale' => 'hi'])->get(route('portal.article', $this->article->slug));
+        $response = $this->get(route('portal.article', $this->article->slug));
 
         $response->assertStatus(200);
         
         // Assert Graphic Card Maker button in the article share bar
         $response->assertSee('open-news-poster-btn', false);
-        $response->assertSee('📸 न्यूज़ कार्ड बनाएं', false);
-        $response->assertSee('data-title="विधानसभा चुनाव 2026', false);
-        $response->assertSee('data-category="राजनीति"', false);
+        $response->assertSee('Create News Card', false);
+        $response->assertSee('data-title="Global Technology Summit 2026', false);
+        $response->assertSee('data-category="Politics"', false);
         
         // Assert news poster studio modal and canvas is included
         $response->assertSee('id="news-poster-studio-modal"', false);
         $response->assertSee('id="newsPosterCanvas"', false);
-        $response->assertSee('ऑटोमैटिक न्यूज़ पोस्टर व ग्राफिक कार्ड मेकर', false);
+        $response->assertSee('Automatic News Poster & Graphic Card Maker');
         
         // Assert aspect ratios and themes exist
         $response->assertSee('data-ratio="1:1"', false);
@@ -95,8 +95,8 @@ class NewsPosterMakerTest extends TestCase
 
         $response->assertStatus(200);
         $response->assertSee('open-news-poster-btn', false);
-        $response->assertSee('पोस्टर', false);
-        $response->assertSee('title="ऑटोमैटिक सोशल मीडिया पोस्टर बनाएं"', false);
+        $response->assertSee('Poster', false);
+        $response->assertSee('Create Social Media Poster', false);
         $response->assertSee('id="news-poster-studio-modal"', false);
     }
 
@@ -106,7 +106,7 @@ class NewsPosterMakerTest extends TestCase
 
         $response->assertStatus(200);
         $response->assertSee('open-news-poster-btn', false);
-        $response->assertSee('📸 पोस्टर बनाएं (Graphic Card)', false);
+        $response->assertSee('Create Poster (Graphic Card)', false);
         $response->assertSee('id="news-poster-studio-modal"', false);
     }
 
@@ -115,7 +115,7 @@ class NewsPosterMakerTest extends TestCase
         $response = $this->actingAs($this->admin)->get(route('admin.dashboard'));
 
         $response->assertStatus(200);
-        $response->assertSee('ऑटो न्यूज़ पोस्टर', false);
+        $response->assertSee('Auto News Poster', false);
         $response->assertSee('Graphic Card Maker', false);
         $response->assertSee('onclick="window.openNewsPosterStudio()"', false);
     }

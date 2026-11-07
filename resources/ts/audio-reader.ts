@@ -111,22 +111,22 @@ export class AudioReader {
         if (state === 'playing') {
             this.playBtn.innerHTML = `
                 <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
-                <span>रोकें (Pause)</span>
+                <span>Pause</span>
             `;
-            if (this.statusText) this.statusText.textContent = 'ख़बर पढ़ी जा रही है...';
+            if (this.statusText) this.statusText.textContent = 'Reading article...';
             if (this.waveEl) this.waveEl.classList.remove('hidden');
         } else if (state === 'paused') {
             this.playBtn.innerHTML = `
                 <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-                <span>जारी रखें (Resume)</span>
+                <span>Resume</span>
             `;
-            if (this.statusText) this.statusText.textContent = 'ऑडियो रुका हुआ है';
+            if (this.statusText) this.statusText.textContent = 'Audio paused';
         } else {
             this.playBtn.innerHTML = `
                 <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-                <span>ख़बर सुनें (Audio)</span>
+                <span>Listen (Audio)</span>
             `;
-            if (this.statusText) this.statusText.textContent = 'ऑडियो स्टोरी सुनें';
+            if (this.statusText) this.statusText.textContent = 'Listen to audio story';
             if (this.waveEl) this.waveEl.classList.add('hidden');
         }
     }

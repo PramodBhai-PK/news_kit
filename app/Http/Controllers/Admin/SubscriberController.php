@@ -27,13 +27,13 @@ class SubscriberController extends Controller
     {
         $subscriber->update(['is_active' => !$subscriber->is_active]);
 
-        return back()->with('success', 'सब्सक्राइबर स्टेटस अपडेट हो गया है!');
+        return back()->with('success', 'Subscriber status updated successfully!');
     }
 
     public function destroy(Subscriber $subscriber)
     {
         $subscriber->delete();
 
-        return back()->with('success', 'ईमेल सब्सक्राइबर सूची से हटा दिया गया है।');
+        return back()->with('success', 'Subscriber deleted successfully.');
     }
 }

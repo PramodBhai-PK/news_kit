@@ -53,7 +53,7 @@ class ProfileController extends Controller
             'avatar' => $avatarPath,
         ]);
 
-        return back()->with('success', 'आपकी प्रोफ़ाइल जानकारी सफलतापूर्वक अपडेट कर दी गई है!');
+        return back()->with('success', 'Your profile details have been updated successfully!');
     }
 
     public function updatePassword(Request $request)
@@ -66,14 +66,14 @@ class ProfileController extends Controller
         ]);
 
         if (!Hash::check($request->input('current_password'), $user->password)) {
-            return back()->withErrors(['current_password' => 'वर्तमान पासवर्ड ग़लत है। कृपया सही पासवर्ड दर्ज करें।']);
+            return back()->withErrors(['current_password' => 'Current password does not match our records.']);
         }
 
         $user->update([
             'password' => Hash::make($request->input('new_password')),
         ]);
 
-        return back()->with('success', 'आपका पासवर्ड सफलतापूर्वक बदल दिया गया है!');
+        return back()->with('success', 'Your password has been changed successfully!');
     }
 
     public function pressCard()

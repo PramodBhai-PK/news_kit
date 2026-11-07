@@ -86,7 +86,7 @@ class NewsletterAndVideoTest extends TestCase
         $response = $this->actingAs($this->admin)->get('/admin/subscribers');
         $response->assertStatus(200);
         $response->assertSee('testsub@example.com');
-        $response->assertSee('न्यूज़लेटर सब्सक्राइबर्स');
+        $response->assertSee('Newsletter Subscribers');
 
         // Toggle subscriber status
         $toggleResponse = $this->actingAs($this->admin)->post("/admin/subscribers/{$sub->id}/toggle");
@@ -137,7 +137,7 @@ class NewsletterAndVideoTest extends TestCase
         $response->assertStatus(200);
         $response->assertSee('<video', false);
         $response->assertSee('https://example.com/stream.mp4');
-        $response->assertSee('Exclusive Digital Video Report');
+        $response->assertSee('Exclusive Video Report');
     }
 
     public function test_homepage_renders_video_bulletin_gallery(): void
@@ -156,7 +156,7 @@ class NewsletterAndVideoTest extends TestCase
 
         $response = $this->get('/');
         $response->assertStatus(200);
-        $response->assertSee('Video Bulletin & Special Coverage');
+        $response->assertSee('Video Bulletins & Special Coverage');
         $response->assertSee('Featured Video for Bulletin');
     }
 

@@ -9,13 +9,13 @@
     <div class="p-8 rounded-3xl text-white shadow-xl relative overflow-hidden" style="background: linear-gradient(135deg, {{ $category->color }} 0%, #0F172A 100%);">
         <div class="relative z-10 max-w-2xl space-y-2">
             <span class="px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider bg-white/20 backdrop-blur-md inline-block">
-                {{ __('प्रमुख श्रेणियां') }}
+                {{ __('Top Categories') }}
             </span>
             <h1 class="text-3xl sm:text-4xl font-black tracking-tight">
                 {{ $category->display_name }}
             </h1>
             <p class="text-sm text-slate-200 leading-relaxed font-medium">
-                {{ $category->description ?: 'इस श्रेणी से जुड़ी सभी ताज़ा ख़बरें और विशेष रिपोर्ट्स।' }}
+                {{ $category->description ?: __('All the latest news and special reports related to this category.') }}
             </p>
         </div>
     </div>
@@ -48,12 +48,12 @@
 
                 <div class="px-5 pb-5 pt-2 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between text-xs text-slate-400">
                     <span class="font-semibold text-slate-700 dark:text-slate-300">{{ $art->author->name }}</span>
-                    <span>{{ number_format($art->views_count) }} {{ __('व्यूज') }}</span>
+                    <span>{{ number_format($art->views_count) }} {{ __('views') }}</span>
                 </div>
             </article>
         @empty
             <div class="col-span-full p-12 text-center text-slate-400">
-                {{ __('इस श्रेणी में अभी कोई खबर प्रकाशित नहीं हुई है।') }}
+                {{ __('No articles published in this category yet.') }}
             </div>
         @endforelse
     </div>

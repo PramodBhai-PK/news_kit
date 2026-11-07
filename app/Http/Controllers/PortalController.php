@@ -238,7 +238,7 @@ class PortalController extends Controller
             'is_approved' => true,
         ]);
 
-        return back()->with('success', 'आपकी टिप्पणी सफलतापूर्वक प्रकाशित हो गई है!');
+        return back()->with('success', 'Your comment has been successfully published!');
     }
 
     public function search(Request $request)
@@ -366,7 +366,7 @@ class PortalController extends Controller
     {
         if ($slug === 'all' || $slug === 'clear' || $slug === 'reset') {
             session()->forget(['user_city_slug', 'user_city_name']);
-            return back()->with('city_success', 'सभी क्षेत्रों की खबरें सक्रिय हैं।');
+            return back()->with('city_success', 'All regions news is now active.');
         }
 
         $city = City::where('slug', $slug)->where('is_active', true)->with('state')->firstOrFail();
@@ -376,7 +376,7 @@ class PortalController extends Controller
             'user_city_name' => $city->display_name,
         ]);
 
-        return back()->with('city_success', "आपका चुना हुआ शहर '{$city->display_name}' सेट कर दिया गया है!");
+        return back()->with('city_success', "Your selected city '{$city->display_name}' has been set!");
     }
 
     public function sitemap()

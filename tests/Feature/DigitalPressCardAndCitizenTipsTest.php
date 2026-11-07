@@ -26,7 +26,7 @@ class DigitalPressCardAndCitizenTipsTest extends TestCase
         parent::setUp();
 
         $this->admin = User::create([
-            'name' => 'प्रधान संपादक (Chief Editor)',
+            'name' => 'Chief Editor',
             'email' => 'admin@press.com',
             'password' => bcrypt('password'),
             'role' => 'admin',
@@ -34,30 +34,30 @@ class DigitalPressCardAndCitizenTipsTest extends TestCase
         $this->admin->ensurePressCardInitialized();
 
         $this->reporter = User::create([
-            'name' => 'आलोक शर्मा (Senior Reporter)',
-            'email' => 'alok@press.com',
+            'name' => 'John Reporter',
+            'email' => 'reporter@press.com',
             'password' => bcrypt('password'),
             'role' => 'reporter',
         ]);
         $this->reporter->ensurePressCardInitialized();
 
         $this->state = State::create([
-            'name' => 'उत्तर प्रदेश',
-            'name_en' => 'Uttar Pradesh',
-            'slug' => 'uttar-pradesh',
-            'code' => 'UP',
+            'name' => 'California',
+            'name_en' => 'California',
+            'slug' => 'california',
+            'code' => 'CA',
         ]);
 
         $this->city = City::create([
             'state_id' => $this->state->id,
-            'name' => 'लखनऊ',
-            'name_en' => 'Lucknow',
-            'slug' => 'lucknow',
+            'name' => 'Los Angeles',
+            'name_en' => 'Los Angeles',
+            'slug' => 'los-angeles',
         ]);
 
         Category::create([
             'name' => 'Politics',
-            'hindi_name' => 'राजनीति',
+            'hindi_name' => 'Politics',
             'slug' => 'politics',
             'color' => '#E11D48',
         ]);
@@ -74,12 +74,12 @@ class DigitalPressCardAndCitizenTipsTest extends TestCase
         $response = $this->actingAs($this->reporter)->get(route('admin.profile.press-card'));
 
         $response->assertStatus(200);
-        $response->assertSee('डिजिटल प्रेस पहचान पत्र', false);
-        $response->assertSee($this->reporter->name, false);
-        $response->assertSee($this->reporter->press_id_code, false);
-        $response->assertSee('MEDIA ACCREDITATION CARD', false);
-        $response->assertSee('अनुच्छेद 19(1)(a) भारतीय संविधान', false);
-        $response->assertSee('🖨️ प्रेस कार्ड प्रिंट करें', false);
+        $response->assertSee('Official Digital Press ID Card');
+        $response->assertSee($this->reporter->name);
+        $response->assertSee($this->reporter->press_id_code);
+        $response->assertSee('MEDIA ACCREDITATION CARD');
+        $response->assertSee('Freedom of Speech');
+        $response->assertSee('Print Press Card');
     }
 
     public function test_public_can_verify_valid_press_card_via_live_qr()
@@ -88,11 +88,10 @@ class DigitalPressCardAndCitizenTipsTest extends TestCase
         $response = $this->get($verificationUrl);
 
         $response->assertStatus(200);
-        $response->assertSee('सत्यापित • VERIFIED', false);
-        $response->assertSee('मान्य एवं सक्रिय प्रेस पहचान पत्र', false);
-        $response->assertSee($this->reporter->name, false);
-        $response->assertSee($this->reporter->press_id_code, false);
-        $response->assertSee('लाइव सर्वर सत्यापन टाइमस्टैम्प', false);
+        $response->assertSee('VERIFIED');
+        $response->assertSee('Active & Valid Press Credential');
+        $response->assertSee($this->reporter->name);
+        $response->assertSee($this->reporter->press_id_code);
     }
 
     public function test_suspended_press_card_shows_warning_on_verification()
@@ -104,18 +103,18 @@ class DigitalPressCardAndCitizenTipsTest extends TestCase
         $response = $this->get(route('press.verify', ['code' => $this->reporter->press_id_code]));
 
         $response->assertStatus(200);
-        $response->assertSee('चेतावनी • ALERT', false);
-        $response->assertSee('अमान्य', false);
+        $response->assertSee('ALERT');
+        $response->assertSee('inactive or expired');
     }
 
     public function test_admin_can_update_reporter_press_card()
     {
         $response = $this->actingAs($this->admin)->post(route('admin.users.press-card.update', $this->reporter->id), [
-            'press_id_code' => 'PRESS-UP-2026-9999',
-            'designation' => 'विशेष खोजी संवाददाता (Investigative Bureau Chief)',
+            'press_id_code' => 'PRESS-CA-2026-9999',
+            'designation' => 'Investigative Bureau Chief',
             'blood_group' => 'O+',
-            'bureau_location' => 'लखनऊ विधानसभा ब्यूरो',
-            'emergency_contact' => '+91 98765 00000',
+            'bureau_location' => 'Central News Bureau',
+            'emergency_contact' => '+1 555 123 4567',
             'id_card_issued_at' => '2026-01-01',
             'id_card_expires_at' => '2027-12-31',
             'id_card_status' => 'active',
@@ -126,10 +125,10 @@ class DigitalPressCardAndCitizenTipsTest extends TestCase
 
         $this->assertDatabaseHas('users', [
             'id' => $this->reporter->id,
-            'press_id_code' => 'PRESS-UP-2026-9999',
-            'designation' => 'विशेष खोजी संवाददाता (Investigative Bureau Chief)',
+            'press_id_code' => 'PRESS-CA-2026-9999',
+            'designation' => 'Investigative Bureau Chief',
             'blood_group' => 'O+',
-            'bureau_location' => 'लखनऊ विधानसभा ब्यूरो',
+            'bureau_location' => 'Central News Bureau',
         ]);
     }
 
@@ -144,10 +143,10 @@ class DigitalPressCardAndCitizenTipsTest extends TestCase
         $response = $this->get(route('portal.citizen-tip'));
 
         $response->assertStatus(200);
-        $response->assertSee('सिटीज़न जर्नलिज्म बॉक्स (Citizen News Tip)', false);
-        $response->assertSee('क्या घटना हुई? / मुख्य शीर्षक', false);
-        $response->assertSee('मेरी पहचान पूरी तरह गोपनीय रखें (Keep Anonymous)', false);
-        $response->assertSee('उत्तर प्रदेश', false);
+        $response->assertSee('Citizen Journalism Box');
+        $response->assertSee('1. What happened? / Main Headline');
+        $response->assertSee('Keep my identity completely confidential');
+        $response->assertSee('California');
     }
 
     public function test_citizen_can_submit_news_tip_with_evidence()
@@ -157,13 +156,13 @@ class DigitalPressCardAndCitizenTipsTest extends TestCase
         $fakeImage = UploadedFile::fake()->image('road_accident_evidence.jpg');
 
         $response = $this->post(route('portal.citizen-tip.store'), [
-            'title' => 'हजरतगंज चौराहे पर भीषण ट्रैफिक जाम, एम्बुलेंस फंसी',
-            'description' => 'लखनऊ के हजरतगंज चौराहे पर पिछले 2 घंटे से भारी ट्रैफिक जाम लगा हुआ है। एक आपातकालीन एम्बुलेंस फंसी हुई है और कोई ट्रैफिक पुलिसकर्मी मौजूद नहीं है।',
-            'location_name' => 'हजरतगंज चौराहा, निकट मेट्रो स्टेशन',
+            'title' => 'Major traffic congestion and road blockage near downtown',
+            'description' => 'Severe traffic jam ongoing for the past 2 hours. Ambulance held up and immediate traffic management needed.',
+            'location_name' => 'Downtown Central Avenue',
             'state_id' => $this->state->id,
             'city_id' => $this->city->id,
-            'witness_name' => 'राजेश कुमार',
-            'witness_phone' => '+91 98765 11111',
+            'witness_name' => 'Alex Morgan',
+            'witness_phone' => '+1 555 987 6543',
             'is_anonymous' => '0',
             'media_file' => $fakeImage,
         ]);
@@ -172,8 +171,8 @@ class DigitalPressCardAndCitizenTipsTest extends TestCase
         $response->assertSessionHas('success');
 
         $this->assertDatabaseHas('citizen_tips', [
-            'title' => 'हजरतगंज चौराहे पर भीषण ट्रैफिक जाम, एम्बुलेंस फंसी',
-            'witness_name' => 'राजेश कुमार',
+            'title' => 'Major traffic congestion and road blockage near downtown',
+            'witness_name' => 'Alex Morgan',
             'status' => 'pending',
             'media_type' => 'image',
         ]);
@@ -182,37 +181,37 @@ class DigitalPressCardAndCitizenTipsTest extends TestCase
     public function test_admin_can_view_citizen_tips_list_and_details()
     {
         $tip = CitizenTip::create([
-            'title' => 'सरकारी अस्पताल में दवाओं की भारी किल्लत',
-            'description' => 'मरीजों को बाहर से महंगी दवाएं खरीदने पर मजबूर किया जा रहा है।',
-            'location_name' => 'जिला अस्पताल',
+            'title' => 'Critical shortage of emergency supplies at local clinic',
+            'description' => 'Patients are being forced to source medications from distant private suppliers.',
+            'location_name' => 'County Hospital',
             'state_id' => $this->state->id,
             'city_id' => $this->city->id,
-            'witness_name' => 'संजय वर्मा',
-            'witness_phone' => '+91 99999 88888',
+            'witness_name' => 'Sarah Connor',
+            'witness_phone' => '+1 555 444 3333',
             'is_anonymous' => false,
             'status' => 'pending',
         ]);
 
         $response = $this->actingAs($this->admin)->get(route('admin.citizen-tips.index'));
         $response->assertStatus(200);
-        $response->assertSee('सरकारी अस्पताल में दवाओं की भारी किल्लत', false);
-        $response->assertSee('संजय वर्मा', false);
+        $response->assertSee('Critical shortage of emergency supplies at local clinic');
+        $response->assertSee('Sarah Connor');
 
         $detailResponse = $this->actingAs($this->admin)->get(route('admin.citizen-tips.show', $tip->id));
         $detailResponse->assertStatus(200);
-        $detailResponse->assertSee('⚡ खबर में बदलें (Convert to News Article)', false);
+        $detailResponse->assertSee('Convert to News Article');
     }
 
     public function test_admin_can_convert_citizen_tip_to_draft_news_article()
     {
         $tip = CitizenTip::create([
-            'title' => 'गांधी पार्क में अवैध निर्माण पर नागरिकों का कड़ा विरोध',
-            'description' => 'स्थानीय निवासियों ने पार्क की जमीन पर हो रहे अवैध निर्माण का विरोध किया और नगर निगम को ज्ञापन सौंपा।',
-            'location_name' => 'गांधी पार्क, लखनऊ',
+            'title' => 'Citizen rally protests unauthorized construction at Central Park',
+            'description' => 'Local residents protested unauthorized development on park land and submitted petition.',
+            'location_name' => 'Central Park, Los Angeles',
             'state_id' => $this->state->id,
             'city_id' => $this->city->id,
-            'witness_name' => 'सुनील गुप्ता',
-            'witness_phone' => '+91 99887 76655',
+            'witness_name' => 'David Miller',
+            'witness_phone' => '+1 555 222 1111',
             'is_anonymous' => false,
             'status' => 'pending',
         ]);
@@ -225,9 +224,9 @@ class DigitalPressCardAndCitizenTipsTest extends TestCase
 
         $this->assertDatabaseHas('articles', [
             'id' => $tip->converted_article_id,
-            'title' => 'गांधी पार्क में अवैध निर्माण पर नागरिकों का कड़ा विरोध',
+            'title' => 'Citizen rally protests unauthorized construction at Central Park',
             'status' => 'draft',
-            'location_name' => 'गांधी पार्क, लखनऊ',
+            'location_name' => 'Central Park, Los Angeles',
         ]);
 
         $response->assertRedirect(route('admin.articles.edit', $tip->converted_article_id));

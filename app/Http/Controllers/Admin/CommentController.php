@@ -27,22 +27,22 @@ class CommentController extends Controller
     public function toggleApprove(Comment $comment)
     {
         if (auth()->user()->isReporter() && $comment->article->user_id !== auth()->id()) {
-            abort(403, 'आपको केवल अपने आर्टिकल्स के कमेंट मॉडरेट करने की अनुमति है।');
+            abort(403, 'You are only authorized to moderate comments on your own articles.');
         }
 
         $comment->update(['is_approved' => !$comment->is_approved]);
 
-        return back()->with('success', 'कमेंट स्टेटस अपडेट हो गया है!');
+        return back()->with('success', 'Comment status updated successfully!');
     }
 
     public function destroy(Comment $comment)
     {
         if (auth()->user()->isReporter() && $comment->article->user_id !== auth()->id()) {
-            abort(403, 'आपको केवल अपने आर्टिकल्स के कमेंट हटाने की अनुमति है।');
+            abort(403, 'You are only authorized to delete comments on your own articles.');
         }
 
         $comment->delete();
 
-        return back()->with('success', 'कमेंट हटा दिया गया है।');
+        return back()->with('success', 'Comment deleted successfully.');
     }
 }

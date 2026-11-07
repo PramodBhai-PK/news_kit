@@ -30,11 +30,11 @@ class AuthController extends Controller
             $request->session()->regenerate();
 
             return redirect()->intended(route('admin.dashboard'))
-                ->with('success', 'स्वागत है! आप सफलतापूर्वक लॉगिन हो चुके हैं।');
+                ->with('success', 'Welcome! You have logged in successfully.');
         }
 
         throw ValidationException::withMessages([
-            'email' => 'प्रदान किए गए क्रेडेंशियल्स हमारे रिकॉर्ड से मेल नहीं खाते हैं।',
+            'email' => 'The provided credentials do not match our records.',
         ]);
     }
 
@@ -46,6 +46,6 @@ class AuthController extends Controller
         $request->session()->regenerateToken();
 
         return redirect()->route('login')
-            ->with('info', 'आप सफलतापूर्वक लॉग आउट हो गए हैं।');
+            ->with('info', 'You have been logged out successfully.');
     }
 }

@@ -60,7 +60,7 @@ class CitizenTipController extends Controller
             'location_name' => $validated['location_name'] ?? null,
             'state_id' => $validated['state_id'] ?? null,
             'city_id' => $validated['city_id'] ?? null,
-            'witness_name' => $request->boolean('is_anonymous') ? 'गोपनीय नागरिक' : ($validated['witness_name'] ?? 'नागरिक पत्रकार'),
+            'witness_name' => $request->boolean('is_anonymous') ? 'Anonymous Citizen' : ($validated['witness_name'] ?? 'Citizen Journalist'),
             'witness_phone' => $validated['witness_phone'] ?? null,
             'witness_email' => $validated['witness_email'] ?? null,
             'is_anonymous' => $request->boolean('is_anonymous'),
@@ -71,6 +71,6 @@ class CitizenTipController extends Controller
         ]);
 
         return redirect()->route('portal.citizen-tip')
-            ->with('success', 'धन्यवाद! आपकी न्यूज़ टिप हमारे संपादकीय डेस्क को सुरक्षित रूप से प्राप्त हो गई है। (संदर्भ संख्या: #' . $tip->id . ')');
+            ->with('success', 'Thank you! Your news tip has been securely received by our editorial desk. (Reference ID: #' . $tip->id . ')');
     }
 }

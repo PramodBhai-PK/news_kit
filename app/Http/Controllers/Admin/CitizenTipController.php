@@ -59,7 +59,7 @@ class CitizenTipController extends Controller
 
         $citizenTip->update($validated);
 
-        return back()->with('success', 'नागरिक टिप की स्थिति सफलतापूर्वक अपडेट कर दी गई है!');
+        return back()->with('success', 'Citizen tip status updated successfully!');
     }
 
     /**
@@ -72,7 +72,7 @@ class CitizenTipController extends Controller
         if (!$category) {
             $category = Category::create([
                 'name' => 'General News',
-                'hindi_name' => 'सामान्य समाचार',
+                'hindi_name' => 'General News',
                 'slug' => 'general-news',
                 'color' => '#E11D48',
             ]);
@@ -87,11 +87,11 @@ class CitizenTipController extends Controller
         }
 
         $witnessAttribution = $citizenTip->is_anonymous 
-            ? 'विशेष नागरिक संवाददाता (पहचान गोपनीय)' 
-            : ($citizenTip->witness_name ?: 'सिटीज़न रिपोर्टर');
+            ? 'Special Citizen Correspondent (Identity Confidential)' 
+            : ($citizenTip->witness_name ?: 'Citizen Reporter');
 
         $articleContent = "<p>" . nl2br(e($citizenTip->description)) . "</p>" . 
-            "<p><strong>स्रोत (नागरिक पत्रकारिता डेस्क):</strong> " . e($witnessAttribution) . "</p>";
+            "<p><strong>Source (Citizen Journalism Desk):</strong> " . e($witnessAttribution) . "</p>";
 
         $featuredImage = null;
         if ($citizenTip->isImage() && $citizenTip->media_path) {
@@ -119,17 +119,17 @@ class CitizenTipController extends Controller
         $citizenTip->update([
             'status' => 'converted_to_article',
             'converted_article_id' => $article->id,
-            'admin_notes' => 'कन्वर्टेड बाय ' . auth()->user()->name . ' ऑन ' . now()->format('d M, Y h:i A'),
+            'admin_notes' => 'Converted by ' . auth()->user()->name . ' on ' . now()->format('d M, Y h:i A'),
         ]);
 
         return redirect()->route('admin.articles.edit', $article->id)
-            ->with('success', 'नागरिक टिप को सफलतापूर्वक न्यूज़ आर्टिकल (ड्राफ्ट) में बदल दिया गया है! अब आप इसे एडिट कर प्रकाशित कर सकते हैं।');
+            ->with('success', 'Citizen tip successfully converted to a draft article! You can now edit and publish it.');
     }
 
     public function destroy(CitizenTip $citizenTip)
     {
         $citizenTip->delete();
         return redirect()->route('admin.citizen-tips.index')
-            ->with('success', 'नागरिक टिप को सफलतापूर्वक हटा दिया गया है।');
+            ->with('success', 'Citizen tip deleted successfully.');
     }
 }

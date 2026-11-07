@@ -11,7 +11,7 @@ return new class extends Migration
         // 1. States / Regions Table
         Schema::create('states', function (Blueprint $table) {
             $table->id();
-            $table->string('name'); // हिंदी नाम (उदा. 'उत्तर प्रदेश')
+            $table->string('name'); // State name (e.g. 'Uttar Pradesh')
             $table->string('name_en')->nullable(); // English Name ('Uttar Pradesh')
             $table->string('slug')->unique();
             $table->string('code', 10)->nullable(); // UP, BR, DL, MP, RJ, etc.
@@ -24,7 +24,7 @@ return new class extends Migration
         Schema::create('cities', function (Blueprint $table) {
             $table->id();
             $table->foreignId('state_id')->constrained()->cascadeOnDelete();
-            $table->string('name'); // हिंदी नाम (उदा. 'लखनऊ')
+            $table->string('name'); // City name (e.g. 'Lucknow')
             $table->string('name_en')->nullable(); // English Name ('Lucknow')
             $table->string('slug')->unique();
             $table->integer('order')->default(0);

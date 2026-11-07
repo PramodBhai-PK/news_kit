@@ -15,7 +15,7 @@ class UserController extends Controller
     {
         // Only Admin and Editor can access team management
         if (!auth()->user()->isAdmin() && !auth()->user()->isEditor()) {
-            abort(403, 'इस अनुभाग को केवल प्रधान संपादक (Admin) या वरिष्ठ संपादक एक्सेस कर सकते हैं।');
+            abort(403, 'This section can only be accessed by Admin or Editor.');
         }
 
         $query = User::withCount('articles');
@@ -52,7 +52,7 @@ class UserController extends Controller
     public function store(Request $request)
     {
         if (!auth()->user()->isAdmin()) {
-            abort(403, 'केवल एडमिन नए टीम सदस्यों को जोड़ सकते हैं।');
+            abort(403, 'Only Admin can add new team members.');
         }
 
         $validated = $request->validate([
@@ -83,13 +83,13 @@ class UserController extends Controller
             'is_active' => true,
         ]);
 
-        return back()->with('success', 'नया टीम सदस्य (' . ucfirst($validated['role']) . ') सफलतापूर्वक जोड़ दिया गया है!');
+        return back()->with('success', 'New team member (' . ucfirst($validated['role']) . ') added successfully!');
     }
 
     public function update(Request $request, User $user)
     {
         if (!auth()->user()->isAdmin()) {
-            abort(403, 'केवल एडमिन टीम सदस्यों को अपडेट कर सकते हैं।');
+            abort(403, 'Only Admin can update team members.');
         }
 
         $validated = $request->validate([
@@ -128,41 +128,41 @@ class UserController extends Controller
 
         $user->update($updateData);
 
-        return back()->with('success', 'टीम सदस्य की जानकारी सफलतापूर्वक अपडेट हो गई है!');
+        return back()->with('success', 'Team member details updated successfully!');
     }
 
     public function toggleStatus(User $user)
     {
         if (!auth()->user()->isAdmin()) {
-            abort(403, 'केवल एडमिन स्टेटस बदल सकते हैं।');
+            abort(403, 'Only Admin can change user status.');
         }
 
         if ($user->id === auth()->id()) {
-            return back()->with('error', 'आप स्वयं अपने अकाउंट को डिएक्टिवेट नहीं कर सकते।');
+            return back()->with('error', 'You cannot deactivate your own account.');
         }
 
         $user->update(['is_active' => !$user->is_active]);
 
-        return back()->with('success', 'यूजर स्टेटस सफलतापूर्वक अपडेट हो गया है!');
+        return back()->with('success', 'User status updated successfully!');
     }
 
     public function destroy(User $user)
     {
         if (!auth()->user()->isAdmin()) {
-            abort(403, 'केवल एडमिन टीम सदस्य को हटा सकते हैं।');
+            abort(403, 'Only Admin can delete team members.');
         }
 
         if ($user->id === auth()->id()) {
-            return back()->with('error', 'आप अपने खुद के अकाउंट को डिलीट नहीं कर सकते।');
+            return back()->with('error', 'You cannot delete your own account.');
         }
 
         if ($user->email === 'admin@newskit.com') {
-            return back()->with('error', 'मुख्य सुपर-एडमिन अकाउंट को डिलीट नहीं किया जा सकता।');
+            return back()->with('error', 'The primary super-admin account cannot be deleted.');
         }
 
         $user->delete();
 
-        return back()->with('success', 'टीम सदस्य को सफलतापूर्वक हटा दिया गया है।');
+        return back()->with('success', 'Team member deleted successfully.');
     }
 
     public function pressCard(User $user)
@@ -175,7 +175,7 @@ class UserController extends Controller
     public function updatePressCard(Request $request, User $user)
     {
         if (!auth()->user()->isAdmin()) {
-            abort(403, 'केवल एडमिन प्रेस आईडी कार्ड क्रेडेंशियल अपडेट कर सकते हैं।');
+            abort(403, 'Only Admin can update press card credentials.');
         }
 
         $validated = $request->validate([
@@ -191,6 +191,6 @@ class UserController extends Controller
 
         $user->update($validated);
 
-        return back()->with('success', 'प्रेस पहचान पत्र जानकारी सफलतापूर्वक अपडेट कर दी गई है!');
+        return back()->with('success', 'Press card details updated successfully!');
     }
 }

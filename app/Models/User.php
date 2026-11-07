@@ -68,7 +68,7 @@ class User extends Authenticatable
         }
 
         if (empty($this->bureau_location)) {
-            $this->bureau_location = 'राष्ट्रीय समाचार ब्यूरो (National Bureau)';
+            $this->bureau_location = 'National News Bureau';
             $dirty = true;
         }
 
@@ -111,12 +111,12 @@ class User extends Authenticatable
     public function getPressCardStatusLabelAttribute(): string
     {
         if ($this->id_card_status === 'suspended') {
-            return 'निलंबित (Suspended)';
+            return 'Suspended';
         }
         if ($this->id_card_expires_at && $this->id_card_expires_at->isPast()) {
-            return 'अवधि समाप्त (Expired)';
+            return 'Expired';
         }
-        return 'सक्रिय व वैध (Active)';
+        return 'Active & Verified';
     }
 
     public function getPressCardStatusBadgeClassAttribute(): string
@@ -163,10 +163,10 @@ class User extends Authenticatable
     public function getRoleLabelAttribute(): string
     {
         return match ($this->role) {
-            'admin' => 'प्रधान संपादक (Admin)',
-            'editor' => 'वरिष्ठ संपादक (Editor)',
-            'publisher' => 'डिजिटल प्रकाशक (Publisher)',
-            'reporter' => 'न्यूज़ रिपोर्टर (Reporter)',
+            'admin' => 'Editor-in-Chief (Admin)',
+            'editor' => 'Senior Editor',
+            'publisher' => 'Digital Publisher',
+            'reporter' => 'News Reporter',
             default => ucfirst($this->role),
         };
     }

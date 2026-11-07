@@ -56,7 +56,7 @@
                 [
                     '@type' => 'ListItem',
                     'position' => 1,
-                    'name' => __('होम'),
+                    'name' => __('Home'),
                     'item' => url('/'),
                 ],
                 [
@@ -101,7 +101,7 @@
 
     <!-- Sticky Floating Left Share Rail (Visible on XL screens) -->
     <aside class="hidden xl:flex flex-col gap-2.5 fixed left-4 2xl:left-10 top-1/3 z-30 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md p-2 rounded-2xl border border-slate-200/80 dark:border-slate-800 shadow-xl" aria-label="Quick Share Rail">
-        <span class="text-[9px] font-black uppercase text-center text-slate-400 py-0.5 tracking-wider">{{ __('शेयर') }}</span>
+        <span class="text-[9px] font-black uppercase text-center text-slate-400 py-0.5 tracking-wider">{{ __('Share') }}</span>
         <!-- WhatsApp -->
         <a href="https://api.whatsapp.com/send?text={{ urlencode('🔴 *' . $article->title . "*\n\n" . url()->current()) }}" 
            target="_blank" rel="noopener noreferrer" 
@@ -129,7 +129,7 @@
         <!-- Instagram / News Card Maker -->
         <button type="button" 
                 class="open-news-poster-btn w-9 h-9 rounded-xl bg-gradient-to-tr from-purple-600 via-pink-600 to-amber-500 text-white flex items-center justify-center transition-all shadow-2xs group cursor-pointer" 
-                title="{{ __('इंस्टाग्राम स्टोरी व पोस्ट कार्ड') }}"
+                title="{{ __('Instagram Story & Post Card') }}"
                 data-title="{{ $article->title }}"
                 data-category="{{ $article->category->display_name }}"
                 data-category-color="{{ $article->category->color }}"
@@ -145,14 +145,14 @@
         <button type="button" 
                 class="btn-copy-link w-9 h-9 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-brand-primary hover:text-white flex items-center justify-center transition-all shadow-2xs group" 
                 data-url="{{ url()->current() }}" 
-                title="{{ __('लिंक कॉपी करें') }}">
+                title="{{ __('Copy Link') }}">
             <svg class="w-4 h-4 fill-none stroke-current transition-transform group-hover:scale-110" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
         </button>
         <!-- Bookmark -->
         <button type="button" 
                 class="btn-bookmark w-9 h-9 rounded-xl bg-amber-50 dark:bg-amber-950/40 text-amber-600 hover:bg-amber-500 hover:text-white flex items-center justify-center transition-all shadow-2xs group" 
                 data-article-id="{{ $article->id }}" 
-                title="{{ __('बुकमार्क में सहेजें') }}">
+                title="{{ __('Save to Bookmarks') }}">
             <svg class="w-4 h-4 fill-none stroke-current transition-transform group-hover:scale-110" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/></svg>
         </button>
     </aside>
@@ -199,7 +199,7 @@
                     @if($article->is_breaking)
                         <span class="px-2.5 py-1 rounded-full text-xs font-extrabold bg-rose-600 text-white flex items-center gap-1">
                             <span class="w-1.5 h-1.5 rounded-full bg-white live-pulse"></span>
-                            {{ __('ब्रेकिंग न्यूज़') }}
+                            {{ __('Breaking News') }}
                         </span>
                     @endif
                 </div>
@@ -229,13 +229,13 @@
                     </div>
 
                     <div class="flex items-center gap-4 text-xs font-medium">
-                        <span>{{ $article->published_at ? $article->published_at->format('d M, Y | h:i A') : 'अभी प्रकाशित' }}</span>
+                        <span>{{ $article->published_at ? $article->published_at->format('d M, Y | h:i A') : __('Just Published') }}</span>
                         <span>•</span>
-                        <span>{{ $article->reading_time }} {{ __('मिनट पढ़ाई') }}</span>
+                        <span>{{ $article->reading_time }} {{ __('min read') }}</span>
                         <span>•</span>
                         <span class="flex items-center gap-1 font-bold text-slate-700 dark:text-slate-300">
                             <svg class="w-4 h-4 text-brand-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
-                            {{ number_format($article->views_count) }} {{ __('व्यूज') }}
+                            {{ number_format($article->views_count) }} {{ __('views') }}
                         </span>
                     </div>
                 </div>
@@ -248,8 +248,8 @@
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/></svg>
                     </div>
                     <div>
-                        <span class="block font-bold text-sm text-white" id="audio-status-text">{{ __('ऑडियो स्टोरी सुनें') }}</span>
-                        <span class="block text-xs text-slate-400">{{ __('आवाज़ के साथ पूरी ख़बर सुनें') }}</span>
+                        <span class="block font-bold text-sm text-white" id="audio-status-text">{{ __('Listen to Audio Story') }}</span>
+                        <span class="block text-xs text-slate-400">{{ __('Listen to full story with voice narration') }}</span>
                     </div>
                 </div>
 
@@ -264,7 +264,7 @@
 
                     <button id="audio-play-btn" class="bg-brand-primary hover:brightness-110 text-white font-bold text-xs px-5 py-2.5 rounded-xl transition-all shadow-md flex items-center gap-2">
                         <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-                        <span>{{ __('ख़बर सुनें (Audio)') }}</span>
+                        <span>{{ __('Listen News (Audio)') }}</span>
                     </button>
                 </div>
             </div>
@@ -301,7 +301,7 @@
                         <div class="px-4 py-2.5 bg-slate-950/90 border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-300">
                             <span class="flex items-center gap-2 font-bold text-rose-500">
                                 <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
-                                <span>{{ $article->isYoutubeVideo() ? __('यूट्यूब वीडियो विशेष कवरेज') : __('एक्सक्लूसिव डिजिटल वीडियो रिपोर्ट') }}</span>
+                                <span>{{ $article->isYoutubeVideo() ? __('YouTube Video Coverage') : __('Exclusive Video Report') }}</span>
                             </span>
                             <span class="text-[11px] text-slate-400 bg-slate-800 px-2 py-0.5 rounded font-mono">HD Quality</span>
                         </div>
@@ -362,14 +362,14 @@
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/></svg>
                         </span>
                         <h4 class="text-xs font-black uppercase tracking-wider text-slate-800 dark:text-slate-200">
-                            {{ __('शेयर करें:') }} <span class="text-slate-400 font-normal">({{ __('सोशल मीडिया पर खबर साझा करें') }})</span>
+                            {{ __('Share:') }} <span class="text-slate-400 font-normal">({{ __('Share story on social media') }})</span>
                         </h4>
                     </div>
 
                     <!-- Bookmark Button -->
-                    <button class="btn-bookmark inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:text-brand-primary text-xs font-bold transition-all" data-article-id="{{ $article->id }}" title="{{ __('बुकमार्क में सहेजें') }}">
+                    <button class="btn-bookmark inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:text-brand-primary text-xs font-bold transition-all" data-article-id="{{ $article->id }}" title="{{ __('Save to Bookmarks') }}">
                         <svg class="w-4 h-4 fill-none stroke-current" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/></svg>
-                        <span class="hidden sm:inline">{{ __('बुकमार्क') }}</span>
+                        <span class="hidden sm:inline">{{ __('Bookmark') }}</span>
                     </button>
                 </div>
 
@@ -423,7 +423,7 @@
                     <!-- 6. Instagram & News Card Maker (Automatic Graphic Card Studio 1080p) -->
                     <button type="button" 
                             class="open-news-poster-btn flex flex-col sm:flex-row items-center justify-center gap-1.5 p-2.5 rounded-2xl bg-gradient-to-r from-purple-600 via-pink-600 to-amber-500 hover:brightness-110 text-white font-bold text-xs shadow-md shadow-pink-600/20 transition-all cursor-pointer group"
-                            title="{{ __('सोशल मीडिया न्यूज़ कार्ड बनाएं') }}"
+                            title="{{ __('Create Social Media News Card') }}"
                             data-title="{{ $article->title }}"
                             data-category="{{ $article->category->display_name }}"
                             data-category-color="{{ $article->category->color }}"
@@ -434,7 +434,7 @@
                             data-date="{{ $article->published_at ? $article->published_at->format('d M, Y') : now()->format('d M, Y') }}"
                             data-url="{{ url()->current() }}">
                         <svg class="w-4 h-4 fill-current shrink-0 transition-transform group-hover:scale-110" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-                        <span>{{ __('📸 न्यूज़ कार्ड बनाएं') }}</span>
+                        <span>{{ __('📸 Create News Card') }}</span>
                     </button>
 
                     <!-- 7. Copy Link & Native Share Dual Action -->
@@ -444,7 +444,7 @@
                                 class="btn-native-share flex-1 flex items-center justify-center p-2.5 rounded-2xl bg-indigo-50 dark:bg-indigo-950/60 hover:bg-indigo-600 hover:text-white text-indigo-600 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-800 transition-all font-bold text-xs" 
                                 data-title="{{ $article->title }}" 
                                 data-url="{{ $shareUrl }}"
-                                title="{{ __('अधिक शेयर विकल्प') }}">
+                                title="{{ __('More Share Options') }}">
                             <svg class="w-4 h-4 fill-none stroke-current" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/></svg>
                         </button>
 
@@ -452,7 +452,7 @@
                         <button type="button" 
                                 class="btn-copy-link flex-1 flex items-center justify-center p-2.5 rounded-2xl bg-slate-100 dark:bg-slate-800 hover:bg-brand-primary hover:text-white text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 transition-all font-bold text-xs" 
                                 data-url="{{ $shareUrl }}" 
-                                title="{{ __('लिंक कॉपी करें') }}">
+                                title="{{ __('Copy Link') }}">
                             <svg class="w-4 h-4 fill-none stroke-current" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
                         </button>
                     </div>
@@ -465,7 +465,7 @@
                     <div class="flex items-center justify-between">
                         <h3 class="font-black text-xl sm:text-2xl text-slate-900 dark:text-white flex items-center gap-2.5">
                             <span class="w-3.5 h-3.5 rounded bg-brand-primary"></span>
-                            <span>{{ __('संबंधित व अन्य महत्वपूर्ण ख़बरें') }}</span>
+                            <span>{{ __('Related & Important Stories') }}</span>
                         </h3>
                     </div>
 
@@ -499,7 +499,7 @@
                                     <div class="flex items-center gap-2">
                                         <span>{{ $rel->published_at ? $rel->published_at->diffForHumans() : '' }}</span>
                                         <span>•</span>
-                                        <span>{{ number_format($rel->views_count) }} {{ __('व्यूज') }}</span>
+                                        <span>{{ number_format($rel->views_count) }} {{ __('views') }}</span>
                                     </div>
                                 </div>
                             </article>
@@ -512,37 +512,37 @@
             <section class="pt-8 border-t border-slate-200 dark:border-slate-800 space-y-6">
                 <div class="flex items-center justify-between">
                     <h3 class="font-black text-xl text-slate-900 dark:text-white">
-                        {{ __('पाठकों की टिप्पणियां') }} ({{ $article->approvedComments->count() }})
+                        {{ __('Reader Comments') }} ({{ $article->approvedComments->count() }})
                     </h3>
                 </div>
 
                 <!-- Post Comment Form -->
                 <form action="{{ route('portal.comment.store', $article->slug) }}" method="POST" class="bg-white dark:bg-slate-900 p-6 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
                     @csrf
-                    <h4 class="text-sm font-bold text-slate-900 dark:text-white">{{ __('अपनी टिप्पणी दें') }}</h4>
+                    <h4 class="text-sm font-bold text-slate-900 dark:text-white">{{ __('Leave a Comment') }}</h4>
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
-                            <label class="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-1">{{ __('आपका नाम *') }}</label>
+                            <label class="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-1">{{ __('Your Name *') }}</label>
                             <input type="text" name="user_name" required placeholder="User Name..." 
                                    class="w-full bg-slate-50 dark:bg-slate-800 text-sm rounded-xl px-3.5 py-2.5 border border-slate-200 dark:border-slate-700 focus:border-brand-primary outline-none">
                         </div>
 
                         <div>
-                            <label class="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-1">{{ __('ईमेल एड्रेस *') }}</label>
+                            <label class="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-1">{{ __('Email Address *') }}</label>
                             <input type="email" name="user_email" required placeholder="user@example.com" 
                                    class="w-full bg-slate-50 dark:bg-slate-800 text-sm rounded-xl px-3.5 py-2.5 border border-slate-200 dark:border-slate-700 focus:border-brand-primary outline-none">
                         </div>
                     </div>
 
                     <div>
-                        <label class="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-1">{{ __('आपकी टिप्पणी *') }}</label>
-                        <textarea name="comment" rows="3" required placeholder="{{ __('इस खबर पर अपने विचार रखें...') }}" 
+                        <label class="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-1">{{ __('Your Comment *') }}</label>
+                        <textarea name="comment" rows="3" required placeholder="{{ __('Share your thoughts on this story...') }}" 
                                   class="w-full bg-slate-50 dark:bg-slate-800 text-sm rounded-xl p-3.5 border border-slate-200 dark:border-slate-700 focus:border-brand-primary outline-none"></textarea>
                     </div>
 
                     <button type="submit" class="bg-brand-primary hover:brightness-110 text-white font-bold text-xs px-6 py-2.5 rounded-xl transition-all shadow-md">
-                        {{ __('टिप्पणी प्रकाशित करें') }}
+                        {{ __('Publish Comment') }}
                     </button>
                 </form>
 
@@ -559,7 +559,7 @@
                             </p>
                         </div>
                     @empty
-                        <p class="text-center text-xs text-slate-400 py-4">{{ __('अभी तक कोई टिप्पणी नहीं है। सबसे पहले टिप्पणी आप करें!') }}</p>
+                        <p class="text-center text-xs text-slate-400 py-4">{{ __('No comments yet. Be the first to comment!') }}</p>
                     @endforelse
                 </div>
             </section>
@@ -577,7 +577,7 @@
                     <div class="flex items-center justify-between px-1">
                         <span class="text-[10px] font-black uppercase tracking-wider text-slate-400 flex items-center gap-1">
                             <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
-                            {{ $article->custom_ad_title ?: __('प्रायोजित विज्ञापन') }}
+                            {{ $article->custom_ad_title ?: __('Sponsored Advertisement') }}
                         </span>
                         <span class="text-[9px] font-bold text-slate-400 uppercase tracking-widest border border-slate-200 dark:border-slate-700 px-1.5 py-0.5 rounded">AD</span>
                     </div>
@@ -590,7 +590,7 @@
                 <div class="rounded-3xl overflow-hidden border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-md p-3 space-y-2">
                     <div class="flex items-center justify-between px-1">
                         <span class="text-[10px] font-black uppercase tracking-wider text-slate-400">
-                            {{ $article->custom_ad_title ?: __('प्रायोजित विज्ञापन') }}
+                            {{ $article->custom_ad_title ?: __('Sponsored Advertisement') }}
                         </span>
                         <span class="text-[9px] font-bold text-slate-400 uppercase tracking-widest border border-slate-200 dark:border-slate-700 px-1.5 py-0.5 rounded">AD</span>
                     </div>
@@ -608,7 +608,7 @@
                         <div class="flex items-center justify-between px-1">
                             <span class="text-[10px] font-black uppercase tracking-wider text-slate-400 flex items-center gap-1">
                                 <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-                                {{ $ad->title ?: __('विज्ञापन') }}
+                                {{ $ad->title ?: __('Advertisement') }}
                             </span>
                             <span class="text-[9px] font-bold text-slate-400 uppercase tracking-widest border border-slate-200 dark:border-slate-700 px-1.5 py-0.5 rounded">AD</span>
                         </div>
@@ -634,7 +634,7 @@
                 <div class="bg-white dark:bg-slate-900 rounded-3xl p-5 border border-slate-200/80 dark:border-slate-800 shadow-xs space-y-4">
                     <h4 class="font-black text-sm uppercase tracking-wider text-slate-900 dark:text-white pb-2 border-b border-slate-100 dark:border-slate-800 flex items-center gap-2">
                         <span class="w-2 h-2 rounded-full bg-amber-500"></span>
-                        <span>{{ __('ट्रेंडिंग ख़बरें') }}</span>
+                        <span>{{ __('Trending Stories') }}</span>
                     </h4>
 
                     <div class="space-y-3">
@@ -647,7 +647,7 @@
                                     <h5 class="text-xs font-bold text-slate-800 dark:text-slate-200 line-clamp-2 group-hover:text-brand-primary transition-colors leading-snug">
                                         {{ $trend->title }}
                                     </h5>
-                                    <span class="text-[10px] text-slate-400 mt-0.5 block">{{ number_format($trend->views_count) }} {{ __('रीडर्स') }}</span>
+                                    <span class="text-[10px] text-slate-400 mt-0.5 block">{{ number_format($trend->views_count) }} {{ __('readers') }}</span>
                                 </div>
                             </a>
                         @endforeach
@@ -657,7 +657,7 @@
 
             <!-- 4. Author Details Card -->
             <div class="bg-gradient-to-br from-slate-900 to-slate-950 text-white rounded-3xl p-5 border border-slate-800 shadow-md space-y-3">
-                <span class="text-[10px] font-bold uppercase tracking-wider text-amber-400">{{ __('लेखक परिचय') }}</span>
+                <span class="text-[10px] font-bold uppercase tracking-wider text-amber-400">{{ __('About the Author') }}</span>
                 <div class="flex items-center gap-3">
                     <img src="{{ $article->author->avatar ?: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80' }}" alt="" class="w-12 h-12 rounded-full object-cover ring-2 ring-brand-primary">
                     <div>

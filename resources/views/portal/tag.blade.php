@@ -8,7 +8,7 @@
     <div class="p-8 rounded-3xl bg-slate-900 text-white shadow-xl flex items-center gap-4">
         <span class="text-3xl text-amber-400 font-mono">#</span>
         <div>
-            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">{{ __('ट्रेंडिंग टॉपिक्स') }}</span>
+            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">{{ __('Trending Topics') }}</span>
             <h1 class="text-3xl font-black">{{ $tag->name }}</h1>
         </div>
     </div>
@@ -39,12 +39,12 @@
 
                 <div class="px-5 pb-5 pt-2 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between text-xs text-slate-400">
                     <span class="font-semibold text-slate-700 dark:text-slate-300">{{ $art->author->name }}</span>
-                    <span>{{ number_format($art->views_count) }} {{ __('व्यूज') }}</span>
+                    <span>{{ number_format($art->views_count) }} {{ __('views') }}</span>
                 </div>
             </article>
         @empty
             <div class="col-span-full p-12 text-center text-slate-400">
-                इस टैग से जुड़ी अभी कोई खबर नहीं है।
+                {{ __('No stories found associated with this tag.') }}
             </div>
         @endforelse
     </div>

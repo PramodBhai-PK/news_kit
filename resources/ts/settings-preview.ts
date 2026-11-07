@@ -36,13 +36,13 @@ export class SettingsLivePreview {
 
         this.siteNameInput?.addEventListener('input', () => {
             if (this.previewTitle && this.siteNameInput) {
-                this.previewTitle.textContent = this.siteNameInput.value || 'The LallanTop News';
+                this.previewTitle.textContent = this.siteNameInput.value || 'NewsKit Portal';
             }
         });
 
         this.taglineInput?.addEventListener('input', () => {
             if (this.previewTagline && this.taglineInput) {
-                this.previewTagline.textContent = this.taglineInput.value || 'बेबाक, सटीक और सबसे तेज़ ख़बरें';
+                this.previewTagline.textContent = this.taglineInput.value || 'Truthful, Independent & Fast News';
             }
         });
 

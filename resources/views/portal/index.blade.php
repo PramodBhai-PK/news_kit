@@ -1,6 +1,6 @@
 @extends('layouts.portal')
 
-@section('title', setting('site_name', 'The LallanTop News') . ' - ' . __('होम'))
+@section('title', setting('site_name', 'The LallanTop News') . ' - ' . __('Home'))
 
 @section('extra_seo')
 @php
@@ -12,11 +12,11 @@
                 '@id' => url('/') . '/#website',
                 'url' => url('/'),
                 'name' => setting('site_name', 'The LallanTop News'),
-                'description' => setting('site_tagline', 'बेबाक, सटीक और सबसे तेज़ ख़बरें'),
+                'description' => setting('site_tagline', 'Fearless, Accurate and Fast Breaking News'),
                 'publisher' => [
                     '@id' => url('/') . '/#organization',
                 ],
-                'inLanguage' => app()->getLocale() ?: 'hi',
+                'inLanguage' => app()->getLocale() ?: 'en',
                 'potentialAction' => [
                     '@type' => 'SearchAction',
                     'target' => [
@@ -61,7 +61,7 @@
             <div class="flex items-center justify-between px-1">
                 <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1">
                     <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
-                    {{ $headerAd->title ?: __('प्रायोजित विज्ञापन') }}
+                    {{ $headerAd->title ?: __('Sponsored Advertisement') }}
                 </span>
                 <span class="text-[9px] font-bold text-slate-400 uppercase tracking-widest border border-slate-200 dark:border-slate-700 px-1.5 py-0.5 rounded">AD</span>
             </div>
@@ -97,7 +97,7 @@
                         @if($mainHero->is_breaking)
                             <span class="px-2.5 py-1 rounded-full text-xs font-extrabold bg-rose-600 text-white flex items-center gap-1">
                                 <span class="w-1.5 h-1.5 rounded-full bg-white live-pulse"></span>
-                                {{ __('ब्रेकिंग') }}
+                                {{ __('Breaking') }}
                             </span>
                         @endif
                         <span class="text-xs text-slate-300 font-medium">
@@ -125,8 +125,8 @@
                             <span class="font-semibold text-slate-200">{{ $mainHero->author->name }}</span>
                         </div>
                         <div class="flex items-center gap-4">
-                            <span>{{ $mainHero->reading_time }} {{ __('मिनट पढ़ाई') }}</span>
-                            <span>{{ number_format($mainHero->views_count) }} {{ __('व्यूज') }}</span>
+                            <span>{{ $mainHero->reading_time }} {{ __('min read') }}</span>
+                            <span>{{ number_format($mainHero->views_count) }} {{ __('views') }}</span>
                         </div>
                     </div>
                 </div>
@@ -153,7 +153,7 @@
                                 </div>
                                 <div class="flex items-center justify-between text-[11px] text-slate-400 mt-1">
                                     <span>{{ $sub->published_at ? $sub->published_at->diffForHumans() : '' }}</span>
-                                    <span>{{ number_format($sub->views_count) }} {{ __('व्यूज') }}</span>
+                                    <span>{{ number_format($sub->views_count) }} {{ __('views') }}</span>
                                 </div>
                             </div>
                         </article>
@@ -170,23 +170,23 @@
                 <div class="space-y-1">
                     <div class="flex items-center gap-2">
                         <span class="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-rose-600 text-white">
-                            {{ __('आपका चुना हुआ शहर') }}
+                            {{ __('Your Selected City') }}
                         </span>
                         <span class="text-xs text-rose-300 font-semibold">{{ $selectedCity->state->display_name }}</span>
                     </div>
                     <h2 class="text-xl sm:text-2xl font-black flex items-center gap-2">
                         <span>📍</span>
-                        <span>{{ $selectedCity->display_name }} ({{ $selectedCity->name }}) की ताजा खबरें</span>
+                        <span>{{ __('Latest News from :city', ['city' => $selectedCity->display_name]) }}</span>
                     </h2>
                 </div>
 
                 <div class="flex items-center gap-2 shrink-0">
                     <a href="{{ route('portal.city', $selectedCity->slug) }}" class="text-xs font-bold px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-white border border-white/20 transition-all flex items-center gap-1">
-                        <span>{{ __('सभी खबरें देखें') }}</span>
+                        <span>{{ __('View All News') }}</span>
                         <span>→</span>
                     </a>
                     <button type="button" onclick="document.getElementById('city-modal-trigger').click();" class="text-xs font-bold px-3 py-1.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white transition-all">
-                        {{ __('शहर बदलें') }}
+                        {{ __('Change City') }}
                     </button>
                 </div>
             </div>
@@ -202,7 +202,7 @@
                                     </div>
                                 @endif
                                 <span class="text-[10px] font-bold uppercase tracking-wider text-rose-400 block mb-1">
-                                    {{ $cArt->category->display_name ?? 'न्यूज़' }}
+                                    {{ $cArt->category->display_name ?? __('News') }}
                                 </span>
                                 <h3 class="text-xs sm:text-sm font-bold text-white group-hover:text-amber-300 line-clamp-2 leading-snug">
                                     <a href="{{ route('portal.article', $cArt->slug) }}">{{ $cArt->title }}</a>
@@ -210,14 +210,14 @@
                             </div>
                             <div class="pt-3 mt-2 border-t border-white/10 flex items-center justify-between text-[11px] text-slate-300">
                                 <span>{{ $cArt->published_at ? $cArt->published_at->diffForHumans() : '' }}</span>
-                                <span>{{ number_format($cArt->views_count) }} {{ __('व्यूज') }}</span>
+                                <span>{{ number_format($cArt->views_count) }} {{ __('views') }}</span>
                             </div>
                         </article>
                     @endforeach
                 </div>
             @else
                 <div class="p-6 text-center bg-white/5 rounded-2xl text-slate-300 text-xs">
-                    <p>{{ $selectedCity->display_name }} से संबंधित नई खबरें जल्द ही यहां प्रकाशित होंगी।</p>
+                    <p>{{ __('New stories from :city will be published here soon.', ['city' => $selectedCity->display_name]) }}</p>
                 </div>
             @endif
         </section>
@@ -227,13 +227,13 @@
             <div class="flex items-center gap-3">
                 <span class="text-2xl">📍</span>
                 <div>
-                    <h3 class="text-sm font-black text-slate-900 dark:text-white">{{ __('अपने शहर और जिले की ताज़ा लोकल खबरें पढ़ना चाहते हैं?') }}</h3>
-                    <p class="text-xs text-slate-600 dark:text-slate-300">{{ __('उत्तर प्रदेश, बिहार, दिल्ली, राजस्थान, मध्य प्रदेश आदि के 48+ प्रमुख शहरों की लोकल खबरें।') }}</p>
+                    <h3 class="text-sm font-black text-slate-900 dark:text-white">{{ __('Want to read breaking local news from your city and district?') }}</h3>
+                    <p class="text-xs text-slate-600 dark:text-slate-300">{{ __('Local news and grassroots updates from top cities and districts across the region.') }}</p>
                 </div>
             </div>
             <button type="button" onclick="document.getElementById('city-modal-trigger').click();" class="shrink-0 px-4 py-2 rounded-xl bg-brand-primary hover:brightness-110 text-white text-xs font-bold shadow-xs transition-all flex items-center gap-1.5">
                 <span>📍</span>
-                <span>{{ __('अपना शहर चुनें') }}</span>
+                <span>{{ __('Select Your City') }}</span>
             </button>
         </div>
     @endif
@@ -245,7 +245,7 @@
                 <div class="flex items-center gap-3">
                     <span class="w-3 h-3 rounded-full bg-amber-400 live-pulse"></span>
                     <h2 class="text-lg sm:text-xl font-black uppercase tracking-wider flex items-center gap-2">
-                        <span>{{ __('ट्रेंडिंग ख़बरें') }}</span>
+                        <span>{{ __('Trending Stories') }}</span>
                     </h2>
                 </div>
             </div>
@@ -263,7 +263,7 @@
                             <h4 class="text-sm font-bold text-slate-100 group-hover:text-amber-300 transition-colors line-clamp-2 leading-snug">
                                 <a href="{{ route('portal.article', $trend->slug) }}">{{ $trend->title }}</a>
                             </h4>
-                            <span class="block text-[11px] text-slate-400">{{ number_format($trend->views_count) }} {{ __('रीडर्स') }}</span>
+                            <span class="block text-[11px] text-slate-400">{{ number_format($trend->views_count) }} {{ __('readers') }}</span>
                         </div>
                     </div>
                 @endforeach
@@ -280,14 +280,14 @@
                     <div class="flex items-center gap-2">
                         <span class="w-3 h-3 rounded-full bg-rose-500"></span>
                         <span class="text-xs font-extrabold uppercase tracking-wider text-rose-600 dark:text-rose-400">
-                            {{ __('हाइपरलोकल न्यूज़ नेटवर्क') }}
+                            {{ __('Hyperlocal News Network') }}
                         </span>
                     </div>
                     <h2 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight">
-                        {{ __('राज्य व शहर न्यूज़ हब') }}
+                        {{ __('State & City News Hub') }}
                     </h2>
                     <p class="text-xs text-slate-500 dark:text-slate-400">
-                        {{ __('उत्तर प्रदेश, बिहार, दिल्ली-NCR, मध्य प्रदेश समेत देश के हर राज्य व जिले की ज़मीनी रिपोर्टिंग।') }}
+                        {{ __('Grassroots reporting and ground coverage from states, districts and cities.') }}
                     </p>
                 </div>
 
@@ -295,14 +295,14 @@
                     <button type="button" onclick="document.getElementById('city-modal-trigger').click();" 
                             class="px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 transition-colors flex items-center gap-1.5 border border-slate-300/80 dark:border-slate-700">
                         <span>📍</span>
-                        <span>{{ __('सभी 48+ शहर देखें') }}</span>
+                        <span>{{ __('Explore All Cities') }}</span>
                     </button>
                 </div>
             </div>
 
             <!-- State Tabs Bar -->
             <div class="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
-                <span class="text-xs font-bold text-slate-400 shrink-0 mr-1">{{ __('राज्य:') }}</span>
+                <span class="text-xs font-bold text-slate-400 shrink-0 mr-1">{{ __('State:') }}</span>
                 @foreach($portalStates as $stIndex => $st)
                     <a href="{{ route('portal.state', $st->slug) }}" 
                        class="px-3.5 py-1.5 rounded-full text-xs font-bold transition-all shrink-0 flex items-center gap-1.5 {{ $stIndex === 0 ? 'bg-brand-primary text-white shadow-xs' : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700' }}">
@@ -324,12 +324,12 @@
                                     </a>
                                     @if($hArt->city)
                                         <a href="{{ route('portal.city', $hArt->city->slug) }}" 
-                                           class="absolute top-2.5 left-2.5 bg-black/75 hover:bg-brand-primary text-white text-[10px] font-bold px-2 py-0.5 rounded-md backdrop-blur-xs transition-colors flex items-center gap-1">
+                                            class="absolute top-2.5 left-2.5 bg-black/75 hover:bg-brand-primary text-white text-[10px] font-bold px-2 py-0.5 rounded-md backdrop-blur-xs transition-colors flex items-center gap-1">
                                             <span>📍</span> {{ $hArt->city->display_name }}
                                         </a>
                                     @elseif($hArt->state)
                                         <a href="{{ route('portal.state', $hArt->state->slug) }}" 
-                                           class="absolute top-2.5 left-2.5 bg-black/75 hover:bg-brand-primary text-white text-[10px] font-bold px-2 py-0.5 rounded-md backdrop-blur-xs transition-colors flex items-center gap-1">
+                                            class="absolute top-2.5 left-2.5 bg-black/75 hover:bg-brand-primary text-white text-[10px] font-bold px-2 py-0.5 rounded-md backdrop-blur-xs transition-colors flex items-center gap-1">
                                             <span>📍</span> {{ $hArt->state->display_name }}
                                         </a>
                                     @endif
@@ -338,7 +338,7 @@
 
                             <div class="p-4 space-y-1.5">
                                 <div class="flex items-center gap-1.5 text-[11px] text-slate-400">
-                                    <span class="font-semibold text-brand-primary dark:text-rose-400">{{ $hArt->category->display_name ?? 'न्यूज़' }}</span>
+                                    <span class="font-semibold text-brand-primary dark:text-rose-400">{{ $hArt->category->display_name ?? __('News') }}</span>
                                     <span>•</span>
                                     <span>{{ $hArt->published_at ? $hArt->published_at->diffForHumans() : '' }}</span>
                                 </div>
@@ -351,7 +351,7 @@
 
                         <div class="px-4 pb-3 pt-2 border-t border-slate-200/60 dark:border-slate-800 flex items-center justify-between text-[11px] text-slate-400">
                             <span class="truncate max-w-[120px]">{{ $hArt->location_name ?: ($hArt->city ? $hArt->city->display_name : ($hArt->state ? $hArt->state->display_name : '')) }}</span>
-                            <span>{{ number_format($hArt->views_count) }} {{ __('व्यूज') }}</span>
+                            <span>{{ number_format($hArt->views_count) }} {{ __('views') }}</span>
                         </div>
                     </article>
                 @endforeach
@@ -359,7 +359,7 @@
 
             <!-- Hub Footer Bar -->
             <div class="pt-2 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs border-t border-slate-100 dark:border-slate-800">
-                <span class="text-slate-500 font-medium">{{ __('अपने पसंदीदा राज्य या जिले की खबरें खोजने के लिए राज्य पर क्लिक करें।') }}</span>
+                <span class="text-slate-500 font-medium">{{ __('Click on any state to discover news and updates from your preferred district or city.') }}</span>
                 <div class="flex items-center gap-3">
                     @foreach($portalStates->take(4) as $topSt)
                         <a href="{{ route('portal.state', $topSt->slug) }}" class="font-bold text-slate-700 dark:text-slate-300 hover:text-brand-primary">
@@ -377,7 +377,7 @@
             <div class="flex items-center justify-between px-1">
                 <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1">
                     <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-                    {{ $inFeedAd->title ?: __('प्रायोजित विज्ञापन') }}
+                    {{ $inFeedAd->title ?: __('Sponsored Advertisement') }}
                 </span>
                 <span class="text-[9px] font-bold text-slate-400 uppercase tracking-widest border border-slate-200 dark:border-slate-700 px-1.5 py-0.5 rounded">AD</span>
             </div>
@@ -403,14 +403,14 @@
                     </span>
                     <div>
                         <h2 class="text-lg sm:text-xl font-black uppercase tracking-wider flex items-center gap-2">
-                            <span>{{ __('वीडियो बुलेटिन व विशेष कवरेज') }}</span>
+                            <span>{{ __('Video Bulletins & Special Coverage') }}</span>
                             <span class="w-2 h-2 rounded-full bg-rose-500 live-pulse"></span>
                         </h2>
-                        <span class="text-xs text-slate-400 font-medium">{{ __('YouTube एवं डायरेक्ट एक्सक्लूसिव वीडियो रिपोर्ट') }}</span>
+                        <span class="text-xs text-slate-400 font-medium">{{ __('YouTube and direct exclusive video reports') }}</span>
                     </div>
                 </div>
                 <span class="text-xs text-amber-400 font-bold bg-amber-400/10 px-3 py-1 rounded-full border border-amber-400/20 w-fit">
-                    {{ __('डिजिटल वीडियो डेस्क') }}
+                    {{ __('Digital Video Desk') }}
                 </span>
             </div>
 
@@ -448,7 +448,7 @@
                         </h3>
                         <div class="flex items-center justify-between text-xs text-slate-400 pt-2 border-t border-slate-800">
                             <span>{{ $mainVideo->author->name }}</span>
-                            <span>{{ number_format($mainVideo->views_count) }} {{ __('व्यूज') }}</span>
+                            <span>{{ number_format($mainVideo->views_count) }} {{ __('views') }}</span>
                         </div>
                     </div>
                 </div>
@@ -483,7 +483,7 @@
                                 </div>
                                 <div class="flex items-center justify-between text-[11px] text-slate-400 mt-1">
                                     <span>{{ $vStory->published_at ? $vStory->published_at->diffForHumans() : '' }}</span>
-                                    <span>{{ number_format($vStory->views_count) }} {{ __('व्यूज') }}</span>
+                                    <span>{{ number_format($vStory->views_count) }} {{ __('views') }}</span>
                                 </div>
                             </div>
                         </article>
@@ -500,9 +500,9 @@
             <div class="flex items-center justify-between pb-3 border-b border-slate-200 dark:border-slate-800">
                 <h2 class="text-lg font-black text-slate-900 dark:text-white flex items-center gap-2">
                     <span class="w-3.5 h-3.5 rounded bg-brand-primary"></span>
-                    <span>{{ __('ताज़ा समाचार') }}</span>
+                    <span>{{ __('Latest News') }}</span>
                 </h2>
-                <span class="text-xs text-slate-500 font-semibold">{{ $latestArticles->total() }} {{ __('ख़बरें उपलब्ध') }}</span>
+                <span class="text-xs text-slate-500 font-semibold">{{ $latestArticles->total() }} {{ __('stories available') }}</span>
             </div>
 
             <!-- News Grid -->
@@ -555,11 +555,11 @@
 
                             <div class="flex items-center gap-3">
                                 <!-- Bookmark Button -->
-                                <button class="btn-bookmark hover:text-brand-primary transition-colors" data-article-id="{{ $art->id }}" title="{{ __('बुकमार्क करें') }}">
+                                <button class="btn-bookmark hover:text-brand-primary transition-colors" data-article-id="{{ $art->id }}" title="{{ __('Bookmark') }}">
                                     <svg class="w-4 h-4 fill-none stroke-current" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/></svg>
                                 </button>
                                 <!-- Share Button (Native Share on Mobile / Copy Link on Desktop) -->
-                                <button class="btn-native-share hover:text-brand-primary transition-colors" data-title="{{ $art->title }}" data-url="{{ route('portal.article', $art->slug) }}" title="{{ __('शेयर करें') }}">
+                                <button class="btn-native-share hover:text-brand-primary transition-colors" data-title="{{ $art->title }}" data-url="{{ route('portal.article', $art->slug) }}" title="{{ __('Share') }}">
                                     <svg class="w-4 h-4 fill-none stroke-current" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/></svg>
                                 </button>
                             </div>
@@ -582,36 +582,36 @@
                     <div class="flex items-center justify-between">
                         <span class="text-xs font-bold uppercase tracking-wider text-blue-200 flex items-center gap-1.5">
                             <span class="w-2 h-2 rounded-full bg-emerald-400 live-pulse"></span>
-                            {{ __('मौसम व समय') }}
+                            {{ __('Weather & Time') }}
                         </span>
                         
                         <!-- City Switcher -->
                         <select id="weather-city-select" class="text-xs font-bold bg-white/20 hover:bg-white/30 text-white border-none rounded-xl px-2.5 py-1 outline-none cursor-pointer">
-                            <option value="delhi" class="text-slate-900">{{ __('नई दिल्ली') }}</option>
-                            <option value="mumbai" class="text-slate-900">{{ __('मुंबई') }}</option>
-                            <option value="lucknow" class="text-slate-900">{{ __('लखनऊ') }}</option>
-                            <option value="patna" class="text-slate-900">{{ __('पटना') }}</option>
-                            <option value="bhopal" class="text-slate-900">{{ __('भोपाल') }}</option>
-                            <option value="jaipur" class="text-slate-900">{{ __('जयपुर') }}</option>
+                            <option value="delhi" class="text-slate-900">{{ __('New Delhi') }}</option>
+                            <option value="mumbai" class="text-slate-900">{{ __('Mumbai') }}</option>
+                            <option value="lucknow" class="text-slate-900">{{ __('Lucknow') }}</option>
+                            <option value="patna" class="text-slate-900">{{ __('Patna') }}</option>
+                            <option value="bhopal" class="text-slate-900">{{ __('Bhopal') }}</option>
+                            <option value="jaipur" class="text-slate-900">{{ __('Jaipur') }}</option>
                         </select>
                     </div>
 
                     <div class="flex items-center justify-between py-1">
                         <div>
                             <span id="weather-temp" class="text-4xl sm:text-5xl font-black tracking-tight">28°C</span>
-                            <span id="weather-desc" class="block text-xs text-blue-100 font-semibold mt-1">साफ मौसम</span>
+                            <span id="weather-desc" class="block text-xs text-blue-100 font-semibold mt-1">{{ __('Clear Weather') }}</span>
                         </div>
                         <div id="weather-icon" class="text-5xl sm:text-6xl drop-shadow-md">☀️</div>
                     </div>
 
                     <div class="text-[11px] text-blue-200 pt-3 border-t border-white/20 flex items-center justify-between font-medium">
                         <span id="weather-wind">10 km/h</span>
-                        <span class="bg-white/10 px-2 py-0.5 rounded-full">{{ __('लाइव अपडेट') }}</span>
+                        <span class="bg-white/10 px-2 py-0.5 rounded-full">{{ __('Live Update') }}</span>
                     </div>
 
                     <!-- Live Clock and Calendar -->
                     <div class="bg-black/30 backdrop-blur-xs rounded-2xl p-2.5 text-center text-xs font-mono font-bold text-amber-300 border border-white/10">
-                        <span id="weather-live-time">{{ __('लोड हो रहा है...') }}</span>
+                        <span id="weather-live-time">{{ __('Loading...') }}</span>
                     </div>
                 </div>
             </div>
@@ -623,16 +623,16 @@
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
                     </span>
                     <div>
-                        <h4 class="text-xs font-black uppercase tracking-wider text-amber-400">{{ __('दैनिक न्यूज़लेटर') }}</h4>
-                        <p class="text-[11px] text-slate-300">{{ __('शीर्ष 10 ख़बरें सीधे अपने इनबॉक्स में पाएं') }}</p>
+                        <h4 class="text-xs font-black uppercase tracking-wider text-amber-400">{{ __('Daily Newsletter') }}</h4>
+                        <p class="text-[11px] text-slate-300">{{ __('Get top 10 stories delivered directly to your inbox') }}</p>
                     </div>
                 </div>
                 <form action="{{ route('portal.newsletter.subscribe') }}" method="POST" class="newsletter-subscribe-form space-y-2 pt-1">
                     @csrf
-                    <input type="email" name="email" required placeholder="{{ __('अपना ईमेल दर्ज करें...') }}" 
+                    <input type="email" name="email" required placeholder="{{ __('Enter your email address...') }}" 
                            class="w-full bg-slate-800 text-xs text-white rounded-xl px-3.5 py-2.5 border border-slate-700 focus:border-brand-primary outline-none">
                     <button type="submit" class="w-full bg-brand-primary hover:brightness-110 text-white font-bold text-xs py-2.5 rounded-xl transition-all shadow-md">
-                        {{ __('मुफ्त सब्सक्राइब करें') }}
+                        {{ __('Subscribe Free') }}
                     </button>
                 </form>
             </div>
@@ -648,7 +648,7 @@
                             <div class="flex items-center justify-between px-1">
                                 <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1">
                                     <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
-                                    {{ $sAd->title ?: __('विज्ञापन') }}
+                                    {{ $sAd->title ?: __('Advertisement') }}
                                 </span>
                                 <span class="text-[9px] font-bold text-slate-400 uppercase tracking-widest border border-slate-200 dark:border-slate-700 px-1.5 py-0.5 rounded">AD</span>
                             </div>
@@ -669,7 +669,7 @@
             <!-- 2. Categories with Counter Badges -->
             <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-200/80 dark:border-slate-800 shadow-xs">
                 <h3 class="font-black text-sm uppercase tracking-wider text-slate-900 dark:text-white mb-4 pb-2 border-b border-slate-100 dark:border-slate-800">
-                    {{ __('प्रमुख श्रेणियां') }}
+                    {{ __('Top Categories') }}
                 </h3>
                 <div class="space-y-2.5">
                     @foreach($categories as $cat)
@@ -690,7 +690,7 @@
             @if(isset($popularTags) && $popularTags->isNotEmpty())
                 <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-200/80 dark:border-slate-800 shadow-xs">
                     <h3 class="font-black text-sm uppercase tracking-wider text-slate-900 dark:text-white mb-4 pb-2 border-b border-slate-100 dark:border-slate-800">
-                        {{ __('ट्रेंडिंग टॉपिक्स') }}
+                        {{ __('Trending Topics') }}
                     </h3>
                     <div class="flex flex-wrap gap-2">
                         @foreach($popularTags as $tag)
@@ -706,10 +706,10 @@
             <div class="p-6 rounded-3xl border border-rose-200 dark:border-rose-950/60 bg-rose-50/60 dark:bg-rose-950/20 space-y-3">
                 <div class="flex items-center gap-2 text-brand-primary font-bold text-xs uppercase tracking-wider">
                     <span class="w-2 h-2 rounded-full bg-brand-primary"></span>
-                    <span>{{ __('हमारा संकल्प') }}</span>
+                    <span>{{ __('Our Mission') }}</span>
                 </div>
                 <p class="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-medium">
-                    {{ setting('site_name') }} का ध्येय है बिना किसी दबाव या पक्षपात के जनता तक सत्य और ज़मीनी हक़ीक़त पहुँचाना।
+                    {{ __('The mission of :site is to deliver fearless, truthful, and unbiased journalism directly to our readers.', ['site' => setting('site_name')]) }}
                 </p>
             </div>
         </aside>

@@ -44,11 +44,11 @@ class ThemeCustomizerTest extends TestCase
         $response = $this->actingAs($this->admin)->get(route('admin.theme.index'));
 
         $response->assertStatus(200);
-        $response->assertSee('थीम कलर स्टूडियो', false);
+        $response->assertSee('Theme & Styling Studio');
         $response->assertSee('portal-preview-iframe', false);
-        $response->assertSee('The LallanTop Crimson', false);
-        $response->assertSee('AajTak Dynamic Red', false);
-        $response->assertSee('BBC / Reuters Deep Blue', false);
+        $response->assertSee('Editorial Crimson', false);
+        $response->assertSee('Dynamic Breaking Red', false);
+        $response->assertSee('Deep Corporate Blue', false);
     }
 
     public function test_super_admin_can_publish_new_theme_colors()

@@ -14,7 +14,7 @@ class ThemeController extends Controller
     public function index()
     {
         if (!auth()->user()->isAdmin()) {
-            abort(403, 'केवल प्रधान संपादक (Super Admin) को थीम व कलर सेटिंग्स बदलने की अनुमति है।');
+            abort(403, 'Only Super Admin is authorized to change theme settings.');
         }
 
         $currentPrimary = setting('primary_color', '#E11D48');
@@ -27,58 +27,58 @@ class ThemeController extends Controller
         // Curated Pro News Palettes
         $presets = [
             [
-                'id' => 'lallantop-crimson',
-                'name' => 'The LallanTop Crimson',
-                'tagline' => 'बोल्ड व एग्रेसिव न्यूज़ वाइब (Original)',
+                'id' => 'editorial-crimson',
+                'name' => 'Editorial Crimson',
+                'tagline' => 'Bold & authoritative news vibe (Default)',
                 'primary' => '#E11D48',
                 'accent' => '#F59E0B',
             ],
             [
-                'id' => 'aajtak-red',
-                'name' => 'AajTak Dynamic Red',
-                'tagline' => 'सबसे तेज़ ब्रेकिंग न्यूज़ लुक',
+                'id' => 'breaking-red',
+                'name' => 'Dynamic Breaking Red',
+                'tagline' => 'High-impact breaking news look',
                 'primary' => '#DC2626',
                 'accent' => '#FBBF24',
             ],
             [
-                'id' => 'bbc-blue',
-                'name' => 'BBC / Reuters Deep Blue',
-                'tagline' => 'अंतरराष्ट्रीय व कॉर्पोरेट जर्नलिज्म',
+                'id' => 'global-blue',
+                'name' => 'Deep Corporate Blue',
+                'tagline' => 'International & corporate journalism',
                 'primary' => '#1D4ED8',
                 'accent' => '#06B6D4',
             ],
             [
-                'id' => 'hindu-emerald',
-                'name' => 'The Hindu Emerald Green',
-                'tagline' => 'विश्वसनीय, शांत व क्लासिक पत्रकारिता',
+                'id' => 'classic-emerald',
+                'name' => 'Classic Emerald Green',
+                'tagline' => 'Trustworthy, balanced & classic journalism',
                 'primary' => '#059669',
                 'accent' => '#10B981',
             ],
             [
-                'id' => 'ndtv-orange',
+                'id' => 'sunset-orange',
                 'name' => 'Sunset Vibrant Orange',
-                'tagline' => 'युवा, ऊर्जावान और आकर्षक अपील',
+                'tagline' => 'Youthful, energetic & engaging appeal',
                 'primary' => '#EA580C',
                 'accent' => '#FBBF24',
             ],
             [
                 'id' => 'royal-amethyst',
                 'name' => 'Royal Amethyst & Rose',
-                'tagline' => 'प्रीमियम मैगज़ीन व ओपिनियन स्टाइल',
+                'tagline' => 'Premium magazine & opinion styling',
                 'primary' => '#7C3AED',
                 'accent' => '#F43F5E',
             ],
             [
                 'id' => 'cyber-teal',
                 'name' => 'Cyber Tech & Aqua',
-                'tagline' => 'साइंस, टेक व फ्यूचरिस्टिक न्यूज़',
+                'tagline' => 'Science, technology & future news',
                 'primary' => '#0D9488',
                 'accent' => '#2DD4BF',
             ],
             [
                 'id' => 'midnight-slate',
                 'name' => 'Midnight Executive Slate',
-                'tagline' => 'बिजनेस, फाइनेंस व डार्क मिनिमल',
+                'tagline' => 'Business, finance & dark minimal',
                 'primary' => '#0F172A',
                 'accent' => '#64748B',
             ],
@@ -96,7 +96,7 @@ class ThemeController extends Controller
     public function publish(Request $request)
     {
         if (!auth()->user()->isAdmin()) {
-            abort(403, 'केवल प्रधान संपादक (Super Admin) को थीम पब्लिश करने की अनुमति है।');
+            abort(403, 'Only Super Admin is authorized to publish themes.');
         }
 
         $validated = $request->validate([
@@ -113,20 +113,20 @@ class ThemeController extends Controller
         if ($request->wantsJson()) {
             return response()->json([
                 'success' => true,
-                'message' => 'नया थीम कलर सफलतापूर्वक लाइव न्यूज़ पोर्टल पर पब्लिश हो गया है!',
+                'message' => 'New theme colors published successfully to the live portal!',
                 'primary_color' => $validated['primary_color'],
                 'accent_color' => $validated['accent_color'],
             ]);
         }
 
         return redirect()->route('admin.theme.index')
-            ->with('success', 'नया थीम कलर सफलतापूर्वक लाइव न्यूज़ पोर्टल पर पब्लिश हो गया है!');
+            ->with('success', 'New theme colors published successfully to the live portal!');
     }
 
     public function reset(Request $request)
     {
         if (!auth()->user()->isAdmin()) {
-            abort(403, 'अनुमति नहीं है।');
+            abort(403, 'Unauthorized.');
         }
 
         $primary = setting('primary_color', '#E11D48');

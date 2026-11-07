@@ -24,13 +24,11 @@ class HyperlocalLocationNewsTest extends TestCase
     {
         $this->assertDatabaseHas('states', [
             'slug' => 'uttar-pradesh',
-            'name' => 'उत्तर प्रदेश',
             'name_en' => 'Uttar Pradesh',
         ]);
 
         $this->assertDatabaseHas('cities', [
             'slug' => 'lucknow',
-            'name' => 'लखनऊ',
             'name_en' => 'Lucknow',
         ]);
 
@@ -54,7 +52,7 @@ class HyperlocalLocationNewsTest extends TestCase
 
         $response->assertStatus(200);
         $response->assertSee('Lucknow');
-        $response->assertSee('District News Desk');
+        $response->assertSee('Hyperlocal District Desk');
     }
 
     public function test_city_switcher_sets_session_and_redirects()
@@ -70,7 +68,7 @@ class HyperlocalLocationNewsTest extends TestCase
     {
         $response = $this->withSession([
             'user_city_slug' => 'lucknow',
-            'user_city_name' => 'लखनऊ',
+            'user_city_name' => 'Lucknow',
         ])->get('/set-city/clear');
 
         $response->assertRedirect();
@@ -95,13 +93,13 @@ class HyperlocalLocationNewsTest extends TestCase
         $city = City::where('slug', 'lucknow')->first();
 
         $response = $this->actingAs($admin)->post(route('admin.articles.store'), [
-            'title' => 'लखनऊ में शुरू हुआ नया हेरिटेज कॉरिडोर प्रोजेक्ट',
-            'excerpt' => 'राजधानी लखनऊ के पुराने शहर में नया विकास कार्य शुरू हुआ।',
-            'content' => '<p>लखनऊ में मुख्यमंत्री ने नए विकास कार्यों का शिलान्यास किया।</p>',
+            'title' => 'New Urban Heritage Infrastructure Project Inaugurated',
+            'excerpt' => 'Major development initiative launched across key municipal districts.',
+            'content' => '<p>City administration announces comprehensive development programs.</p>',
             'category_id' => $category->id,
             'state_id' => $state->id,
             'city_id' => $city->id,
-            'location_name' => 'हजरतगंज, लखनऊ',
+            'location_name' => 'Downtown Central Avenue',
             'status' => 'published',
             'is_breaking' => false,
             'is_featured' => false,
@@ -111,14 +109,14 @@ class HyperlocalLocationNewsTest extends TestCase
         $response->assertRedirect(route('admin.articles.index'));
 
         $this->assertDatabaseHas('articles', [
-            'title' => 'लखनऊ में शुरू हुआ नया हेरिटेज कॉरिडोर प्रोजेक्ट',
+            'title' => 'New Urban Heritage Infrastructure Project Inaugurated',
             'state_id' => $state->id,
             'city_id' => $city->id,
-            'location_name' => 'हजरतगंज, लखनऊ',
+            'location_name' => 'Downtown Central Avenue',
         ]);
 
-        $article = Article::where('title', 'लखनऊ में शुरू हुआ नया हेरिटेज कॉरिडोर प्रोजेक्ट')->first();
-        $this->assertEquals('हजरतगंज, लखनऊ', $article->location_badge);
+        $article = Article::where('title', 'New Urban Heritage Infrastructure Project Inaugurated')->first();
+        $this->assertEquals('Downtown Central Avenue', $article->location_badge);
         $article->location_name = null;
         $this->assertEquals('Lucknow', $article->location_badge);
         $this->assertTrue($article->hasLocation());

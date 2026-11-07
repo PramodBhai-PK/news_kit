@@ -73,7 +73,7 @@ class RoleBasedAccessTest extends TestCase
     {
         $response = $this->actingAs($this->admin)->get('/admin/users');
         $response->assertStatus(200);
-        $response->assertSee('टीम व यूज़र्स प्रबंधन');
+        $response->assertSee('Team, Editors & Reporters');
 
         $response = $this->actingAs($this->admin)->get('/admin/settings');
         $response->assertStatus(200);
@@ -83,8 +83,8 @@ class RoleBasedAccessTest extends TestCase
     {
         $response = $this->actingAs($this->reporter)->get('/admin/dashboard');
         $response->assertStatus(200);
-        $response->assertSee('रिपोर्टर डैशबोर्ड');
-        $response->assertSee('मेरी कुल ख़बरें');
+        $response->assertSee('Reporter Dashboard');
+        $response->assertSee('My Total Articles');
     }
 
     public function test_reporter_cannot_access_team_management_or_settings(): void
@@ -100,7 +100,7 @@ class RoleBasedAccessTest extends TestCase
     {
         $response = $this->actingAs($this->reporter)->get('/admin/profile');
         $response->assertStatus(200);
-        $response->assertSee('व्यक्तिगत विवरण');
+        $response->assertSee('Personal Info');
     }
 
     public function test_reporter_cannot_edit_other_author_article(): void

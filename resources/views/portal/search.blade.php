@@ -1,24 +1,24 @@
 @extends('layouts.portal')
 
-@section('title', __('खोजें') . ': "' . $query . '" - ' . setting('site_name', 'The LallanTop News'))
+@section('title', __('Search') . ': "' . $query . '" - ' . setting('site_name', 'The LallanTop News'))
 
 @section('content')
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
 
     <!-- Search Header -->
     <div class="p-8 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
-        <span class="text-xs font-bold uppercase tracking-wider text-slate-400">{{ __('खोजें') }}</span>
+        <span class="text-xs font-bold uppercase tracking-wider text-slate-400">{{ __('Search') }}</span>
         <h1 class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white">
             "{{ $query }}"
         </h1>
-        <p class="text-xs text-slate-500">{{ $articles->total() }} {{ __('ख़बरें उपलब्ध') }}</p>
+        <p class="text-xs text-slate-500">{{ $articles->total() }} {{ __('stories available') }}</p>
 
         <form action="{{ route('portal.search') }}" method="GET" class="max-w-xl">
             <div class="relative">
-                <input type="text" name="q" value="{{ $query }}" placeholder="{{ __('खबरें खोजें...') }}"
+                <input type="text" name="q" value="{{ $query }}" placeholder="{{ __('Search news...') }}"
                        class="w-full bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-sm rounded-xl px-4 py-3 border border-slate-200 dark:border-slate-700 focus:border-brand-primary outline-none">
                 <button type="submit" class="absolute {{ ($isRtl ?? false) ? 'left-2' : 'right-2' }} top-2 bg-brand-primary text-white text-xs font-bold px-4 py-2 rounded-lg hover:brightness-110">
-                    {{ __('खोजें') }}
+                    {{ __('Search') }}
                 </button>
             </div>
         </form>
@@ -55,12 +55,12 @@
 
                 <div class="px-5 pb-5 pt-2 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between text-xs text-slate-400">
                     <span class="font-semibold text-slate-700 dark:text-slate-300">{{ $art->author->name }}</span>
-                    <span>{{ number_format($art->views_count) }} {{ __('व्यूज') }}</span>
+                    <span>{{ number_format($art->views_count) }} {{ __('views') }}</span>
                 </div>
             </article>
         @empty
             <div class="col-span-full p-12 text-center text-slate-400 space-y-2">
-                <p class="text-base font-bold text-slate-600 dark:text-slate-300">"{{ $query }}" - कोई खबर नहीं मिली</p>
+                <p class="text-base font-bold text-slate-600 dark:text-slate-300">{{ __('No stories found matching ":query"', ['query' => $query]) }}</p>
             </div>
         @endforelse
     </div>

@@ -1,7 +1,7 @@
 @extends('layouts.portal')
 
-@section('title', $city->display_name . ' न्यूज़ - ' . $city->state->display_name . ' | ताज़ा ख़बरें व ब्रेकिंग अपडेट्स')
-@section('meta_description', $city->display_name . ' (' . $city->name . '), ' . $city->state->display_name . ' की ताज़ा और ब्रेकिंग खबरें। नगर निगम, स्थानीय राजनीति, अपराध, मौसम और विकास से जुड़ी हर अपडेट पढ़ें।')
+@section('title', $city->display_name . ' ' . __('News') . ' - ' . $city->state->display_name . ' | ' . __('Latest News & Breaking Updates'))
+@section('meta_description', __('Read latest and breaking news from :city, :state. Local municipal updates, civic issues, politics, crime, weather and ground reports.', ['city' => $city->display_name, 'state' => $city->state->display_name]))
 
 @section('canonical_url', route('portal.city', $city->slug))
 
@@ -10,8 +10,8 @@
 {!! json_encode([
     '@context' => 'https://schema.org',
     '@type' => 'CollectionPage',
-    'name' => $city->display_name . ' समाचार - ' . setting('site_name', 'The LallanTop News'),
-    'description' => $city->display_name . ' की सभी ताज़ा खबरें',
+    'name' => $city->display_name . ' ' . __('News') . ' - ' . setting('site_name', 'The LallanTop News'),
+    'description' => __('All the latest news and ground reports from :city', ['city' => $city->display_name]),
     'url' => route('portal.city', $city->slug),
     'about' => [
         '@type' => 'City',
@@ -32,7 +32,7 @@
 
     <!-- Breadcrumb -->
     <nav class="flex items-center text-xs font-semibold text-slate-500 dark:text-slate-400 gap-2 flex-wrap">
-        <a href="{{ route('portal.index') }}" class="hover:text-brand-primary transition-colors">{{ __('होम') }}</a>
+        <a href="{{ route('portal.index') }}" class="hover:text-brand-primary transition-colors">{{ __('Home') }}</a>
         <span>/</span>
         <a href="{{ route('portal.state', $city->state->slug) }}" class="hover:text-brand-primary transition-colors">{{ $city->state->display_name }}</a>
         <span>/</span>
@@ -48,7 +48,7 @@
         <div class="relative z-10 max-w-3xl space-y-3">
             <div class="flex flex-wrap items-center gap-2">
                 <span class="px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider bg-rose-600/30 text-rose-300 border border-rose-500/30 backdrop-blur-md inline-flex items-center gap-1.5">
-                    <span>📍</span> {{ __('हाइपरलोकल जिला डेस्क') }}
+                    <span>📍</span> {{ __('Hyperlocal District Desk') }}
                 </span>
                 <a href="{{ route('portal.state', $city->state->slug) }}" class="px-2.5 py-1 rounded-full text-[11px] font-bold bg-white/10 hover:bg-white/20 text-slate-200 transition-colors">
                     {{ $city->state->display_name }}
@@ -60,7 +60,7 @@
             </h1>
 
             <p class="text-sm sm:text-base text-slate-300 leading-relaxed font-normal">
-                {{ $city->display_name }} ({{ $city->state->display_name }}) की ताजा खबरें, स्थानीय समस्याएं, नगर प्रशासन, ट्रैफिक, मौसम और आसपास के गांवों-कस्बों की हर बड़ी खबर।
+                {{ __('Get the latest news, local civic issues, municipal updates, traffic, weather, and breaking regional stories from :city (:state).', ['city' => $city->display_name, 'state' => $city->state->display_name]) }}
             </p>
 
             <!-- Quick Action: Make Default City -->
@@ -68,16 +68,16 @@
                 @if(session('user_city_slug') === $city->slug)
                     <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-xs font-bold">
                         <svg class="w-4 h-4 text-emerald-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                        <span>{{ __('आपका चुना हुआ शहर') }}</span>
+                        <span>{{ __('Your Selected City') }}</span>
                     </span>
                     <a href="{{ route('portal.set-city', 'clear') }}" class="text-xs text-slate-400 hover:text-white underline">
-                        {{ __('बदलें या रीसेट करें') }}
+                        {{ __('Change or Reset') }}
                     </a>
                 @else
                     <a href="{{ route('portal.set-city', $city->slug) }}" 
                        class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-brand-primary hover:brightness-110 text-white text-xs font-bold shadow-md transition-all transform hover:-translate-y-0.5">
                         <span>📍</span>
-                        <span>{{ $city->display_name }} को अपना मुख्य शहर बनाएं</span>
+                        <span>{{ __('Set :city as your default city', ['city' => $city->display_name]) }}</span>
                     </a>
                 @endif
             </div>
@@ -89,7 +89,7 @@
             <div class="flex items-center justify-between mb-3 text-xs font-bold text-slate-300">
                 <span class="flex items-center gap-1.5">
                     <svg class="w-3.5 h-3.5 text-rose-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/></svg>
-                    <span>{{ $city->state->display_name }} के अन्य जिले व शहर:</span>
+                    <span>{{ __('Other districts and cities in :state:', ['state' => $city->state->display_name]) }}</span>
                 </span>
             </div>
             <div class="flex flex-wrap gap-2">
@@ -112,10 +112,10 @@
             <div class="flex items-center justify-between pb-3 border-b border-slate-200 dark:border-slate-800">
                 <h2 class="text-xl font-black text-slate-900 dark:text-white flex items-center gap-2">
                     <span class="w-2.5 h-2.5 rounded-full bg-brand-primary"></span>
-                    <span>{{ $city->display_name }} से ताज़ा खबरें</span>
+                    <span>{{ __('Latest Stories from :city', ['city' => $city->display_name]) }}</span>
                 </h2>
                 <span class="text-xs text-slate-500 font-semibold">
-                    {{ $articles->total() }} {{ __('खबरें उपलब्ध') }}
+                    {{ $articles->total() }} {{ __('stories available') }}
                 </span>
             </div>
 
@@ -139,7 +139,7 @@
 
                             <div class="p-5 space-y-2">
                                 <div class="flex items-center gap-2 text-xs text-slate-400">
-                                    <span class="font-semibold text-brand-primary dark:text-rose-400">{{ $art->category->display_name ?? 'न्यूज़' }}</span>
+                                    <span class="font-semibold text-brand-primary dark:text-rose-400">{{ $art->category->display_name ?? __('News') }}</span>
                                     <span>•</span>
                                     <span>{{ $art->published_at ? $art->published_at->format('d M, Y') : '' }}</span>
                                 </div>
@@ -157,7 +157,7 @@
                         </div>
 
                         <div class="px-5 pb-5 pt-3 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between text-xs text-slate-400">
-                            <span class="font-semibold text-slate-700 dark:text-slate-300">{{ $art->author->name ?? 'लोकल रिपोर्टर' }}</span>
+                            <span class="font-semibold text-slate-700 dark:text-slate-300">{{ $art->author->name ?? __('Staff Reporter') }}</span>
                             <span class="flex items-center gap-1">
                                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
                                 {{ number_format($art->views_count) }}
@@ -167,10 +167,10 @@
                 @empty
                     <div class="col-span-full p-12 text-center bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-dashed border-slate-300 dark:border-slate-800 text-slate-400 space-y-2">
                         <span class="text-4xl">📍</span>
-                        <p class="text-sm font-semibold">{{ $city->display_name }} से संबंधित खबरें जल्द ही लाइव की जाएंगी।</p>
+                        <p class="text-sm font-semibold">{{ __('New stories from :city will be published here soon.', ['city' => $city->display_name]) }}</p>
                         <div class="pt-2">
                             <a href="{{ route('portal.state', $city->state->slug) }}" class="inline-flex items-center gap-1 text-xs text-brand-primary font-bold hover:underline">
-                                <span>{{ $city->state->display_name }} राज्य की खबरें देखें →</span>
+                                <span>{{ __('View :state News →', ['state' => $city->state->display_name]) }}</span>
                             </a>
                         </div>
                     </div>
@@ -190,7 +190,7 @@
             <div class="bg-white dark:bg-slate-900 rounded-2xl p-5 border border-slate-200/80 dark:border-slate-800 shadow-xs">
                 <h3 class="text-base font-black text-slate-900 dark:text-white pb-3 border-b border-slate-100 dark:border-slate-800 flex items-center gap-2">
                     <span class="text-amber-500">🔥</span>
-                    <span>{{ __('क्षेत्रीय ट्रेंडिंग न्यूज़') }}</span>
+                    <span>{{ __('Regional Trending News') }}</span>
                 </h3>
                 <div class="divide-y divide-slate-100 dark:divide-slate-800/80 mt-2">
                     @forelse($trendingArticles as $idx => $trend)
@@ -203,25 +203,25 @@
                                     {{ $trend->title }}
                                 </h4>
                                 <span class="text-[11px] text-slate-400 font-medium">
-                                    {{ number_format($trend->views_count) }} {{ __('व्यूज') }}
+                                    {{ number_format($trend->views_count) }} {{ __('views') }}
                                 </span>
                             </div>
                         </a>
                     @empty
-                        <p class="text-xs text-slate-400 py-3">{{ __('कोई ट्रेंडिंग खबर नहीं है।') }}</p>
+                        <p class="text-xs text-slate-400 py-3">{{ __('No trending stories available.') }}</p>
                     @endforelse
                 </div>
             </div>
 
             <!-- State Link Box -->
             <div class="bg-linear-to-br from-indigo-900 to-slate-900 text-white rounded-2xl p-6 shadow-md space-y-3">
-                <span class="text-xs font-bold uppercase tracking-wider text-indigo-300">📍 {{ __('राज्य मुख्य पृष्ठ') }}</span>
-                <h4 class="text-lg font-black">{{ $city->state->display_name }} राज्य डेस्क</h4>
+                <span class="text-xs font-bold uppercase tracking-wider text-indigo-300">📍 {{ __('State Main Page') }}</span>
+                <h4 class="text-lg font-black">{{ __(':state Desk', ['state' => $city->state->display_name]) }}</h4>
                 <p class="text-xs text-indigo-100/80 leading-relaxed">
-                    पूरे {{ $city->state->display_name }} के सभी जिलों, राजनीति और सरकारी योजनाओं की विस्तृत रिपोर्ट्स पढ़ें।
+                    {{ __('Read in-depth reports, politics, and civic updates from all districts across :state.', ['state' => $city->state->display_name]) }}
                 </p>
                 <a href="{{ route('portal.state', $city->state->slug) }}" class="inline-flex items-center gap-2 text-xs font-black bg-white text-slate-950 px-4 py-2 rounded-xl hover:bg-slate-100 transition-colors shadow-xs">
-                    <span>{{ $city->state->display_name }} की खबरें पढ़ें</span>
+                    <span>{{ __('Read :state News', ['state' => $city->state->display_name]) }}</span>
                     <span>→</span>
                 </a>
             </div>

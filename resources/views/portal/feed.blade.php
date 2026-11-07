@@ -9,9 +9,9 @@
         <title>{{ setting('site_name', 'The LallanTop News') }}</title>
         <atom:link href="{{ route('portal.feed') }}" rel="self" type="application/rss+xml" />
         <link>{{ url('/') }}</link>
-        <description>{{ setting('site_tagline', 'बेबाक, सटीक और सबसे तेज़ ख़बरें') }}</description>
+        <description>{{ setting('site_tagline', 'Fearless, Accurate and Fast Breaking News') }}</description>
         <lastBuildDate>{{ now()->toRssString() }}</lastBuildDate>
-        <language>{{ app()->getLocale() ?: 'hi' }}</language>
+        <language>{{ app()->getLocale() ?: 'en' }}</language>
         <generator>{{ setting('site_name', 'News Kit CMS') }}</generator>
 
         @foreach($articles as $article)

@@ -17,9 +17,9 @@ class SetLocale
      */
     public const SUPPORTED_LOCALES = [
         'en' => ['name' => 'English', 'native' => 'English', 'dir' => 'ltr', 'flag' => '🌐'],
-        'hi' => ['name' => 'हिंदी', 'native' => 'हिंदी', 'dir' => 'ltr', 'flag' => '🇮🇳'],
-        'ur' => ['name' => 'Urdu', 'native' => 'اردو', 'dir' => 'rtl', 'flag' => '🇵🇰'],
-        'ar' => ['name' => 'Arabic', 'native' => 'العربية', 'dir' => 'rtl', 'flag' => '🇦🇪'],
+        'hi' => ['name' => 'Hindi', 'native' => 'Hindi', 'dir' => 'ltr', 'flag' => '🇮🇳'],
+        'ur' => ['name' => 'Urdu', 'native' => 'Urdu', 'dir' => 'rtl', 'flag' => '🇵🇰'],
+        'ar' => ['name' => 'Arabic', 'native' => 'Arabic', 'dir' => 'rtl', 'flag' => '🇦🇪'],
     ];
 
     public function handle(Request $request, Closure $next): Response

@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', setting('site_name', 'The LallanTop News')) - {{ setting('site_tagline', 'बेबाक, सटीक और सबसे तेज़ ख़बरें') }}</title>
+    <title>@yield('title', setting('site_name', 'NewsKit Portal')) - {{ setting('site_tagline', 'Truthful, Independent & Fast News') }}</title>
     
-    <meta name="description" content="@yield('meta_description', setting('meta_description', 'देश और दुनिया की ताज़ा ख़बरें सबसे पहले।'))">
+    <meta name="description" content="@yield('meta_description', setting('meta_description', 'Breaking news, investigative journalism, politics, technology, and sports.'))">
     <link rel="icon" type="image/svg+xml" href="{{ setting('favicon_url', '/images/favicon.svg') }}">
 
     <!-- Google News, Google Discover & Search Engine Directives -->
@@ -24,13 +24,13 @@
     <link rel="alternate" hreflang="x-default" href="{{ url()->current() }}">
 
     <!-- RSS & News Feed Discovery for Feed Readers / Aggregators -->
-    <link rel="alternate" type="application/rss+xml" title="{{ setting('site_name', 'The LallanTop News') }} RSS Feed" href="{{ route('portal.feed') }}">
+    <link rel="alternate" type="application/rss+xml" title="{{ setting('site_name', 'NewsKit Portal') }} RSS Feed" href="{{ route('portal.feed') }}">
 
     <!-- Open Graph (Facebook, WhatsApp, LinkedIn, Telegram) -->
-    <meta property="og:site_name" content="{{ setting('site_name', 'The LallanTop News') }}">
+    <meta property="og:site_name" content="{{ setting('site_name', 'NewsKit Portal') }}">
     <meta property="og:type" content="@yield('og_type', 'website')">
-    <meta property="og:title" content="@yield('title', setting('site_name', 'The LallanTop News'))">
-    <meta property="og:description" content="@yield('meta_description', setting('meta_description', 'देश और दुनिया की ताज़ा ख़बरें सबसे पहले।'))">
+    <meta property="og:title" content="@yield('title', setting('site_name', 'NewsKit Portal'))">
+    <meta property="og:description" content="@yield('meta_description', setting('meta_description', 'Breaking news, investigative journalism, politics, technology, and sports.'))">
     <meta property="og:url" content="@yield('canonical_url', url()->current())">
     <meta property="og:image" content="@yield('og_image', asset(setting('logo_url', '/images/logo.svg')))">
     <meta property="og:image:alt" content="@yield('title', setting('site_name'))">
@@ -38,7 +38,7 @@
 
     <!-- Twitter / X Cards (Large Image Preview for Viral Sharing) -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="@yield('title', setting('site_name', 'The LallanTop News'))">
+    <meta name="twitter:title" content="@yield('title', setting('site_name', 'NewsKit Portal'))">
     <meta name="twitter:description" content="@yield('meta_description', setting('meta_description'))">
     <meta name="twitter:image" content="@yield('og_image', asset(setting('logo_url', '/images/logo.svg')))">
 
@@ -89,7 +89,7 @@
                 <!-- Live Clock -->
                 <div class="hidden sm:flex items-center gap-2 text-slate-400 font-medium shrink-0">
                     <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 live-pulse"></span>
-                    <span id="live-clock" class="tracking-wide">{{ __('लोड हो रहा है...') }}</span>
+                    <span id="live-clock" class="tracking-wide">{{ __('Loading...') }}</span>
                 </div>
 
                 <!-- Breaking News Ticker if enabled -->
@@ -97,7 +97,7 @@
                     <div id="news-ticker" class="flex-1 flex items-center overflow-hidden h-7 max-w-3xl">
                         <span class="bg-brand-primary text-white font-extrabold px-2.5 py-0.5 rounded text-[11px] uppercase tracking-wider flex items-center gap-1.5 shrink-0 {{ ($isRtl ?? false) ? 'ml-3' : 'mr-3' }}">
                             <span class="w-1.5 h-1.5 rounded-full bg-white live-pulse"></span>
-                            {{ setting('breaking_ticker_title') ? __(setting('breaking_ticker_title')) : __('ताज़ा ख़बर') }}
+                            {{ setting('breaking_ticker_title') ? __(setting('breaking_ticker_title')) : __('Breaking News') }}
                         </span>
                         <div id="ticker-items" class="flex-1 overflow-hidden relative h-5">
                             @foreach($breakingNews as $index => $item)
@@ -110,10 +110,10 @@
                             @endforeach
                         </div>
                         <div class="hidden md:flex items-center gap-1 {{ ($isRtl ?? false) ? 'mr-2' : 'ml-2' }} shrink-0">
-                            <button id="ticker-prev" aria-label="{{ __('पिछली खबर') }}" class="p-1 hover:text-white text-slate-400 hover:bg-slate-800 rounded rtl-flip">
+                            <button id="ticker-prev" aria-label="{{ __('Previous Story') }}" class="p-1 hover:text-white text-slate-400 hover:bg-slate-800 rounded rtl-flip">
                                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/></svg>
                             </button>
-                            <button id="ticker-next" aria-label="{{ __('अगली खबर') }}" class="p-1 hover:text-white text-slate-400 hover:bg-slate-800 rounded rtl-flip">
+                            <button id="ticker-next" aria-label="{{ __('Next Story') }}" class="p-1 hover:text-white text-slate-400 hover:bg-slate-800 rounded rtl-flip">
                                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
                             </button>
                         </div>
@@ -126,10 +126,10 @@
                             class="flex items-center gap-1.5 py-1 px-2.5 rounded-md bg-linear-to-r from-rose-600/25 to-amber-600/25 hover:from-rose-600/35 hover:to-amber-600/35 text-rose-300 hover:text-white transition-all text-xs font-semibold border border-rose-500/30 shadow-xs focus:outline-none">
                         <span class="text-xs">📍</span>
                         <span class="tracking-wide font-bold truncate max-w-[110px] sm:max-w-[140px]">
-                            {{ !empty($userCityName) ? $userCityName : __('अपना शहर चुनें') }}
+                            {{ !empty($userCityName) ? $userCityName : __('Select City') }}
                         </span>
                         @if(!empty($userCitySlug))
-                            <a href="{{ route('portal.set-city', 'clear') }}" title="{{ __('शहर हटाएं') }}" onclick="event.stopPropagation();" class="text-rose-400 hover:text-white ml-0.5 p-0.5 rounded hover:bg-rose-500/30">
+                            <a href="{{ route('portal.set-city', 'clear') }}" title="{{ __('Clear City') }}" onclick="event.stopPropagation();" class="text-rose-400 hover:text-white ml-0.5 p-0.5 rounded hover:bg-rose-500/30">
                                 <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg>
                             </a>
                         @else
@@ -143,7 +143,7 @@
                     <a href="{{ route('portal.citizen-tip') }}" 
                        class="flex items-center gap-1 py-1 px-2.5 rounded-md bg-rose-600 hover:bg-rose-700 text-white transition-all text-xs font-bold shadow-xs">
                         <span>📢</span>
-                        <span class="hidden sm:inline">{{ __('ख़बर भेजें') }}</span>
+                        <span class="hidden sm:inline">{{ __('Submit News Tip') }}</span>
                     </a>
                 </div>
 
@@ -165,7 +165,7 @@
                     <div id="lang-dropdown-menu" 
                          class="hidden absolute {{ ($isRtl ?? false) ? 'left-0' : 'right-0' }} mt-1.5 w-48 rounded-xl bg-slate-900 border border-slate-700 shadow-2xl py-1.5 z-50 text-xs divide-y divide-slate-800/80">
                         <div class="px-3 py-1.5 text-[10px] uppercase font-bold tracking-wider text-slate-400">
-                            {{ __('भाषा चुनें') }}
+                            {{ __('Select Language') }}
                         </div>
                         <div class="py-1">
                             @foreach($supportedLocales as $locCode => $locMeta)
@@ -177,7 +177,7 @@
                                     </div>
                                     <div class="flex items-center gap-1.5">
                                         @if($locMeta['dir'] === 'rtl')
-                                            <span class="text-[9px] font-bold px-1 py-0.5 rounded bg-amber-500/20 text-amber-300">RTL</span>
+                                             <span class="text-[9px] font-bold px-1 py-0.5 rounded bg-amber-500/20 text-amber-300">RTL</span>
                                         @endif
                                         @if(($currentLocale ?? 'en') === $locCode)
                                             <svg class="w-3.5 h-3.5 text-brand-primary" fill="currentColor" viewBox="0 0 20 20">
@@ -208,14 +208,14 @@
 
                     <a href="{{ route('portal.index') }}" class="flex items-center gap-2 group">
                         <img src="{{ setting('logo_url', '/images/logo.svg') }}" 
-                             alt="{{ setting('site_name', 'The LallanTop News') }}" 
+                             alt="{{ setting('site_name', 'NewsKit Portal') }}" 
                              class="h-9 sm:h-10 w-auto object-contain transition-transform group-hover:scale-105">
                         <div>
                             <span class="block text-lg sm:text-xl font-black tracking-tight text-slate-900 dark:text-white group-hover:text-brand-primary transition-colors leading-none">
-                                {{ setting('site_name', 'The LallanTop News') }}
+                                {{ setting('site_name', 'NewsKit Portal') }}
                             </span>
                             <span class="block text-[10px] font-semibold text-slate-500 dark:text-slate-400 leading-tight mt-0.5 hidden 2xl:block truncate max-w-[160px]">
-                                {{ setting('site_tagline', 'बेबाक, सटीक और सबसे तेज़ ख़बरें') }}
+                                {{ setting('site_tagline', 'Truthful, Independent & Fast News') }}
                             </span>
                         </div>
                     </a>
@@ -225,7 +225,7 @@
                 <nav class="hidden lg:flex items-center gap-1 text-xs font-bold py-1 flex-1 justify-center relative">
                     <a href="{{ route('portal.index') }}" 
                        class="px-2.5 py-1.5 rounded-lg whitespace-nowrap transition-colors {{ request()->routeIs('portal.index') ? 'bg-brand-primary text-white shadow-xs' : 'text-slate-700 dark:text-slate-300 hover:text-brand-primary hover:bg-slate-100 dark:hover:bg-slate-800/60' }}">
-                        {{ __('होम') }}
+                        {{ __('Home') }}
                     </a>
 
                     <!-- State & City Hyperlocal Mega Dropdown -->
@@ -234,7 +234,7 @@
                         <button type="button" id="state-city-dropdown-btn"
                                 class="px-2.5 py-1.5 rounded-lg whitespace-nowrap transition-colors flex items-center gap-1.5 {{ request()->routeIs('portal.state') || request()->routeIs('portal.city') ? 'bg-brand-primary text-white shadow-xs' : 'text-slate-700 dark:text-slate-300 hover:text-brand-primary hover:bg-slate-100 dark:hover:bg-slate-800/60' }}">
                             <span class="text-rose-500">📍</span>
-                            <span>{{ __('राज्य व शहर') }}</span>
+                            <span>{{ __('States & Cities') }}</span>
                             <svg class="w-3.5 h-3.5 text-slate-400 group-hover/state-nav:rotate-180 transition-transform duration-200" id="state-city-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
                             </svg>
@@ -245,9 +245,9 @@
                              class="hidden group-hover/state-nav:block absolute {{ ($isRtl ?? false) ? 'right-0' : 'left-0' }} top-full pt-1.5 w-84 sm:w-96 z-50 animate-in fade-in slide-in-from-top-1 duration-150">
                             <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-2xl p-3.5 text-left">
                                 <div class="flex items-center justify-between pb-2 mb-2 border-b border-slate-100 dark:border-slate-800 text-[11px] font-bold text-slate-400 uppercase tracking-wider">
-                                    <span>{{ __('राज्य विशेष') }}</span>
+                                    <span>{{ __('State Editions') }}</span>
                                     <button type="button" onclick="document.getElementById('city-modal-trigger').click();" class="text-brand-primary hover:underline font-bold normal-case">
-                                        {{ __('सभी 48+ शहर खोजें →') }}
+                                        {{ __('Explore all 48+ cities →') }}
                                     </button>
                                 </div>
                                 <div class="space-y-1.5 max-h-84 overflow-y-auto pr-1">
@@ -258,7 +258,7 @@
                                                     <span class="w-2 h-2 rounded-full bg-rose-500"></span>
                                                     <span>{{ $st->display_name }}</span>
                                                 </span>
-                                                <span class="text-[10px] text-slate-400 font-semibold">{{ $st->cities->count() }} {{ __('जिले') }} →</span>
+                                                <span class="text-[10px] text-slate-400 font-semibold">{{ $st->cities->count() }} {{ __('Districts') }} →</span>
                                             </a>
                                             @if($st->cities->isNotEmpty())
                                                 <div class="flex flex-wrap gap-1 mt-1.5 pl-3.5">
@@ -292,7 +292,7 @@
                 <!-- Right: Compact Instant Search -->
                 <div class="flex items-center gap-1.5 shrink-0">
                     <!-- Mobile Search Icon Only Toggle Button -->
-                    <button id="mobile-search-toggle" type="button" aria-label="{{ __('खोजें') }}" 
+                    <button id="mobile-search-toggle" type="button" aria-label="{{ __('Search') }}" 
                             class="sm:hidden p-2 rounded-xl text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
@@ -302,7 +302,7 @@
                     <!-- Desktop / Tablet Search Input Form: Compact by default, smoothly expands on focus -->
                     <div class="hidden sm:block">
                         <form action="{{ route('portal.search') }}" method="GET" class="relative w-36 lg:w-44 xl:w-52 focus-within:w-60 transition-all duration-300">
-                            <input type="text" name="q" placeholder="{{ __('खबरें खोजें...') }}" 
+                            <input type="text" name="q" placeholder="{{ __('Search news...') }}" 
                                    value="{{ request('q') }}"
                                    class="w-full bg-slate-100 dark:bg-slate-800/80 text-slate-900 dark:text-slate-100 text-xs rounded-full {{ ($isRtl ?? false) ? 'pr-8 pl-3' : 'pl-8 pr-3' }} py-1.5 border border-transparent focus:border-brand-primary focus:bg-white dark:focus:bg-slate-900 outline-none transition-all shadow-inner">
                             <span class="absolute {{ ($isRtl ?? false) ? 'right-2.5' : 'left-2.5' }} top-2 text-slate-400">
@@ -318,7 +318,7 @@
         <!-- Mobile Dropdown Search Input Bar -->
         <div id="mobile-search-dropdown" class="hidden sm:hidden border-t border-slate-200/90 dark:border-slate-800 bg-white/95 dark:bg-slate-900/95 backdrop-blur px-4 py-2.5 shadow-sm">
             <form action="{{ route('portal.search') }}" method="GET" class="relative w-full flex items-center">
-                <input type="text" id="mobile-search-input" name="q" placeholder="{{ __('खबरें खोजें (Search stories)...') }}" 
+                <input type="text" id="mobile-search-input" name="q" placeholder="{{ __('Search stories...') }}" 
                        value="{{ request('q') }}"
                        class="w-full bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-xs rounded-full {{ ($isRtl ?? false) ? 'pr-9 pl-9' : 'pl-9 pr-9' }} py-2 border border-slate-200 dark:border-slate-700 focus:border-brand-primary outline-none">
                 <span class="absolute {{ ($isRtl ?? false) ? 'right-3' : 'left-3' }} top-2.5 text-slate-400">
@@ -344,7 +344,7 @@
 
                 <!-- Language Selector in Mobile Drawer -->
                 <div class="mt-4 pb-4 border-b border-slate-200 dark:border-slate-800">
-                    <span class="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-2">{{ __('भाषा चुनें') }}</span>
+                    <span class="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-2">{{ __('Select Language') }}</span>
                     <div class="grid grid-cols-2 gap-2">
                         @foreach($supportedLocales as $locCode => $locMeta)
                             <a href="{{ route('portal.locale', $locCode) }}" 
@@ -360,13 +360,13 @@
                 </div>
 
                 <form action="{{ route('portal.search') }}" method="GET" class="mt-4">
-                    <input type="text" name="q" placeholder="{{ __('खबरें खोजें...') }}" 
+                    <input type="text" name="q" placeholder="{{ __('Search news...') }}" 
                            class="w-full bg-slate-100 dark:bg-slate-800 text-sm rounded-lg px-3 py-2 border border-slate-300 dark:border-slate-700">
                 </form>
 
                 <div class="mt-6 flex flex-col gap-1">
                     <a href="{{ route('portal.index') }}" class="px-3 py-2 rounded-lg font-semibold text-slate-800 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800">
-                        {{ __('होम') }}
+                        {{ __('Home') }}
                     </a>
 
                     <!-- City Selection in Mobile Menu -->
@@ -374,14 +374,14 @@
                             class="px-3 py-2 rounded-lg font-bold text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 flex items-center justify-between text-left">
                         <span class="flex items-center gap-2">
                             <span>📍</span>
-                            <span>{{ !empty($userCityName) ? $userCityName : __('अपना शहर चुनें') }}</span>
+                            <span>{{ !empty($userCityName) ? $userCityName : __('Select City') }}</span>
                         </span>
-                        <span class="text-xs bg-rose-100 dark:bg-rose-900/60 px-2 py-0.5 rounded font-medium">बदलें</span>
+                        <span class="text-xs bg-rose-100 dark:bg-rose-900/60 px-2 py-0.5 rounded font-medium">{{ __('Change') }}</span>
                     </button>
 
                     @if(isset($portalStates) && $portalStates->isNotEmpty())
                         <div class="pt-2 pb-1 px-3 text-[11px] font-bold uppercase tracking-wider text-slate-400">
-                            {{ __('राज्य व शहर') }}
+                            {{ __('States & Cities') }}
                         </div>
                         <div class="grid grid-cols-2 gap-1 px-2 mb-2">
                             @foreach($portalStates as $st)
@@ -393,7 +393,7 @@
                     @endif
 
                     <div class="pt-2 pb-1 px-3 text-[11px] font-bold uppercase tracking-wider text-slate-400">
-                        {{ __('श्रेणियां') }}
+                        {{ __('Categories') }}
                     </div>
                     @if(isset($categories))
                         @foreach($categories as $cat)
@@ -407,7 +407,7 @@
             </div>
 
             <div class="pt-6 border-t border-slate-200 dark:border-slate-800 text-xs text-slate-500">
-                <p>{{ setting('copyright_text') ?: __('सभी अधिकार सुरक्षित।') }}</p>
+                <p>{{ setting('copyright_text') ?: __('All rights reserved.') }}</p>
             </div>
         </div>
     </div>
@@ -421,7 +421,7 @@
                     <span class="text-sm font-bold">{{ session('city_success') }}</span>
                 </div>
                 <a href="{{ route('portal.set-city', 'clear') }}" class="text-xs font-semibold text-rose-600 dark:text-rose-400 hover:underline">
-                    {{ __('रीसेट करें') }}
+                    {{ __('Reset') }}
                 </a>
             </div>
         @endif
@@ -455,7 +455,7 @@
                         <span class="font-extrabold text-xl text-white">{{ setting('site_name') }}</span>
                     </div>
                     <p class="text-xs text-slate-400 leading-relaxed">
-                        {{ setting('footer_about', 'NewsKit Bharat का सबसे विश्वसनीय और निष्पक्ष डिजिटल न्यूज़ नेटवर्क है।') }}
+                        {{ setting('footer_about', 'NewsKit is an advanced, independent digital news portal delivering unbiased breaking news, investigative journalism, politics, technology, sports, and culture.') }}
                     </p>
                     <div class="pt-2 flex items-center gap-2 flex-wrap">
                         <!-- Facebook -->
@@ -488,7 +488,7 @@
 
                 <!-- Col 2: Categories -->
                 <div>
-                    <h4 class="text-sm font-bold uppercase tracking-wider text-white mb-4">{{ __('प्रमुख श्रेणियां') }}</h4>
+                    <h4 class="text-sm font-bold uppercase tracking-wider text-white mb-4">{{ __('Top Categories') }}</h4>
                     <ul class="space-y-2 text-xs">
                         @if(isset($categories))
                             @foreach($categories->take(6) as $cat)
@@ -505,34 +505,34 @@
 
                 <!-- Col 3: Quick Links & Contact -->
                 <div>
-                    <h4 class="text-sm font-bold uppercase tracking-wider text-white mb-4">{{ __('सम्पर्क व नीतियां') }}</h4>
+                    <h4 class="text-sm font-bold uppercase tracking-wider text-white mb-4">{{ __('Contact & Policies') }}</h4>
                     <ul class="space-y-2.5 text-xs text-slate-400">
-                        <li><strong>ईमेल:</strong> {{ setting('contact_email', 'editor@newskit.in') }}</li>
-                        <li><strong>फ़ोन:</strong> {{ setting('contact_phone', '+91 98765 43210') }}</li>
-                        <li><strong>पता:</strong> {{ setting('office_address', 'नई दिल्ली, भारत') }}</li>
-                        <li><a href="{{ route('portal.citizen-tip') }}" class="text-rose-400 hover:underline font-bold flex items-center gap-1.5"><span>📢</span> <span>{{ __('ख़बर भेजें (सिटीज़न रिपोर्टर)') }}</span></a></li>
-                        <li class="pt-1"><a href="{{ route('login') }}" class="text-brand-accent hover:underline font-semibold">{{ __('एडमिनिस्ट्रेटर लॉगिन →') }}</a></li>
+                        <li><strong>{{ __('Email') }}:</strong> {{ setting('contact_email', 'editor@newskit.com') }}</li>
+                        <li><strong>{{ __('Phone') }}:</strong> {{ setting('contact_phone', '+1 (555) 019-2834') }}</li>
+                        <li><strong>{{ __('Address') }}:</strong> {{ setting('office_address', 'New York, USA') }}</li>
+                        <li><a href="{{ route('portal.citizen-tip') }}" class="text-rose-400 hover:underline font-bold flex items-center gap-1.5"><span>📢</span> <span>{{ __('Submit Citizen News Tip') }}</span></a></li>
+                        <li class="pt-1"><a href="{{ route('login') }}" class="text-brand-accent hover:underline font-semibold">{{ __('Administrator Login →') }}</a></li>
                     </ul>
                 </div>
 
                 <!-- Col 4: Newsletter -->
                 <div>
-                    <h4 class="text-sm font-bold uppercase tracking-wider text-white mb-4">{{ __('न्यूज़लेटर सब्सक्राइब') }}</h4>
-                    <p class="text-xs text-slate-400 mb-3">{{ __('हर सुबह देश की टॉप 10 बड़ी खबरें सीधे आपके इनबॉक्स में।') }}</p>
+                    <h4 class="text-sm font-bold uppercase tracking-wider text-white mb-4">{{ __('Subscribe to Newsletter') }}</h4>
+                    <p class="text-xs text-slate-400 mb-3">{{ __('Top stories delivered to your inbox every morning.') }}</p>
                     <form action="{{ route('portal.newsletter.subscribe') }}" method="POST" class="newsletter-subscribe-form flex flex-col gap-2">
                         @csrf
-                        <input type="email" name="email" required placeholder="{{ __('अपना ईमेल दर्ज करें...') }}" 
+                        <input type="email" name="email" required placeholder="{{ __('Enter your email address...') }}" 
                                class="bg-slate-900 text-xs text-white rounded-lg px-3 py-2.5 border border-slate-800 focus:border-brand-primary outline-none">
                         <button type="submit" class="bg-brand-primary text-white font-bold text-xs py-2.5 rounded-lg hover:brightness-110 transition-all flex items-center justify-center gap-1.5">
                             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-                            <span>{{ __('सब्सक्राइब करें') }}</span>
+                            <span>{{ __('Subscribe') }}</span>
                         </button>
                     </form>
                 </div>
             </div>
 
             <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
-                <p>{{ setting('copyright_text', '© 2026 The LallanTop News Network. ' . __('सभी अधिकार सुरक्षित।')) }}</p>
+                <p>{{ setting('copyright_text', '© 2026 NewsKit Portal Network. ' . __('All rights reserved.')) }}</p>
                 <div class="flex items-center gap-6">
                     <span class="text-slate-400">Laravel 13 & TypeScript Powered</span>
                 </div>
@@ -549,9 +549,9 @@
                 <div class="space-y-1">
                     <div class="flex items-center gap-2">
                         <span class="text-xl">📍</span>
-                        <h3 class="text-lg sm:text-xl font-black">{{ __('अपना शहर या जिला चुनें') }}</h3>
+                        <h3 class="text-lg sm:text-xl font-black">{{ __('Select Your City or Region') }}</h3>
                     </div>
-                    <p class="text-xs text-slate-300">{{ __('आपके चुने हुए शहर की ताजा खबरें सीधे होमपेज पर दिखाई देंगी।') }}</p>
+                    <p class="text-xs text-slate-300">{{ __('Hyperlocal news from your selected city will appear on your homepage.') }}</p>
                 </div>
                 <button type="button" id="city-modal-close" class="p-1.5 rounded-full text-slate-400 hover:text-white hover:bg-white/10 transition-colors">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
@@ -562,7 +562,7 @@
             <div class="p-4 sm:p-6 border-b border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/40 space-y-3">
                 <div class="relative">
                     <input type="text" id="city-modal-search" 
-                           placeholder="{{ __('शहर या जिला खोजें (उदा: लखनऊ, पटना, कानपुर, Noida, Delhi)...') }}" 
+                           placeholder="{{ __('Search city or district (e.g. New Delhi, Mumbai, London, New York)...') }}" 
                            class="w-full bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 text-xs sm:text-sm rounded-xl pl-9 pr-4 py-3 border border-slate-300 dark:border-slate-700 focus:border-brand-primary outline-none shadow-xs">
                     <span class="absolute left-3 top-3.5 text-slate-400">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
@@ -571,10 +571,10 @@
 
                 <!-- Popular City Quick Chips -->
                 <div class="flex items-center gap-1.5 flex-wrap text-xs">
-                    <span class="text-[11px] font-bold text-slate-400">{{ __('शीघ्र चयन:') }}</span>
+                    <span class="text-[11px] font-bold text-slate-400">{{ __('Quick Select:') }}</span>
                     <a href="{{ route('portal.set-city', 'clear') }}" 
                        class="px-2.5 py-1 rounded-lg font-bold transition-colors {{ empty($userCitySlug) ? 'bg-brand-primary text-white' : 'bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-300' }}">
-                        {{ __('🌐 सभी शहर (All)') }}
+                        {{ __('🌐 All Regions') }}
                     </a>
                     @php
                         $popularCitySlugs = ['lucknow', 'patna', 'new-delhi', 'varanasi', 'kanpur', 'bhopal', 'jaipur', 'mumbai'];
@@ -596,21 +596,21 @@
             <div class="p-4 sm:p-6 overflow-y-auto space-y-6 flex-1 divide-y divide-slate-100 dark:divide-slate-800" id="city-modal-list">
                 @if(isset($portalStates))
                     @foreach($portalStates as $st)
-                        <div class="state-group pt-4 first:pt-0 space-y-3" data-state-name="{{ strtolower($st->name . ' ' . $st->name_hi) }}">
+                        <div class="state-group pt-4 first:pt-0 space-y-3" data-state-name="{{ strtolower($st->name) }}">
                             <div class="flex items-center justify-between">
                                 <a href="{{ route('portal.state', $st->slug) }}" class="font-extrabold text-xs sm:text-sm text-slate-900 dark:text-white hover:text-brand-primary flex items-center gap-2">
                                     <span class="w-2 h-2 rounded-full bg-rose-500"></span>
-                                    <span>{{ $st->display_name }} ({{ $st->name }})</span>
+                                    <span>{{ $st->display_name }}</span>
                                 </a>
                                 <a href="{{ route('portal.state', $st->slug) }}" class="text-[11px] font-semibold text-rose-600 dark:text-rose-400 hover:underline">
-                                    {{ __('पूरे राज्य की खबरें →') }}
+                                    {{ __('All State Stories →') }}
                                 </a>
                             </div>
 
                             <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
                                 @foreach($st->cities as $ct)
                                     <a href="{{ route('portal.set-city', $ct->slug) }}" 
-                                       data-city-text="{{ strtolower($ct->name . ' ' . $ct->name_hi . ' ' . $st->name . ' ' . $st->name_hi) }}"
+                                       data-city-text="{{ strtolower($ct->name . ' ' . $st->name) }}"
                                        class="city-chip px-3 py-2 rounded-xl text-xs transition-all flex items-center justify-between border {{ $userCitySlug === $ct->slug ? 'bg-brand-primary text-white border-brand-primary font-bold shadow-xs' : 'bg-white dark:bg-slate-800/80 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-800' }}">
                                         <span class="truncate">{{ $ct->display_name }}</span>
                                         @if($userCitySlug === $ct->slug)
@@ -623,7 +623,7 @@
                     @endforeach
                 @endif
                 <div id="city-no-match" class="hidden py-12 text-center text-slate-400">
-                    <p class="text-sm font-semibold">{{ __('आपके खोज से मेल खाता कोई शहर नहीं मिला।') }}</p>
+                    <p class="text-sm font-semibold">{{ __('No matching cities found.') }}</p>
                 </div>
             </div>
 

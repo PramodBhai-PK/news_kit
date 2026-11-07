@@ -38,11 +38,7 @@ class City extends Model
 
     public function getDisplayNameAttribute(): string
     {
-        $locale = app()->getLocale();
-        if ($locale === 'en' && !empty($this->name_en)) {
-            return $this->name_en;
-        }
-        return $this->name;
+        return __($this->name_en ?: $this->name);
     }
 
     protected static function booted()

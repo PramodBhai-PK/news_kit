@@ -36,7 +36,7 @@ class CategoryController extends Controller
             'is_active' => true,
         ]);
 
-        return back()->with('success', 'कैटेगरी सफलतापूर्वक जोड़ दी गई है!');
+        return back()->with('success', 'Category added successfully!');
     }
 
     public function update(Request $request, Category $category)
@@ -59,17 +59,17 @@ class CategoryController extends Controller
             'is_active' => $request->boolean('is_active'),
         ]);
 
-        return back()->with('success', 'कैटेगरी सफलतापूर्वक अपडेट हो गई है!');
+        return back()->with('success', 'Category updated successfully!');
     }
 
     public function destroy(Category $category)
     {
         if ($category->articles()->count() > 0) {
-            return back()->with('error', 'इस कैटेगरी में ख़बरें मौजूद हैं, इसे सीधे हटाया नहीं जा सकता!');
+            return back()->with('error', 'This category contains articles and cannot be deleted directly!');
         }
 
         $category->delete();
 
-        return back()->with('success', 'कैटेगरी हटा दी गई है।');
+        return back()->with('success', 'Category deleted successfully.');
     }
 }

@@ -18,8 +18,8 @@ class PressCardVerificationController extends Controller
         $user->ensurePressCardInitialized();
 
         $isValid = $user->hasValidPressCard();
-        $siteName = setting('site_name', 'The LallanTop News');
-        $tagline = setting('site_tagline', 'बेबाक, सटीक और सबसे तेज़ ख़बरें');
+        $siteName = setting('site_name', 'NewsKit Portal');
+        $tagline = setting('site_tagline', 'Truthful, Independent & Fast News');
 
         return view('portal.press-verify', compact('user', 'isValid', 'siteName', 'tagline'));
     }

@@ -74,10 +74,10 @@ class CitizenTip extends Model
     public function getStatusLabelAttribute(): string
     {
         return match ($this->status) {
-            'pending' => 'प्रतीक्षारत (Pending)',
-            'verified' => 'सत्यापित / जांच जारी (Verified)',
-            'converted_to_article' => 'ख़बर प्रकाशित (Converted)',
-            'rejected' => 'अमान्य / अस्वीकृत (Rejected)',
+            'pending' => 'Pending Review',
+            'verified' => 'Verified / Under Review',
+            'converted_to_article' => 'Converted to Article',
+            'rejected' => 'Rejected',
             default => ucfirst($this->status),
         };
     }

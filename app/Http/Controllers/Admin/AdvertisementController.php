@@ -50,7 +50,7 @@ class AdvertisementController extends Controller
             'is_active' => $request->boolean('is_active', true),
         ]);
 
-        return back()->with('success', 'विज्ञापन (Advertisement) सफलतापूर्वक जोड़ दिया गया है!');
+        return back()->with('success', 'Advertisement added successfully!');
     }
 
     public function update(Request $request, Advertisement $advertisement)
@@ -86,20 +86,20 @@ class AdvertisementController extends Controller
             'is_active' => $request->boolean('is_active', true),
         ]);
 
-        return back()->with('success', 'विज्ञापन सफलतापूर्वक अपडेट हो गया है!');
+        return back()->with('success', 'Advertisement updated successfully!');
     }
 
     public function toggle(Advertisement $advertisement)
     {
         $advertisement->update(['is_active' => !$advertisement->is_active]);
 
-        return back()->with('success', 'विज्ञापन स्टेटस अपडेट हो गया है!');
+        return back()->with('success', 'Advertisement status updated successfully!');
     }
 
     public function destroy(Advertisement $advertisement)
     {
         $advertisement->delete();
 
-        return back()->with('success', 'विज्ञापन सफलतापूर्वक हटा दिया गया है।');
+        return back()->with('success', 'Advertisement deleted successfully.');
     }
 }

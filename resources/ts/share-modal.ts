@@ -1,11 +1,8 @@
 /**
- * Social Sharing and Bookmark Module (Multi-Language Aware)
+ * Social Sharing and Bookmark Module
  */
 export class ShareManager {
-    private isEn: boolean;
-
     constructor() {
-        this.isEn = (document.documentElement.lang || 'en').startsWith('en');
         this.initCopyLink();
         this.initNativeShare();
         this.initBookmarks();
@@ -17,8 +14,8 @@ export class ShareManager {
             btn.addEventListener('click', async (e) => {
                 e.preventDefault();
                 const url = btn.getAttribute('data-url') || window.location.href;
-                const successMsg = btn.getAttribute('data-toast') || (this.isEn ? 'Link copied to clipboard!' : 'लिंक क्लिपबोर्ड पर कॉपी हो गया!');
-                const errorMsg = this.isEn ? 'Failed to copy link.' : 'लिंक कॉपी नहीं हो सका।';
+                const successMsg = btn.getAttribute('data-toast') || 'Link copied to clipboard!';
+                const errorMsg = btn.getAttribute('data-error') || 'Failed to copy link.';
                 try {
                     await navigator.clipboard.writeText(url);
                     this.showToast(successMsg);
@@ -37,7 +34,7 @@ export class ShareManager {
                 const title = btn.getAttribute('data-title') || document.title;
                 const text = btn.getAttribute('data-text') || '';
                 const url = btn.getAttribute('data-url') || window.location.href;
-                const successMsg = this.isEn ? 'Link copied to clipboard!' : 'लिंक क्लिपबोर्ड पर कॉपी हो गया!';
+                const successMsg = btn.getAttribute('data-toast') || 'Link copied to clipboard!';
 
                 if (navigator.share) {
                     try {
@@ -50,7 +47,7 @@ export class ShareManager {
                         await navigator.clipboard.writeText(url);
                         this.showToast(successMsg);
                     } catch {
-                        this.showToast(this.isEn ? 'Failed to copy link.' : 'लिंक कॉपी नहीं हो सका।', false);
+                        this.showToast(btn.getAttribute('data-error') || 'Failed to copy link.', false);
                     }
                 }
             });
@@ -82,11 +79,11 @@ export class ShareManager {
                 if (bookmarks.includes(articleId)) {
                     bookmarks = bookmarks.filter(id => id !== articleId);
                     btn.classList.remove('bookmarked');
-                    this.showToast(this.isEn ? 'Bookmark removed' : 'बुकमार्क हटा दिया गया');
+                    this.showToast(btn.getAttribute('data-remove-toast') || 'Bookmark removed');
                 } else {
                     bookmarks.push(articleId);
                     btn.classList.add('bookmarked');
-                    this.showToast(this.isEn ? 'Story saved to bookmarks!' : 'ख़बर बुकमार्क में सहेजी गई!');
+                    this.showToast(btn.getAttribute('data-save-toast') || 'Story saved to bookmarks!');
                 }
                 localStorage.setItem('newskit_bookmarks', JSON.stringify(bookmarks));
             });
