@@ -25,7 +25,7 @@ jobs:
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
-          channel: 'stable'
+          flutter-version: '3.24.5'
           cache: true
 
       - name: Scaffold Clean Android Platform
@@ -40,10 +40,11 @@ jobs:
           open(p, 'w').write(content)
           "
 
-      - name: Install Dependencies
+      - name: Install Dependencies & Patch Legacy Plugins
         run: |
           cd mobile_app
           flutter pub get
+          find /home/runner/.pub-cache -name "build.gradle" -exec sed -i "s/proguard-android.txt/proguard-android-optimize.txt/g" {} + || true
 
       - name: Build Release APK
         run: |
