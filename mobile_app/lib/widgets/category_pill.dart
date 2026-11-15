@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../config/app_config.dart';
 import '../models/category_model.dart';
 
 class CategoryPillList extends StatelessWidget {
@@ -41,7 +42,7 @@ class CategoryPillList extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               decoration: BoxDecoration(
                 color: isSelected
-                    ? const Color(0xFFE11D48)
+                    ? AppConfig.primaryColor
                     : (isDark ? const Color(0xFF1E293B) : const Color(0xFFE2E8F0)),
                 borderRadius: BorderRadius.circular(20),
               ),

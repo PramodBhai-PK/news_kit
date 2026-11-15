@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../config/app_config.dart';
 import '../models/location_model.dart';
 import '../providers/app_provider.dart';
 import '../providers/news_provider.dart';
@@ -55,9 +56,9 @@ class _CitySelectorSheetState extends State<CitySelectorSheet> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Row(
-                children: [
-                  Icon(Icons.location_on, color: Color(0xFFE11D48)),
+              Row(
+                children: const [
+                  Icon(Icons.location_on, color: AppConfig.primaryColor),
                   SizedBox(width: 8),
                   Text(
                     'Select Your City / District',
@@ -80,8 +81,8 @@ class _CitySelectorSheetState extends State<CitySelectorSheet> {
                 icon: const Icon(Icons.clear, size: 16),
                 label: const Text('Show All National News (Clear City)'),
                 style: OutlinedButton.styleFrom(
-                  foregroundColor: const Color(0xFFE11D48),
-                  side: const BorderSide(color: Color(0xFFE11D48)),
+                  foregroundColor: AppConfig.primaryColor,
+                  side: const BorderSide(color: AppConfig.primaryColor),
                 ),
                 onPressed: () {
                   appProvider.setSelectedCity(null, null);
@@ -110,12 +111,12 @@ class _CitySelectorSheetState extends State<CitySelectorSheet> {
                       city.name,
                       style: TextStyle(
                         fontWeight: isSelected ? FontWeight.w800 : FontWeight.w600,
-                        color: isSelected ? const Color(0xFFE11D48) : null,
+                        color: isSelected ? AppConfig.primaryColor : null,
                       ),
                     ),
                     subtitle: city.stateName != null ? Text(city.stateName!) : null,
                     trailing: isSelected
-                        ? const Icon(Icons.check_circle, color: Color(0xFFE11D48))
+                        ? const Icon(Icons.check_circle, color: AppConfig.primaryColor)
                         : (city.articlesCount > 0
                             ? Text('${city.articlesCount} news', style: const TextStyle(fontSize: 12, color: Colors.grey))
                             : null),

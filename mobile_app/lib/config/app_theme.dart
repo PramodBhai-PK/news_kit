@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'app_config.dart';
 
 class AppTheme {
-  static const Color primary = Color(0xFFE11D48); // NewsKit Crimson
-  static const Color accent = Color(0xFFF59E0B);  // Warm Amber
-  static const Color success = Color(0xFF10B981);
-  static const Color darkBg = Color(0xFF0F172A);  // Slate 950
-  static const Color darkSurface = Color(0xFF1E293B); // Slate 800
-  static const Color lightBg = Color(0xFFF8FAFC);
-  static const Color lightSurface = Colors.white;
+  static const Color primary = AppConfig.primaryColor;
+  static const Color accent = AppConfig.accentColor;
+  static const Color success = AppConfig.successColor;
+  static const Color darkBg = AppConfig.darkBgColor;
+  static const Color darkSurface = AppConfig.darkSurfaceColor;
+  static const Color lightBg = AppConfig.lightBgColor;
+  static const Color lightSurface = AppConfig.lightSurfaceColor;
 
   static ThemeData lightTheme = ThemeData(
     useMaterial3: true,
@@ -94,4 +95,3 @@ class AppTheme {
     ),
   );
 }
-

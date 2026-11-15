@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import '../config/app_config.dart';
 import '../models/article_model.dart';
 import '../screens/article_detail_screen.dart';
 
@@ -55,16 +56,16 @@ class _BreakingNewsTickerState extends State<BreakingNewsTicker> {
         margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
         decoration: BoxDecoration(
-          color: const Color(0xFFE11D48).withOpacity(0.1),
+          color: AppConfig.primaryColor.withOpacity(0.1),
           borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: const Color(0xFFE11D48).withOpacity(0.3)),
+          border: Border.all(color: AppConfig.primaryColor.withOpacity(0.3)),
         ),
         child: Row(
           children: [
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
               decoration: BoxDecoration(
-                color: const Color(0xFFE11D48),
+                color: AppConfig.primaryColor,
                 borderRadius: BorderRadius.circular(6),
               ),
               child: const Row(

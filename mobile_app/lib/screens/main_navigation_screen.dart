@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../config/app_config.dart';
 import 'bookmarks_screen.dart';
 import 'category_news_screen.dart';
 import 'home_screen.dart';
@@ -36,7 +37,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
         currentIndex: _currentIndex,
         onTap: (index) => setState(() => _currentIndex = index),
         type: BottomNavigationBarType.fixed,
-        selectedItemColor: const Color(0xFFE11D48),
+        selectedItemColor: AppConfig.primaryColor,
         unselectedItemColor: isDark ? const Color(0xFF64748B) : const Color(0xFF94A3B8),
         selectedFontSize: 11,
         unselectedFontSize: 11,

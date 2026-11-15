@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../config/app_config.dart';
 import '../providers/auth_provider.dart';
 import 'register_screen.dart';
 
@@ -60,9 +61,9 @@ class _LoginScreenState extends State<LoginScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Text(
-                  'Welcome to NewsKit',
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.w900),
+                Text(
+                  'Welcome to ${AppConfig.appName}',
+                  style: const TextStyle(fontSize: 24, fontWeight: FontWeight.w900),
                 ),
                 const SizedBox(height: 6),
                 const Text(
@@ -107,7 +108,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: 50,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFFE11D48),
+                      backgroundColor: AppConfig.primaryColor,
                       foregroundColor: Colors.white,
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
                     ),
@@ -130,7 +131,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     },
                     child: const Text(
                       'Don’t have an account? Register Now',
-                      style: TextStyle(color: Color(0xFFE11D48), fontWeight: FontWeight.w700),
+                      style: TextStyle(color: AppConfig.primaryColor, fontWeight: FontWeight.w700),
                     ),
                   ),
                 ),

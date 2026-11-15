@@ -22,7 +22,7 @@ class ProfileScreen extends StatelessWidget {
           children: [
             ListTile(
               title: const Text('English (Default)'),
-              trailing: appProvider.currentLocale == 'en' ? const Icon(Icons.check, color: Color(0xFFE11D48)) : null,
+              trailing: appProvider.currentLocale == 'en' ? const Icon(Icons.check, color: AppConfig.primaryColor) : null,
               onTap: () {
                 appProvider.setLocale('en');
                 Navigator.pop(context);
@@ -30,7 +30,7 @@ class ProfileScreen extends StatelessWidget {
             ),
             ListTile(
               title: const Text('Hindi'),
-              trailing: appProvider.currentLocale == 'hi' ? const Icon(Icons.check, color: Color(0xFFE11D48)) : null,
+              trailing: appProvider.currentLocale == 'hi' ? const Icon(Icons.check, color: AppConfig.primaryColor) : null,
               onTap: () {
                 appProvider.setLocale('hi');
                 Navigator.pop(context);
@@ -38,7 +38,7 @@ class ProfileScreen extends StatelessWidget {
             ),
             ListTile(
               title: const Text('Urdu (RTL)'),
-              trailing: appProvider.currentLocale == 'ur' ? const Icon(Icons.check, color: Color(0xFFE11D48)) : null,
+              trailing: appProvider.currentLocale == 'ur' ? const Icon(Icons.check, color: AppConfig.primaryColor) : null,
               onTap: () {
                 appProvider.setLocale('ur');
                 Navigator.pop(context);
@@ -46,7 +46,7 @@ class ProfileScreen extends StatelessWidget {
             ),
             ListTile(
               title: const Text('Arabic (RTL)'),
-              trailing: appProvider.currentLocale == 'ar' ? const Icon(Icons.check, color: Color(0xFFE11D48)) : null,
+              trailing: appProvider.currentLocale == 'ar' ? const Icon(Icons.check, color: AppConfig.primaryColor) : null,
               onTap: () {
                 appProvider.setLocale('ar');
                 Navigator.pop(context);
@@ -85,7 +85,7 @@ class ProfileScreen extends StatelessWidget {
                 children: [
                   CircleAvatar(
                     radius: 30,
-                    backgroundColor: const Color(0xFFE11D48),
+                    backgroundColor: AppConfig.primaryColor,
                     child: Text(
                       user.name.substring(0, 1).toUpperCase(),
                       style: const TextStyle(fontSize: 24, color: Colors.white, fontWeight: FontWeight.w900),
@@ -103,13 +103,13 @@ class ProfileScreen extends StatelessWidget {
                         Container(
                           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                           decoration: BoxDecoration(
-                            color: const Color(0xFFE11D48).withOpacity(0.12),
+                            color: AppConfig.primaryColor.withOpacity(0.12),
                             borderRadius: BorderRadius.circular(6),
                           ),
                           child: Text(
                             user.role.toUpperCase(),
                             style: const TextStyle(
-                              color: Color(0xFFE11D48),
+                              color: AppConfig.primaryColor,
                               fontSize: 10,
                               fontWeight: FontWeight.w800,
                             ),
@@ -183,9 +183,9 @@ class ProfileScreen extends StatelessWidget {
               ),
               child: Column(
                 children: [
-                  const Icon(Icons.account_circle, size: 54, color: Color(0xFFE11D48)),
+                  const Icon(Icons.account_circle, size: 54, color: AppConfig.primaryColor),
                   const SizedBox(height: 12),
-                  const Text('Login to NewsKit Account', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w800)),
+                  Text('Login to ${AppConfig.appName}', style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w800)),
                   const SizedBox(height: 6),
                   const Text(
                     'Sync your reading preferences, comments, and journalist credentials across all devices.',
@@ -197,7 +197,7 @@ class ProfileScreen extends StatelessWidget {
                     width: double.infinity,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFFE11D48),
+                        backgroundColor: AppConfig.primaryColor,
                         foregroundColor: Colors.white,
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                       ),

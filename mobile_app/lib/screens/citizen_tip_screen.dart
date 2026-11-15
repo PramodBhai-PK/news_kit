@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+import '../config/app_config.dart';
 import '../providers/app_provider.dart';
 
 class CitizenTipScreen extends StatefulWidget {
@@ -115,13 +116,13 @@ class _CitizenTipScreenState extends State<CitizenTipScreen> {
               Container(
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                  color: const Color(0xFFE11D48).withOpacity(0.08),
+                  color: AppConfig.primaryColor.withOpacity(0.08),
                   borderRadius: BorderRadius.circular(16),
-                  border: Border.all(color: const Color(0xFFE11D48).withOpacity(0.2)),
+                  border: Border.all(color: AppConfig.primaryColor.withOpacity(0.2)),
                 ),
                 child: Row(
                   children: const [
-                    Icon(Icons.shield_outlined, color: Color(0xFFE11D48)),
+                    Icon(Icons.shield_outlined, color: AppConfig.primaryColor),
                     SizedBox(width: 12),
                     Expanded(
                       child: Text(
@@ -219,7 +220,7 @@ class _CitizenTipScreenState extends State<CitizenTipScreen> {
               // Anonymous Checkbox
               SwitchListTile(
                 contentPadding: EdgeInsets.zero,
-                activeColor: const Color(0xFFE11D48),
+                activeColor: AppConfig.primaryColor,
                 title: const Text('Keep My Identity Completely Anonymous', style: TextStyle(fontWeight: FontWeight.w700)),
                 subtitle: const Text('Your name and phone will not be shared or stored publicly.', style: TextStyle(fontSize: 12)),
                 value: _isAnonymous,
@@ -257,7 +258,7 @@ class _CitizenTipScreenState extends State<CitizenTipScreen> {
                 height: 52,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFFE11D48),
+                    backgroundColor: AppConfig.primaryColor,
                     foregroundColor: Colors.white,
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
                   ),

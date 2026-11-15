@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import '../config/app_config.dart';
 import '../config/app_constants.dart';
 import '../models/article_model.dart';
 import '../screens/article_detail_screen.dart';
@@ -65,11 +66,11 @@ class FeaturedArticleCard extends StatelessWidget {
                   child: Container(
                     padding: const EdgeInsets.all(12),
                     decoration: BoxDecoration(
-                      color: const Color(0xFFE11D48).withOpacity(0.9),
+                      color: AppConfig.primaryColor.withOpacity(0.9),
                       shape: BoxShape.circle,
                       boxShadow: [
                         BoxShadow(
-                          color: const Color(0xFFE11D48).withOpacity(0.4),
+                          color: AppConfig.primaryColor.withOpacity(0.4),
                           blurRadius: 16,
                           spreadRadius: 2,
                         ),
@@ -91,7 +92,7 @@ class FeaturedArticleCard extends StatelessWidget {
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                         decoration: BoxDecoration(
-                          color: const Color(0xFFE11D48),
+                          color: AppConfig.primaryColor,
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: Text(
@@ -216,7 +217,7 @@ class ArticleListItem extends StatelessWidget {
                         Text(
                           article.category!.name.toUpperCase(),
                           style: const TextStyle(
-                            color: Color(0xFFE11D48),
+                            color: AppConfig.primaryColor,
                             fontSize: 10,
                             fontWeight: FontWeight.w800,
                             letterSpacing: 0.5,

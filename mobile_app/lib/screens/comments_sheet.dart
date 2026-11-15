@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../config/app_config.dart';
 import '../models/comment_model.dart';
 import '../providers/app_provider.dart';
 
@@ -139,7 +140,7 @@ class _CommentsSheetState extends State<CommentsSheet> {
                                   children: [
                                     CircleAvatar(
                                       radius: 12,
-                                      backgroundColor: const Color(0xFFE11D48),
+                                      backgroundColor: AppConfig.primaryColor,
                                       child: Text(
                                         item.userName.substring(0, 1).toUpperCase(),
                                         style: const TextStyle(fontSize: 10, color: Colors.white, fontWeight: FontWeight.bold),
@@ -220,7 +221,7 @@ class _CommentsSheetState extends State<CommentsSheet> {
                     IconButton(
                       icon: _isPosting
                           ? const SizedBox(width: 20, height: 20, child: CircularProgressIndicator(strokeWidth: 2))
-                          : const Icon(Icons.send, color: Color(0xFFE11D48)),
+                          : const Icon(Icons.send, color: AppConfig.primaryColor),
                       onPressed: _isPosting ? null : _postComment,
                     ),
                   ],

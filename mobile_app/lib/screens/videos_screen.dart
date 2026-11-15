@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../config/app_config.dart';
 import '../models/article_model.dart';
 import '../providers/app_provider.dart';
 import '../widgets/article_card.dart';
@@ -43,7 +44,7 @@ class _VideosScreenState extends State<VideosScreen> {
         title: const Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(Icons.play_circle_fill, color: Color(0xFFE11D48), size: 22),
+            Icon(Icons.play_circle_fill, color: AppConfig.primaryColor, size: 22),
             SizedBox(width: 8),
             Text('Video Bulletins', style: TextStyle(fontWeight: FontWeight.w900)),
           ],

@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
+import '../config/app_config.dart';
 import '../config/app_constants.dart';
 import '../models/article_model.dart';
 import '../providers/app_provider.dart';
@@ -94,7 +95,7 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
             IconButton(
               icon: Icon(
                 isBookmarked ? Icons.bookmark : Icons.bookmark_border,
-                color: isBookmarked ? const Color(0xFFE11D48) : null,
+                color: isBookmarked ? AppConfig.primaryColor : null,
               ),
               onPressed: () async {
                 final added = await bookmarkProvider.toggleBookmark(_article!);
@@ -143,7 +144,7 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
                         YoutubePlayer(
                           controller: _youtubeController!,
                           showVideoProgressIndicator: true,
-                          progressIndicatorColor: const Color(0xFFE11D48),
+                          progressIndicatorColor: AppConfig.primaryColor,
                         )
                       else if (_article!.featuredImage != null)
                         AspectRatio(
@@ -168,7 +169,7 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
                                   Container(
                                     padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                                     decoration: BoxDecoration(
-                                      color: const Color(0xFFE11D48),
+                                      color: AppConfig.primaryColor,
                                       borderRadius: BorderRadius.circular(6),
                                     ),
                                     child: Text(
@@ -222,7 +223,7 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
                               children: [
                                 CircleAvatar(
                                   radius: 18,
-                                  backgroundColor: const Color(0xFFE11D48),
+                                  backgroundColor: AppConfig.primaryColor,
                                   child: Text(
                                     _article!.author?.name.substring(0, 1).toUpperCase() ?? 'N',
                                     style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
@@ -268,9 +269,9 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
                                 padding: const EdgeInsets.all(14),
                                 margin: const EdgeInsets.only(bottom: 16),
                                 decoration: BoxDecoration(
-                                  color: const Color(0xFFE11D48).withOpacity(0.06),
+                                  color: AppConfig.primaryColor.withOpacity(0.06),
                                   borderRadius: BorderRadius.circular(12),
-                                  border: Border(left: BorderSide(color: const Color(0xFFE11D48), width: 4)),
+                                  border: Border(left: BorderSide(color: AppConfig.primaryColor, width: 4)),
                                 ),
                                 child: Text(
                                   _article!.excerpt!,
@@ -341,7 +342,7 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
                                 ),
                                 child: Row(
                                   children: const [
-                                    Icon(Icons.chat_bubble_outline, color: Color(0xFFE11D48)),
+                                    Icon(Icons.chat_bubble_outline, color: AppConfig.primaryColor),
                                     SizedBox(width: 12),
                                     Text(
                                       'Reader Comments & Discussion',

@@ -54,7 +54,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF0F172A), // Dark slate
+      backgroundColor: AppConfig.darkBgColor,
       body: Center(
         child: FadeTransition(
           opacity: _fadeAnimation,
@@ -66,20 +66,20 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
                 width: 88,
                 height: 88,
                 decoration: BoxDecoration(
-                  color: const Color(0xFFE11D48),
+                  color: AppConfig.primaryColor,
                   borderRadius: BorderRadius.circular(24),
                   boxShadow: [
                     BoxShadow(
-                      color: const Color(0xFFE11D48).withOpacity(0.4),
+                      color: AppConfig.primaryColor.withOpacity(0.4),
                       blurRadius: 24,
                       offset: const Offset(0, 8),
                     ),
                   ],
                 ),
-                child: const Center(
+                child: Center(
                   child: Text(
-                    'NK',
-                    style: TextStyle(
+                    AppConfig.appShortName,
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: 34,
                       fontWeight: FontWeight.w900,
@@ -120,7 +120,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
                 height: 24,
                 child: CircularProgressIndicator(
                   strokeWidth: 2.5,
-                  valueColor: AlwaysStoppedAnimation<Color>(Color(0xFFE11D48)),
+                  valueColor: AlwaysStoppedAnimation<Color>(AppConfig.primaryColor),
                 ),
               ),
             ],

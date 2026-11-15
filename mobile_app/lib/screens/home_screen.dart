@@ -55,18 +55,18 @@ class _HomeScreenState extends State<HomeScreen> {
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
               decoration: BoxDecoration(
-                color: const Color(0xFFE11D48),
+                color: AppConfig.primaryColor,
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: const Text(
-                'NK',
-                style: TextStyle(color: Colors.white, fontWeight: FontWeight.w900, fontSize: 14),
+              child: Text(
+                AppConfig.appShortName,
+                style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w900, fontSize: 14),
               ),
             ),
             const SizedBox(width: 8),
-            const Text(
-              'NEWSKIT',
-              style: TextStyle(fontWeight: FontWeight.w900, letterSpacing: -0.5, fontSize: 18),
+            Text(
+              AppConfig.appName.toUpperCase(),
+              style: const TextStyle(fontWeight: FontWeight.w900, letterSpacing: -0.5, fontSize: 16),
             ),
           ],
         ),
@@ -78,7 +78,7 @@ class _HomeScreenState extends State<HomeScreen> {
               backgroundColor: isDark ? const Color(0xFF1E293B) : const Color(0xFFF1F5F9),
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
             ),
-            icon: const Icon(Icons.location_on, size: 14, color: Color(0xFFE11D48)),
+            icon: const Icon(Icons.location_on, size: 14, color: AppConfig.primaryColor),
             label: Text(
               appProvider.selectedCityName ?? 'District',
               style: TextStyle(
@@ -121,7 +121,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       floatingActionButton: FloatingActionButton.extended(
-        backgroundColor: const Color(0xFFE11D48),
+        backgroundColor: AppConfig.primaryColor,
         icon: const Icon(Icons.campaign, color: Colors.white),
         label: const Text(
           'REPORT TIP',
@@ -135,7 +135,7 @@ class _HomeScreenState extends State<HomeScreen> {
         },
       ),
       body: RefreshIndicator(
-        color: const Color(0xFFE11D48),
+        color: AppConfig.primaryColor,
         onRefresh: () => newsProvider.refresh(),
         child: newsProvider.isInitialLoading
             ? const ArticleListShimmer()
@@ -191,7 +191,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
                         child: Row(
                           children: const [
-                            Icon(Icons.trending_up, color: Color(0xFFE11D48), size: 20),
+                            Icon(Icons.trending_up, color: AppConfig.primaryColor, size: 20),
                             SizedBox(width: 8),
                             Text(
                               'TRENDING STORIES',

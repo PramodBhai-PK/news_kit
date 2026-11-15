@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../config/app_config.dart';
 import '../services/tts_service.dart';
 
 class AudioPlayerBar extends StatefulWidget {
@@ -56,7 +57,7 @@ class _AudioPlayerBarState extends State<AudioPlayerBar> {
           IconButton(
             icon: Icon(
               isPlaying ? Icons.pause_circle_filled : Icons.play_circle_filled,
-              color: const Color(0xFFE11D48),
+              color: AppConfig.primaryColor,
               size: 36,
             ),
             onPressed: () {

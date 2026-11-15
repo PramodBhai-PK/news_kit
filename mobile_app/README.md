@@ -4,6 +4,45 @@ A complete, high-performance Flutter mobile application for **NewsKit Portal**, 
 
 ---
 
+## 🚀 60-Second White-Label Rebranding Guide
+
+You can completely rebrand, recolor, and configure this entire mobile app by editing **one single file**:
+📁 `lib/config/app_config.dart`
+
+**No need to search through dozens of UI or screen files!** Everything is centralized into `AppConfig`:
+
+```dart
+class AppConfig {
+  // 1. Brand Identity & Names
+  static const String appName = 'MyNews Express';       // Your Brand Name
+  static const String appShortName = 'MNE';             // Logo 2-3 letter initials
+  static const String appTagline = 'Fastest News Live';  // Tagline
+  static const String supportEmail = 'contact@domain.com';
+
+  // 2. Connect Your Backend API
+  static const String apiBaseUrl = 'https://your-domain.com/api/v1';
+
+  // 3. Theme & Colors (Instant Color Palette Change)
+  static const Color primaryColor = Color(0xFF1E40AF);   // Change to Royal Blue, Emerald, Crimson, etc.
+  static const Color accentColor = Color(0xFFF59E0B);
+
+  // 4. Feature Toggles (Turn Features ON/OFF)
+  static const bool enableBreakingNewsTicker = true;
+  static const bool enableAudioTtsReader     = true;
+  static const bool enableHyperlocalNews     = true;
+  static const bool enableCitizenJournalism  = true;
+  static const bool enableBookmarks          = true;
+  static const bool enableDarkMode           = true;
+
+  // 5. AdMob Monetization & Push Notifications
+  static const bool enableAdMob              = false;   // Set true to show ads
+  static const String adMobBannerAndroid     = 'ca-app-pub-xxx/yyy';
+  static const String oneSignalAppId         = 'YOUR_ONESIGNAL_APP_ID';
+}
+```
+
+---
+
 ## 📱 Features
 
 - **Multi-Language & RTL:** Native English, Hindi, Arabic, and Urdu with automatic Right-to-Left (RTL) layout.
@@ -94,15 +133,16 @@ Open `ios/Runner.xcworkspace` in **Xcode** to configure signing, provisioning pr
 
 ## 🎨 Customizing Brand & Colors
 
-To change the primary brand color, open `lib/config/app_theme.dart`:
+To change the primary brand color, open `lib/config/app_config.dart` and update:
 
 ```dart
-class AppTheme {
-  static const Color primary = Color(0xFFE11D48); // Change to your brand color
-  static const Color accent = Color(0xFFF59E0B);
+class AppConfig {
+  static const Color primaryColor = Color(0xFFE11D48); // Change to your brand hex color
+  static const Color accentColor  = Color(0xFFF59E0B);
   ...
 }
 ```
+All UI buttons, AppBars, active tabs, breaking tickers, and badges automatically inherit this color globally.
 
 ---
 
