@@ -30,7 +30,7 @@ dependencies:
   # Article Content & Media
   flutter_widget_from_html: ^0.15.1
   youtube_player_flutter: ^9.0.1
-  flutter_tts: ^4.1.0
+  flutter_tts: 3.8.5
   image_picker: ^1.1.2
 
   # Utilities & Storage

@@ -39,6 +39,15 @@ jobs:
           content = content.replace('<application', '<uses-permission android:name=\"android.permission.INTERNET\"/>\n    <uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>\n    <application android:usesCleartextTraffic=\"true\"')
           open(p, 'w').write(content)
           "
+          python3 -c "
+          p = 'android/app/build.gradle'
+          c = open(p).read()
+          c = c.replace('compileSdk = flutter.compileSdkVersion', 'compileSdk = 35')
+          c = c.replace('compileSdkVersion flutter.compileSdkVersion', 'compileSdkVersion 35')
+          c = c.replace('targetSdkVersion flutter.targetSdkVersion', 'targetSdkVersion 35')
+          c = c.replace('targetSdk = flutter.targetSdkVersion', 'targetSdk = 35')
+          open(p, 'w').write(c)
+          "
 
       - name: Install Dependencies & Patch Legacy Plugins
         run: |
@@ -53,11 +62,11 @@ jobs:
                       try:
                           c = open(p, 'r', encoding='utf-8', errors='ignore').read()
                           nc = c
-                          nc = nc.replace('compileSdk = flutter.compileSdkVersion', 'compileSdk = 34')
-                          nc = nc.replace('compileSdkVersion flutter.compileSdkVersion', 'compileSdkVersion 34')
-                          nc = nc.replace('flutter.compileSdkVersion', '34')
+                          nc = nc.replace('compileSdk = flutter.compileSdkVersion', 'compileSdk = 35')
+                          nc = nc.replace('compileSdkVersion flutter.compileSdkVersion', 'compileSdkVersion 35')
+                          nc = nc.replace('flutter.compileSdkVersion', '35')
                           nc = nc.replace('flutter.minSdkVersion', '21')
-                          nc = nc.replace('flutter.targetSdkVersion', '34')
+                          nc = nc.replace('flutter.targetSdkVersion', '35')
                           nc = nc.replace('proguard-android.txt', 'proguard-android-optimize.txt')
                           if nc != c:
                               open(p, 'w', encoding='utf-8').write(nc)
