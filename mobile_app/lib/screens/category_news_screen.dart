@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../config/app_config.dart';
 import '../models/article_model.dart';
 import '../models/category_model.dart';
 import '../providers/app_provider.dart';
@@ -17,6 +18,17 @@ class _CategoryNewsScreenState extends State<CategoryNewsScreen> {
   CategoryModel? _selectedCategory;
   List<ArticleModel> _categoryArticles = [];
   bool _isLoading = false;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final news = Provider.of<NewsProvider>(context, listen: false);
+      if (news.categories.isEmpty) {
+        news.initHomeData();
+      }
+    });
+  }
 
   Future<void> _loadCategoryArticles(CategoryModel category) async {
     setState(() {
@@ -57,7 +69,37 @@ class _CategoryNewsScreenState extends State<CategoryNewsScreen> {
             : null,
       ),
       body: _selectedCategory == null
-          ? GridView.builder(
+          ? categories.isEmpty
+              ? Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(32),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Icon(Icons.grid_view_outlined, size: 54, color: Colors.grey),
+                        const SizedBox(height: 12),
+                        const Text(
+                          'Loading Categories...',
+                          style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
+                        ),
+                        const SizedBox(height: 16),
+                        ElevatedButton.icon(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: AppConfig.primaryColor,
+                            foregroundColor: Colors.white,
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                          ),
+                          icon: const Icon(Icons.refresh, size: 16),
+                          label: const Text('Refresh'),
+                          onPressed: () {
+                            Provider.of<NewsProvider>(context, listen: false).initHomeData();
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                )
+              : GridView.builder(
               padding: const EdgeInsets.all(16),
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,

@@ -4,7 +4,8 @@ import '../services/api_service.dart';
 import '../services/auth_service.dart';
 
 class AuthProvider with ChangeNotifier {
-  final ApiService apiService;
+  ApiService _apiService;
+  ApiService get apiService => _apiService;
   UserModel? _currentUser;
   bool _isLoggedIn = false;
   bool _isLoading = false;
@@ -13,8 +14,12 @@ class AuthProvider with ChangeNotifier {
   bool get isLoggedIn => _isLoggedIn;
   bool get isLoading => _isLoading;
 
-  AuthProvider({required this.apiService}) {
+  AuthProvider({required ApiService apiService}) : _apiService = apiService {
     _loadUserFromStorage();
+  }
+
+  void updateApiService(ApiService newService) {
+    _apiService = newService;
   }
 
   Future<void> _loadUserFromStorage() async {

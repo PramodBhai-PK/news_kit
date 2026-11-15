@@ -28,6 +28,13 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     _scrollController.addListener(_onScroll);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final news = Provider.of<NewsProvider>(context, listen: false);
+      if (news.articles.isEmpty) {
+        final app = Provider.of<AppProvider>(context, listen: false);
+        news.initHomeData(citySlug: app.selectedCitySlug);
+      }
+    });
   }
 
   void _onScroll() {
@@ -245,14 +252,32 @@ class _HomeScreenState extends State<HomeScreen> {
 
                   // 6. Articles List
                   if (newsProvider.articles.isEmpty)
-                    const SliverFillRemaining(
+                    SliverFillRemaining(
                       hasScrollBody: false,
                       child: Center(
                         child: Padding(
-                          padding: EdgeInsets.all(32),
-                          child: Text(
-                            'No articles found for this section.',
-                            style: TextStyle(fontWeight: FontWeight.w600, color: Colors.grey),
+                          padding: const EdgeInsets.all(32),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Icon(Icons.newspaper_outlined, size: 48, color: Colors.grey),
+                              const SizedBox(height: 12),
+                              const Text(
+                                'No articles found for this section.',
+                                style: TextStyle(fontWeight: FontWeight.w600, color: Colors.grey),
+                              ),
+                              const SizedBox(height: 16),
+                              ElevatedButton.icon(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: AppConfig.primaryColor,
+                                  foregroundColor: Colors.white,
+                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                                ),
+                                icon: const Icon(Icons.refresh, size: 16),
+                                label: const Text('Tap to Refresh'),
+                                onPressed: () => newsProvider.refresh(),
+                              ),
+                            ],
                           ),
                         ),
                       ),

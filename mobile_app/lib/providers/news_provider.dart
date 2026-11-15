@@ -4,7 +4,8 @@ import '../models/category_model.dart';
 import '../services/api_service.dart';
 
 class NewsProvider with ChangeNotifier {
-  final ApiService apiService;
+  ApiService _apiService;
+  ApiService get apiService => _apiService;
 
   List<ArticleModel> _breakingNews = [];
   List<ArticleModel> _featuredNews = [];
@@ -33,7 +34,11 @@ class NewsProvider with ChangeNotifier {
   String? get activeCategorySlug => _activeCategorySlug;
   String? get activeCitySlug => _activeCitySlug;
 
-  NewsProvider({required this.apiService});
+  NewsProvider({required ApiService apiService}) : _apiService = apiService;
+
+  void updateApiService(ApiService newService) {
+    _apiService = newService;
+  }
 
   Future<void> initHomeData({String? citySlug}) async {
     _isInitialLoading = true;
@@ -43,13 +48,38 @@ class NewsProvider with ChangeNotifier {
     notifyListeners();
 
     try {
+      final breakingFuture = _apiService.fetchBreakingNews().catchError((e) {
+        debugPrint('Error loading breaking news: $e');
+        return <ArticleModel>[];
+      });
+      final featuredFuture = _apiService.fetchFeaturedNews().catchError((e) {
+        debugPrint('Error loading featured news: $e');
+        return <ArticleModel>[];
+      });
+      final trendingFuture = _apiService.fetchTrendingNews().catchError((e) {
+        debugPrint('Error loading trending news: $e');
+        return <ArticleModel>[];
+      });
+      final categoriesFuture = _apiService.fetchCategories().catchError((e) {
+        debugPrint('Error loading categories: $e');
+        return <CategoryModel>[];
+      });
+      final articlesFuture = _apiService.fetchArticles(page: 1, citySlug: citySlug).catchError((e) {
+        debugPrint('Error loading articles: $e');
+        return <ArticleModel>[];
+      });
+      final videosFuture = _apiService.fetchVideos(page: 1).catchError((e) {
+        debugPrint('Error loading videos: $e');
+        return <ArticleModel>[];
+      });
+
       final results = await Future.wait([
-        apiService.fetchBreakingNews(),
-        apiService.fetchFeaturedNews(),
-        apiService.fetchTrendingNews(),
-        apiService.fetchCategories(),
-        apiService.fetchArticles(page: 1, citySlug: citySlug),
-        apiService.fetchVideos(page: 1),
+        breakingFuture,
+        featuredFuture,
+        trendingFuture,
+        categoriesFuture,
+        articlesFuture,
+        videosFuture,
       ]);
 
       _breakingNews = results[0] as List<ArticleModel>;

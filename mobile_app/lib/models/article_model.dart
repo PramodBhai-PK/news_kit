@@ -1,3 +1,5 @@
+import '../config/app_config.dart';
+
 class ArticleModel {
   final int id;
   final String title;
@@ -55,6 +57,24 @@ class ArticleModel {
     this.tags = const [],
   });
 
+  static String? sanitizeUrl(String? url) {
+    if (url == null || url.isEmpty) return url;
+    if (url.contains('localhost:8000') || url.contains('127.0.0.1:8000')) {
+      try {
+        final baseUri = Uri.parse(AppConfig.apiBaseUrl);
+        final host = baseUri.host;
+        final port = baseUri.port;
+        final hostWithPort = port != 80 && port != 443 && port != 0 ? '$host:$port' : host;
+        return url
+            .replaceAll('localhost:8000', hostWithPort)
+            .replaceAll('127.0.0.1:8000', hostWithPort);
+      } catch (_) {
+        return url;
+      }
+    }
+    return url;
+  }
+
   factory ArticleModel.fromJson(Map<String, dynamic> json) {
     return ArticleModel(
       id: json['id'] ?? 0,
@@ -63,7 +83,7 @@ class ArticleModel {
       excerpt: json['excerpt'],
       content: json['content'],
       cleanText: json['clean_text'],
-      featuredImage: json['featured_image'],
+      featuredImage: sanitizeUrl(json['featured_image']),
       imageCaption: json['image_caption'],
       hasVideo: json['has_video'] ?? false,
       videoType: json['video_type'] ?? 'none',
@@ -80,7 +100,7 @@ class ArticleModel {
       readingTime: json['reading_time'] ?? 1,
       publishedAt: json['published_at'],
       publishedAtHuman: json['published_at_human'],
-      shareUrl: json['share_url'],
+      shareUrl: sanitizeUrl(json['share_url']),
       customAd: json['custom_ad'] != null ? ArticleCustomAd.fromJson(json['custom_ad']) : null,
       tags: (json['tags'] as List<dynamic>?)
               ?.map((t) => t is Map ? (t['name'] ?? '').toString() : t.toString())
@@ -191,7 +211,7 @@ class ArticleAuthor {
       id: json['id'] ?? 0,
       name: json['name'] ?? '',
       designation: json['designation'],
-      avatar: json['avatar'],
+      avatar: ArticleModel.sanitizeUrl(json['avatar']),
     );
   }
 

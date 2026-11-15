@@ -32,10 +32,17 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
     final newsProvider = Provider.of<NewsProvider>(context, listen: false);
 
     // Fetch initial data while splash is displaying
-    await Future.wait([
-      newsProvider.initHomeData(citySlug: appProvider.selectedCitySlug),
-      Future.delayed(const Duration(milliseconds: 2000)),
-    ]);
+    try {
+      await Future.wait([
+        newsProvider.initHomeData(citySlug: appProvider.selectedCitySlug).timeout(
+          const Duration(seconds: 4),
+          onTimeout: () => debugPrint('Splash initial data fetch timed out'),
+        ),
+        Future.delayed(const Duration(milliseconds: 1800)),
+      ]);
+    } catch (e) {
+      debugPrint('Error during splash init: $e');
+    }
 
     if (mounted) {
       Navigator.pushReplacement(

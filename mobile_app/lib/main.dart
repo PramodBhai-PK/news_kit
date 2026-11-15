@@ -29,11 +29,23 @@ class NewsKitApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => AppProvider()),
         ChangeNotifierProxyProvider<AppProvider, NewsProvider>(
           create: (ctx) => NewsProvider(apiService: ctx.read<AppProvider>().apiService),
-          update: (ctx, app, previous) => NewsProvider(apiService: app.apiService),
+          update: (ctx, app, previous) {
+            if (previous != null) {
+              previous.updateApiService(app.apiService);
+              return previous;
+            }
+            return NewsProvider(apiService: app.apiService);
+          },
         ),
         ChangeNotifierProxyProvider<AppProvider, AuthProvider>(
           create: (ctx) => AuthProvider(apiService: ctx.read<AppProvider>().apiService),
-          update: (ctx, app, previous) => AuthProvider(apiService: app.apiService),
+          update: (ctx, app, previous) {
+            if (previous != null) {
+              previous.updateApiService(app.apiService);
+              return previous;
+            }
+            return AuthProvider(apiService: app.apiService);
+          },
         ),
         ChangeNotifierProvider(create: (_) => BookmarkProvider()),
       ],
