@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../config/app_config.dart';
 import '../models/article_model.dart';
 import '../providers/app_provider.dart';
 import '../providers/news_provider.dart';
