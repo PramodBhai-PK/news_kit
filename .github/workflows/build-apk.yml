@@ -39,13 +39,6 @@ jobs:
           content = content.replace('<application', '<uses-permission android:name=\"android.permission.INTERNET\"/>\n    <uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>\n    <application android:usesCleartextTraffic=\"true\"')
           open(p, 'w').write(content)
           "
-          python3 -c "
-          p = 'android/build.gradle'
-          c = open(p).read()
-          if 'compileSdkVersion 34' not in c:
-              c += '\nsubprojects { afterEvaluate { project -> if (project.hasProperty(\"android\")) { project.android { compileSdkVersion 34 } } } }\n'
-          open(p, 'w').write(c)
-          "
 
       - name: Install Dependencies & Patch Legacy Plugins
         run: |
