@@ -327,3 +327,4 @@ class ApiV1Test extends TestCase
             ->assertJsonStructure(['data' => ['token', 'user']]);
     }
 }
+

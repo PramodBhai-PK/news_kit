@@ -90,3 +90,4 @@ class AuthController extends ApiController
         return $this->success(null, 'Logged out successfully.');
     }
 }
+

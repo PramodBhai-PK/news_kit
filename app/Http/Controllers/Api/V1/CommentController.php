@@ -68,3 +68,4 @@ class CommentController extends ApiController
         return $this->success(new CommentResource($comment), 'Your comment has been successfully published!', 201);
     }
 }
+

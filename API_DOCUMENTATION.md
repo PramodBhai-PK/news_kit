@@ -272,3 +272,4 @@ Allows public app users to submit eyewitness reports directly with photo or vide
 3. Select `newskit_api_v1.postman_collection.json` from the repository root.
 4. Set the `base_url` variable to your local or staging server (e.g., `http://localhost:8000/api/v1`).
 5. All 23 requests are pre-configured with query parameters and sample JSON bodies ready to execute.
+

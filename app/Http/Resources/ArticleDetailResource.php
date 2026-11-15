@@ -31,3 +31,4 @@ class ArticleDetailResource extends JsonResource
         ]);
     }
 }
+

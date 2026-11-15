@@ -84,3 +84,4 @@ class ConfigController extends ApiController
         return $this->success($data);
     }
 }
+

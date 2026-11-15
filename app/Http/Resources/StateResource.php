@@ -21,3 +21,4 @@ class StateResource extends JsonResource
         ];
     }
 }
+

@@ -21,3 +21,4 @@ class AdvertisementResource extends JsonResource
         ];
     }
 }
+

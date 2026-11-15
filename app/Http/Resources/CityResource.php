@@ -21,3 +21,4 @@ class CityResource extends JsonResource
         ];
     }
 }
+

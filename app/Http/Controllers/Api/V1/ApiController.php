@@ -40,3 +40,4 @@ class ApiController extends Controller
         return $this->error($message, 401);
     }
 }
+

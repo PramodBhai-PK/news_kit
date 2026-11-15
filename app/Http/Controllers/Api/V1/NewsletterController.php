@@ -36,3 +36,4 @@ class NewsletterController extends ApiController
         ], 'Thank you for subscribing to our news bulletin.');
     }
 }
+

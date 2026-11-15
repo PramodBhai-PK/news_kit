@@ -67,3 +67,4 @@ class CitizenTipController extends ApiController
         ], 'Citizen tip submitted successfully. Our editorial desk will verify it.', 201);
     }
 }
+

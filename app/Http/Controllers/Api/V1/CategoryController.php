@@ -60,3 +60,4 @@ class CategoryController extends ApiController
         ]);
     }
 }
+

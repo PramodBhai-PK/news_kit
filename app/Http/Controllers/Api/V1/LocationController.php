@@ -104,3 +104,4 @@ class LocationController extends ApiController
         ]);
     }
 }
+
