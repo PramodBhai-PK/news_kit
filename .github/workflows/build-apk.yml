@@ -39,12 +39,38 @@ jobs:
           content = content.replace('<application', '<uses-permission android:name=\"android.permission.INTERNET\"/>\n    <uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>\n    <application android:usesCleartextTraffic=\"true\"')
           open(p, 'w').write(content)
           "
+          python3 -c "
+          p = 'android/build.gradle'
+          c = open(p).read()
+          if 'compileSdkVersion 34' not in c:
+              c += '\nsubprojects { afterEvaluate { project -> if (project.hasProperty(\"android\")) { project.android { compileSdkVersion 34 } } } }\n'
+          open(p, 'w').write(c)
+          "
 
       - name: Install Dependencies & Patch Legacy Plugins
         run: |
           cd mobile_app
           flutter pub get
-          find /home/runner/.pub-cache -name "build.gradle" -exec sed -i "s/proguard-android.txt/proguard-android-optimize.txt/g" {} + || true
+          python3 -c "
+          import os
+          for root, dirs, files in os.walk('/home/runner/.pub-cache'):
+              for file in files:
+                  if file.endswith('.gradle') or file.endswith('.gradle.kts'):
+                      p = os.path.join(root, file)
+                      try:
+                          c = open(p, 'r', encoding='utf-8', errors='ignore').read()
+                          nc = c
+                          nc = nc.replace('compileSdk = flutter.compileSdkVersion', 'compileSdk = 34')
+                          nc = nc.replace('compileSdkVersion flutter.compileSdkVersion', 'compileSdkVersion 34')
+                          nc = nc.replace('flutter.compileSdkVersion', '34')
+                          nc = nc.replace('flutter.minSdkVersion', '21')
+                          nc = nc.replace('flutter.targetSdkVersion', '34')
+                          nc = nc.replace('proguard-android.txt', 'proguard-android-optimize.txt')
+                          if nc != c:
+                              open(p, 'w', encoding='utf-8').write(nc)
+                      except Exception:
+                          pass
+          "
 
       - name: Build Release APK
         run: |
