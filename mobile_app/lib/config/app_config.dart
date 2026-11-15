@@ -29,9 +29,10 @@ class AppConfig {
   // 2. BACKEND API CONNECTION
   // -----------------------------------------------------------------------
   /// Base URL of your NewsKit Laravel Portal API
-  /// - For Localhost Testing on Android Emulator: 'http://10.0.2.2:8000/api/v1'
-  /// - For Real Device / Production: 'https://your-domain.com/api/v1'
-  static const String apiBaseUrl = 'https://news-portal.example.com/api/v1';
+  /// - For Real Device Testing on same Wi-Fi: 'http://192.168.31.254:8000/api/v1'
+  /// - For Localhost Emulator Testing: 'http://10.0.2.2:8000/api/v1'
+  /// - For Production / Live Domain: 'https://your-domain.com/api/v1'
+  static const String apiBaseUrl = 'http://192.168.31.254:8000/api/v1';
 
   // -----------------------------------------------------------------------
   // 3. BRAND THEME & COLORS

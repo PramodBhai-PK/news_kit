@@ -17,4 +17,21 @@ class ExampleTest extends TestCase
 
         $response->assertStatus(200);
     }
+
+    public function test_mobile_app_download_page_loads_successfully(): void
+    {
+        $response = $this->get('/download-app');
+
+        $response->assertStatus(200);
+        $response->assertSee('NewsKit');
+        $response->assertSee('Download APK');
+    }
+
+    public function test_apk_download_route_redirects_or_downloads(): void
+    {
+        $response = $this->get('/download-apk');
+
+        // If local APK does not exist yet, redirects to GitHub release
+        $response->assertRedirectContains('github.com');
+    }
 }

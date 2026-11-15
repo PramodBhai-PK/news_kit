@@ -428,5 +428,27 @@ class PortalController extends Controller
             ->view('portal.feed', compact('articles'))
             ->header('Content-Type', 'application/rss+xml; charset=utf-8');
     }
+
+    public function downloadApp()
+    {
+        $apkPath = public_path('downloads/newskit-app.apk');
+        $hasLocalApk = file_exists($apkPath);
+        $fileSizeMb = $hasLocalApk ? round(filesize($apkPath) / (1024 * 1024), 1) : null;
+        $githubReleaseUrl = 'https://github.com/PramodBhai-PK/news_kit/releases/download/v1.0.0/app-release.apk';
+
+        return view('portal.download-app', compact('hasLocalApk', 'fileSizeMb', 'githubReleaseUrl'));
+    }
+
+    public function downloadApkFile()
+    {
+        $apkPath = public_path('downloads/newskit-app.apk');
+        if (file_exists($apkPath)) {
+            return response()->download($apkPath, 'newskit-app.apk', [
+                'Content-Type' => 'application/vnd.android.package-archive',
+            ]);
+        }
+
+        return redirect()->away('https://github.com/PramodBhai-PK/news_kit/releases/download/v1.0.0/app-release.apk');
+    }
 }
 

@@ -52,6 +52,10 @@ Route::get('/news-sitemap.xml', [PortalController::class, 'newsSitemap'])->name(
 Route::get('/feed', [PortalController::class, 'feed'])->name('portal.feed');
 Route::get('/rss.xml', fn () => redirect()->route('portal.feed', [], 301));
 
+// Mobile Application Download Hub & APK Direct Download
+Route::get('/download-app', [PortalController::class, 'downloadApp'])->name('portal.download-app');
+Route::get('/download-apk', [PortalController::class, 'downloadApkFile'])->name('portal.download-apk');
+
 /*
 |--------------------------------------------------------------------------
 | Authentication Routes

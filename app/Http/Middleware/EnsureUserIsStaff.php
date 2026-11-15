@@ -19,3 +19,4 @@ class EnsureUserIsStaff
         return $next($request);
     }
 }
+
