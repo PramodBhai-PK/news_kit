@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_html/flutter_html.dart';
+import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -286,20 +286,13 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
 
                             // 6. Article HTML Body Content
                             if (_article!.content != null)
-                              Html(
-                                data: _article!.content!,
-                                style: {
-                                  'body': Style(
-                                    fontSize: FontSize(16 * _fontSizeScale),
-                                    lineHeight: const LineHeight(1.6),
-                                    color: isDark ? const Color(0xFFE2E8F0) : const Color(0xFF1E293B),
-                                    margin: Margins.zero,
-                                    padding: HtmlPaddings.zero,
-                                  ),
-                                  'p': Style(marginBottom: Margins.all(12)),
-                                  'h2': Style(fontSize: FontSize(20 * _fontSizeScale), fontWeight: FontWeight.w800),
-                                  'h3': Style(fontSize: FontSize(18 * _fontSizeScale), fontWeight: FontWeight.w700),
-                                },
+                              HtmlWidget(
+                                _article!.content!,
+                                textStyle: TextStyle(
+                                  fontSize: 16 * _fontSizeScale,
+                                  height: 1.6,
+                                  color: isDark ? const Color(0xFFE2E8F0) : const Color(0xFF1E293B),
+                                ),
                               ),
 
                             // 7. Custom In-Article Ad Banner
