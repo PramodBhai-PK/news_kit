@@ -143,8 +143,6 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
                       if (_youtubeController != null)
                         YoutubePlayer(
                           controller: _youtubeController!,
-                          showVideoProgressIndicator: true,
-                          progressIndicatorColor: AppConfig.primaryColor,
                         )
                       else if (_article!.featuredImage != null)
                         AspectRatio(

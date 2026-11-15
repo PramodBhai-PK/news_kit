@@ -29,7 +29,7 @@ dependencies:
 
   # Article Content & Media
   flutter_widget_from_html: any
-  youtube_player_flutter: any
+  youtube_player_flutter: ^9.0.1
   flutter_tts: any
   image_picker: any
 
