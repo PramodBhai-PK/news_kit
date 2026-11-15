@@ -58,10 +58,10 @@ jobs:
           path: mobile_app/build/app/outputs/flutter-apk/app-release.apk
 
       - name: Publish GitHub Release
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          gh release create v1.0.0 mobile_app/build/app/outputs/flutter-apk/app-release.apk \
-            --title "NewsKit Mobile App v1.0.0 (Release APK)" \
-            --notes "Direct download link for NewsKit Flutter Mobile App APK." \
-            --clobber || true
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v1.0.0
+          name: "NewsKit Mobile App v1.0.0 (Release APK)"
+          body: "Official Android Release APK for NewsKit Mobile App."
+          files: mobile_app/build/app/outputs/flutter-apk/app-release.apk
+          token: ${{ secrets.GITHUB_TOKEN }}

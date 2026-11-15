@@ -28,16 +28,19 @@ dependencies:
   google_fonts: ^6.2.1
 
   # Article Content & Media
-  flutter_widget_from_html: any
+  flutter_widget_from_html: ^0.15.1
   youtube_player_flutter: ^9.0.1
-  flutter_tts: any
-  image_picker: any
+  flutter_tts: ^4.1.0
+  image_picker: ^1.1.2
 
   # Utilities & Storage
-  shared_preferences: any
-  share_plus: any
-  url_launcher: any
+  shared_preferences: ^2.3.2
+  share_plus: ^9.0.0
+  url_launcher: ^6.3.0
   intl: any
+
+dependency_overrides:
+  package_info_plus: 8.3.0
 
 dev_dependencies:
   flutter_test:
