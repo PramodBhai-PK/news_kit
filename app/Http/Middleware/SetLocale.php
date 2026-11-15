@@ -25,13 +25,18 @@ class SetLocale
     public function handle(Request $request, Closure $next): Response
     {
         $defaultLocale = config('app.locale', 'en');
-        $locale = $request->query('lang', Session::get('locale', $defaultLocale));
+        $sessionLocale = $request->hasSession() ? Session::get('locale') : null;
+        $headerLocale = $request->header('X-App-Locale') ?: $request->getPreferredLanguage(array_keys(self::SUPPORTED_LOCALES));
+
+        $locale = $request->query('lang', $sessionLocale ?: ($headerLocale ?: $defaultLocale));
 
         if (!array_key_exists($locale, self::SUPPORTED_LOCALES)) {
             $locale = $defaultLocale;
         }
 
-        Session::put('locale', $locale);
+        if ($request->hasSession()) {
+            Session::put('locale', $locale);
+        }
         App::setLocale($locale);
 
         $isRtl = in_array($locale, ['ur', 'ar'], true);

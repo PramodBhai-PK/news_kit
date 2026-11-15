@@ -1,0 +1,315 @@
+{
+	"info": {
+		"_postman_id": "newskit-rest-api-v1",
+		"name": "NewsKit Portal & Mobile REST API (v1)",
+		"description": "Complete REST API collection for NewsKit Portal, Android/iOS Flutter apps, and third-party integrations.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8000/api/v1",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": "",
+			"type": "string"
+		}
+	],
+	"item": [
+		{
+			"name": "Configuration & Settings",
+			"item": [
+				{
+					"name": "Get App Configuration",
+					"request": {
+						"method": "GET",
+						"header": [
+							{ "key": "Accept", "value": "application/json" },
+							{ "key": "X-App-Locale", "value": "en" }
+						],
+						"url": {
+							"raw": "{{base_url}}/config",
+							"host": ["{{base_url}}"],
+							"path": ["config"]
+						},
+						"description": "Returns branding, theme colors, features, WhatsApp channel card data, AdMob ad units, and supported languages."
+					}
+				}
+			]
+		},
+		{
+			"name": "Articles & News",
+			"item": [
+				{
+					"name": "Get Articles (Paginated with Filters)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{ "key": "Accept", "value": "application/json" }
+						],
+						"url": {
+							"raw": "{{base_url}}/articles?per_page=12&category=&city=&type=&search=",
+							"host": ["{{base_url}}"],
+							"path": ["articles"],
+							"query": [
+								{ "key": "per_page", "value": "12", "description": "Items per page (max 50)" },
+								{ "key": "category", "value": "", "description": "Category slug or ID" },
+								{ "key": "state", "value": "", "description": "State slug or ID" },
+								{ "key": "city", "value": "", "description": "City slug or ID" },
+								{ "key": "type", "value": "", "description": "breaking, featured, trending, or video" },
+								{ "key": "search", "value": "", "description": "Search keyword" },
+								{ "key": "tag", "value": "", "description": "Tag slug" }
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Breaking News",
+					"request": {
+						"method": "GET",
+						"header": [{ "key": "Accept", "value": "application/json" }],
+						"url": { "raw": "{{base_url}}/articles/breaking", "host": ["{{base_url}}"], "path": ["articles", "breaking"] }
+					}
+				},
+				{
+					"name": "Get Trending News",
+					"request": {
+						"method": "GET",
+						"header": [{ "key": "Accept", "value": "application/json" }],
+						"url": { "raw": "{{base_url}}/articles/trending", "host": ["{{base_url}}"], "path": ["articles", "trending"] }
+					}
+				},
+				{
+					"name": "Get Featured News",
+					"request": {
+						"method": "GET",
+						"header": [{ "key": "Accept", "value": "application/json" }],
+						"url": { "raw": "{{base_url}}/articles/featured", "host": ["{{base_url}}"], "path": ["articles", "featured"] }
+					}
+				},
+				{
+					"name": "Get Video Bulletins",
+					"request": {
+						"method": "GET",
+						"header": [{ "key": "Accept", "value": "application/json" }],
+						"url": { "raw": "{{base_url}}/articles/videos?per_page=10", "host": ["{{base_url}}"], "path": ["articles", "videos"], "query": [{ "key": "per_page", "value": "10" }] }
+					}
+				},
+				{
+					"name": "Get Article Details (By Slug)",
+					"request": {
+						"method": "GET",
+						"header": [{ "key": "Accept", "value": "application/json" }],
+						"url": { "raw": "{{base_url}}/articles/sample-news-slug", "host": ["{{base_url}}"], "path": ["articles", "sample-news-slug"] }
+					}
+				},
+				{
+					"name": "Get Article Comments",
+					"request": {
+						"method": "GET",
+						"header": [{ "key": "Accept", "value": "application/json" }],
+						"url": { "raw": "{{base_url}}/articles/sample-news-slug/comments", "host": ["{{base_url}}"], "path": ["articles", "sample-news-slug", "comments"] }
+					}
+				},
+				{
+					"name": "Post Article Comment",
+					"request": {
+						"method": "POST",
+						"header": [
+							{ "key": "Accept", "value": "application/json" },
+							{ "key": "Content-Type", "value": "application/json" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user_name\": \"John Doe\",\n    \"user_email\": \"johndoe@example.com\",\n    \"comment\": \"Great article! Keep up the good work.\"\n}"
+						},
+						"url": { "raw": "{{base_url}}/articles/sample-news-slug/comments", "host": ["{{base_url}}"], "path": ["articles", "sample-news-slug", "comments"] }
+					}
+				}
+			]
+		},
+		{
+			"name": "Categories",
+			"item": [
+				{
+					"name": "Get All Categories",
+					"request": {
+						"method": "GET",
+						"header": [{ "key": "Accept", "value": "application/json" }],
+						"url": { "raw": "{{base_url}}/categories", "host": ["{{base_url}}"], "path": ["categories"] }
+					}
+				},
+				{
+					"name": "Get Category by Slug",
+					"request": {
+						"method": "GET",
+						"header": [{ "key": "Accept", "value": "application/json" }],
+						"url": { "raw": "{{base_url}}/categories/politics?per_page=12", "host": ["{{base_url}}"], "path": ["categories", "politics"], "query": [{ "key": "per_page", "value": "12" }] }
+					}
+				}
+			]
+		},
+		{
+			"name": "Hyperlocal Locations (States & Cities)",
+			"item": [
+				{
+					"name": "Get States",
+					"request": {
+						"method": "GET",
+						"header": [{ "key": "Accept", "value": "application/json" }],
+						"url": { "raw": "{{base_url}}/locations/states", "host": ["{{base_url}}"], "path": ["locations", "states"] }
+					}
+				},
+				{
+					"name": "Get State by Slug (with Cities)",
+					"request": {
+						"method": "GET",
+						"header": [{ "key": "Accept", "value": "application/json" }],
+						"url": { "raw": "{{base_url}}/locations/states/uttar-pradesh", "host": ["{{base_url}}"], "path": ["locations", "states", "uttar-pradesh"] }
+					}
+				},
+				{
+					"name": "Get Cities (Filter by State)",
+					"request": {
+						"method": "GET",
+						"header": [{ "key": "Accept", "value": "application/json" }],
+						"url": { "raw": "{{base_url}}/locations/cities?state_slug=uttar-pradesh", "host": ["{{base_url}}"], "path": ["locations", "cities"], "query": [{ "key": "state_slug", "value": "uttar-pradesh" }] }
+					}
+				},
+				{
+					"name": "Get City News (by Slug)",
+					"request": {
+						"method": "GET",
+						"header": [{ "key": "Accept", "value": "application/json" }],
+						"url": { "raw": "{{base_url}}/locations/cities/lucknow?per_page=12", "host": ["{{base_url}}"], "path": ["locations", "cities", "lucknow"], "query": [{ "key": "per_page", "value": "12" }] }
+					}
+				}
+			]
+		},
+		{
+			"name": "Citizen Journalism & Tips",
+			"item": [
+				{
+					"name": "Submit Citizen News Tip",
+					"request": {
+						"method": "POST",
+						"header": [{ "key": "Accept", "value": "application/json" }],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{ "key": "title", "value": "Waterlogging reported on Main Ring Road", "type": "text" },
+								{ "key": "description", "value": "Heavy rain caused severe traffic disruption near Sector 5.", "type": "text" },
+								{ "key": "location_name", "value": "Sector 5 Flyover", "type": "text" },
+								{ "key": "witness_name", "value": "Rahul Sharma", "type": "text" },
+								{ "key": "witness_phone", "value": "+919876543210", "type": "text" },
+								{ "key": "is_anonymous", "value": "0", "type": "text" },
+								{ "key": "media", "type": "file", "src": "" }
+							]
+						},
+						"url": { "raw": "{{base_url}}/citizen-tips", "host": ["{{base_url}}"], "path": ["citizen-tips"] }
+					}
+				}
+			]
+		},
+		{
+			"name": "Newsletter",
+			"item": [
+				{
+					"name": "Subscribe to Newsletter",
+					"request": {
+						"method": "POST",
+						"header": [
+							{ "key": "Accept", "value": "application/json" },
+							{ "key": "Content-Type", "value": "application/json" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"reader@example.com\"\n}"
+						},
+						"url": { "raw": "{{base_url}}/newsletter/subscribe", "host": ["{{base_url}}"], "path": ["newsletter", "subscribe"] }
+					}
+				}
+			]
+		},
+		{
+			"name": "Advertisements",
+			"item": [
+				{
+					"name": "Get Advertisements",
+					"request": {
+						"method": "GET",
+						"header": [{ "key": "Accept", "value": "application/json" }],
+						"url": { "raw": "{{base_url}}/ads?placement=sidebar", "host": ["{{base_url}}"], "path": ["ads"], "query": [{ "key": "placement", "value": "sidebar" }] }
+					}
+				},
+				{
+					"name": "Track Ad Click",
+					"request": {
+						"method": "POST",
+						"header": [{ "key": "Accept", "value": "application/json" }],
+						"url": { "raw": "{{base_url}}/ads/1/click", "host": ["{{base_url}}"], "path": ["ads", "1", "click"] }
+					}
+				}
+			]
+		},
+		{
+			"name": "Authentication (Sanctum)",
+			"item": [
+				{
+					"name": "User Register",
+					"request": {
+						"method": "POST",
+						"header": [
+							{ "key": "Accept", "value": "application/json" },
+							{ "key": "Content-Type", "value": "application/json" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Mobile Reader\",\n    \"email\": \"reader@newskit.org\",\n    \"password\": \"password123\",\n    \"device_name\": \"Pixel 8 Pro\"\n}"
+						},
+						"url": { "raw": "{{base_url}}/auth/register", "host": ["{{base_url}}"], "path": ["auth", "register"] }
+					}
+				},
+				{
+					"name": "User Login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{ "key": "Accept", "value": "application/json" },
+							{ "key": "Content-Type", "value": "application/json" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"admin@newskit.org\",\n    \"password\": \"password\",\n    \"device_name\": \"Flutter App\"\n}"
+						},
+						"url": { "raw": "{{base_url}}/auth/login", "host": ["{{base_url}}"], "path": ["auth", "login"] }
+					}
+				},
+				{
+					"name": "Get Profile (Me)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{ "key": "Accept", "value": "application/json" },
+							{ "key": "Authorization", "value": "Bearer {{token}}" }
+						],
+						"url": { "raw": "{{base_url}}/auth/me", "host": ["{{base_url}}"], "path": ["auth", "me"] }
+					}
+				},
+				{
+					"name": "User Logout",
+					"request": {
+						"method": "POST",
+						"header": [
+							{ "key": "Accept", "value": "application/json" },
+							{ "key": "Authorization", "value": "Bearer {{token}}" }
+						],
+						"url": { "raw": "{{base_url}}/auth/logout", "host": ["{{base_url}}"], "path": ["auth", "logout"] }
+					}
+				}
+			]
+		}
+	]
+}
