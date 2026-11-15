@@ -106,3 +106,4 @@ class _BreakingNewsTickerState extends State<BreakingNewsTicker> {
     );
   }
 }
+

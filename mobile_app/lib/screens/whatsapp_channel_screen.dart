@@ -149,3 +149,4 @@ class WhatsAppChannelScreen extends StatelessWidget {
     );
   }
 }
+

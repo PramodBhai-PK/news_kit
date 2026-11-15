@@ -112,4 +112,17 @@ class RoleBasedAccessTest extends TestCase
         $response = $this->actingAs($this->reporter)->get("/admin/articles/{$this->reporterArticle->id}/edit");
         $response->assertStatus(200);
     }
+
+    public function test_reader_user_cannot_access_admin_panel(): void
+    {
+        $reader = User::create([
+            'name' => 'Mobile Reader',
+            'email' => 'reader@test.com',
+            'password' => bcrypt('password'),
+            'role' => 'reader',
+        ]);
+
+        $response = $this->actingAs($reader)->get('/admin/dashboard');
+        $response->assertStatus(403);
+    }
 }

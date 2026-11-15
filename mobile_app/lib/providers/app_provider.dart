@@ -80,3 +80,4 @@ class AppProvider with ChangeNotifier {
     notifyListeners();
   }
 }
+

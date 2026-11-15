@@ -32,3 +32,4 @@ class BookmarkProvider with ChangeNotifier {
     return isAdded;
   }
 }
+

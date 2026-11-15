@@ -93,3 +93,4 @@ class UserPressCard {
     'verify_url': verifyUrl,
   };
 }
+

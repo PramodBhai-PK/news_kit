@@ -32,3 +32,4 @@ class BookmarkService {
     return index < 0; // True if newly added, False if removed
   }
 }
+

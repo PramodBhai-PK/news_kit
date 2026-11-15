@@ -16,10 +16,10 @@ use Illuminate\Support\Facades\Route;
 | NewsKit REST API V1 Routes
 |--------------------------------------------------------------------------
 | Production-grade API endpoints for Mobile App (Flutter / React Native)
-| and third-party integrations.
+| Protected with rate-limiting (throttle) and Sanctum authentication.
 */
 
-Route::prefix('v1')->group(function () {
+Route::prefix('v1')->middleware(['throttle:60,1'])->group(function () {
 
     // App Configuration, Branding & Localization
     Route::get('/config', [ConfigController::class, 'index']);
@@ -32,7 +32,7 @@ Route::prefix('v1')->group(function () {
     Route::get('/articles/videos', [ArticleController::class, 'videos']);
     Route::get('/articles/{slug}', [ArticleController::class, 'show']);
     Route::get('/articles/{slug}/comments', [CommentController::class, 'index']);
-    Route::post('/articles/{slug}/comments', [CommentController::class, 'store']);
+    Route::post('/articles/{slug}/comments', [CommentController::class, 'store'])->middleware('throttle:10,1');
 
     // Categories
     Route::get('/categories', [CategoryController::class, 'index']);
@@ -44,19 +44,19 @@ Route::prefix('v1')->group(function () {
     Route::get('/locations/cities', [LocationController::class, 'cities']);
     Route::get('/locations/cities/{slug}', [LocationController::class, 'city']);
 
-    // Citizen Journalism / Breaking News Tips
-    Route::post('/citizen-tips', [CitizenTipController::class, 'store']);
+    // Citizen Journalism / Breaking News Tips (Strict rate-limit to prevent file spam)
+    Route::post('/citizen-tips', [CitizenTipController::class, 'store'])->middleware('throttle:5,1');
 
     // Newsletter Subscription
-    Route::post('/newsletter/subscribe', [NewsletterController::class, 'subscribe']);
+    Route::post('/newsletter/subscribe', [NewsletterController::class, 'subscribe'])->middleware('throttle:10,1');
 
     // Advertisements & Sponsored Content
     Route::get('/ads', [AdvertisementController::class, 'index']);
     Route::post('/ads/{id}/click', [AdvertisementController::class, 'click']);
 
-    // Authentication (Sanctum)
-    Route::post('/auth/login', [AuthController::class, 'login']);
-    Route::post('/auth/register', [AuthController::class, 'register']);
+    // Authentication (Sanctum) - Strict rate-limit to prevent brute-force attacks
+    Route::post('/auth/login', [AuthController::class, 'login'])->middleware('throttle:5,1');
+    Route::post('/auth/register', [AuthController::class, 'register'])->middleware('throttle:5,1');
 
     // Authenticated User Endpoints
     Route::middleware('auth:sanctum')->group(function () {

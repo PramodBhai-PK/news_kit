@@ -43,3 +43,4 @@ class CategoryModel {
     'articles_count': articlesCount,
   };
 }
+

@@ -156,6 +156,11 @@ class User extends Authenticatable
         return $this->role === 'reporter';
     }
 
+    public function isStaff(): bool
+    {
+        return in_array($this->role, ['admin', 'editor', 'publisher', 'reporter']);
+    }
+
     public function canManageAllArticles(): bool
     {
         return in_array($this->role, ['admin', 'editor', 'publisher']);

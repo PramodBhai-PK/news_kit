@@ -66,7 +66,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 | Protected Admin & CMS Routes (Auth Middleware)
 |--------------------------------------------------------------------------
 */
-Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
+Route::middleware(['auth', \App\Http\Middleware\EnsureUserIsStaff::class])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/', fn () => redirect()->route('admin.dashboard'));
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 

@@ -373,3 +373,4 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
     );
   }
 }
+

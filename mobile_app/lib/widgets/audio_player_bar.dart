@@ -107,3 +107,4 @@ class _AudioPlayerBarState extends State<AudioPlayerBar> {
     );
   }
 }
+

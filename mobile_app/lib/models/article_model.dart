@@ -236,3 +236,4 @@ class ArticleCustomAd {
     'html_code': htmlCode,
   };
 }
+

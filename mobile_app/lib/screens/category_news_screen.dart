@@ -142,3 +142,4 @@ class _CategoryNewsScreenState extends State<CategoryNewsScreen> {
     );
   }
 }
+

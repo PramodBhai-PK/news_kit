@@ -64,7 +64,7 @@ class AuthController extends ApiController
             'email' => $data['email'],
             'phone' => $data['phone'] ?? null,
             'password' => Hash::make($data['password']),
-            'role' => 'reporter',
+            'role' => 'reader',
             'is_active' => true,
         ]);
 

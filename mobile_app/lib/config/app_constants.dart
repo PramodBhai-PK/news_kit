@@ -12,3 +12,4 @@ class AppConstants {
   static const String defaultArticlePlaceholder = 'https://images.unsplash.com/photo-1585829365295-ab7cd400c167?w=800&auto=format&fit=crop';
   static const String defaultAvatarPlaceholder = 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=400&auto=format&fit=crop';
 }
+

@@ -38,3 +38,4 @@ class AppConfig {
   /// Push Notifications (OneSignal App ID)
   static const String oneSignalAppId = 'YOUR_ONESIGNAL_APP_ID_HERE';
 }
+

@@ -120,3 +120,4 @@ class NewsProvider with ChangeNotifier {
     await initHomeData(citySlug: _activeCitySlug);
   }
 }
+

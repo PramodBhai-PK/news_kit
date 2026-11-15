@@ -344,3 +344,4 @@ class ApiService {
     return {'success': false, 'message': data['message'] ?? 'Registration failed'};
   }
 }
+

@@ -65,3 +65,4 @@ class CategoryPillList extends StatelessWidget {
     );
   }
 }
+

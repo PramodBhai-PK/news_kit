@@ -277,3 +277,4 @@ class _CitizenTipScreenState extends State<CitizenTipScreen> {
     );
   }
 }
+

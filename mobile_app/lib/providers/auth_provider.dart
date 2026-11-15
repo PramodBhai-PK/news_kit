@@ -60,3 +60,4 @@ class AuthProvider with ChangeNotifier {
     notifyListeners();
   }
 }
+

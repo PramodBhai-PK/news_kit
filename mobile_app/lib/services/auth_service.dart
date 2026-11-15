@@ -39,3 +39,4 @@ class AuthService {
     await prefs.remove(AppConstants.keyUserData);
   }
 }
+

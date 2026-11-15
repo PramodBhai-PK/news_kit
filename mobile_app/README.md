@@ -108,3 +108,4 @@ class AppTheme {
 
 ## 🔒 License & Support
 This source code is licensed under the CodeCanyon Commercial License. For questions and setup support, please contact the author via your CodeCanyon purchase dashboard.
+

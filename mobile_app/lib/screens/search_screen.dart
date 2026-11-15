@@ -99,3 +99,4 @@ class _SearchScreenState extends State<SearchScreen> {
     );
   }
 }
+

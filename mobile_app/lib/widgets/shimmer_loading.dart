@@ -63,3 +63,4 @@ class ArticleListShimmer extends StatelessWidget {
     );
   }
 }
+
