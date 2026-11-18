@@ -4,6 +4,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../config/app_config.dart';
 import '../providers/app_provider.dart';
 import '../providers/auth_provider.dart';
+import 'bookmarks_screen.dart';
 import 'login_screen.dart';
 import 'whatsapp_channel_screen.dart';
 
@@ -226,6 +227,16 @@ class ProfileScreen extends StatelessWidget {
                   title: const Text('Dark Mode', style: TextStyle(fontWeight: FontWeight.w700)),
                   value: appProvider.isDarkMode,
                   onChanged: (val) => appProvider.toggleDarkMode(),
+                ),
+                const Divider(height: 1),
+                ListTile(
+                  leading: const Icon(Icons.bookmark_border),
+                  title: const Text('Saved Bookmarks', style: TextStyle(fontWeight: FontWeight.w700)),
+                  subtitle: const Text('Offline saved news articles'),
+                  trailing: const Icon(Icons.chevron_right),
+                  onTap: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (_) => const BookmarksScreen()));
+                  },
                 ),
                 const Divider(height: 1),
                 ListTile(

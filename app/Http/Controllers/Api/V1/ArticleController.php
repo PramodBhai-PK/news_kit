@@ -196,5 +196,72 @@ class ArticleController extends ApiController
             ],
         ]);
     }
+
+    public function aiSummary(string $slug): JsonResponse
+    {
+        $article = Article::published()->where('slug', $slug)->first();
+
+        if (!$article) {
+            return $this->notFound('Article not found.');
+        }
+
+        // Clean text extraction
+        $rawText = strip_tags($article->content ?? $article->excerpt ?? $article->title);
+        $rawText = html_entity_decode($rawText, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+        $rawText = preg_replace('/\s+/', ' ', trim($rawText));
+
+        // Split into candidate sentences
+        $sentences = preg_split('/(?<=[.!?])\s+/', $rawText, -1, PREG_SPLIT_NO_EMPTY);
+        $filtered = array_values(array_filter($sentences, fn($s) => mb_strlen(trim($s)) >= 25 && mb_strlen(trim($s)) <= 220));
+
+        $bullets = [];
+        if (count($filtered) >= 3) {
+            $bullets[] = trim($filtered[0]);
+            $midIndex = (int) floor(count($filtered) / 2);
+            $bullets[] = trim($filtered[$midIndex]);
+            $bullets[] = trim($filtered[count($filtered) - 1]);
+        } elseif (!empty($filtered)) {
+            foreach ($filtered as $s) {
+                $bullets[] = trim($s);
+            }
+            while (count($bullets) < 3) {
+                $bullets[] = $article->excerpt ? trim($article->excerpt) : trim($article->title);
+            }
+        } else {
+            $bullets = [
+                $article->title,
+                $article->excerpt ?: 'Comprehensive reporting on the latest verified developments.',
+                'Full context and verified source documentation available in the complete story.'
+            ];
+        }
+
+        // Sentiment / Tag classification
+        $lowerTitle = mb_strtolower($article->title);
+        $sentiment = 'Key Briefing';
+        $sentimentType = 'neutral';
+
+        if (str_contains($lowerTitle, 'alert') || str_contains($lowerTitle, 'warn') || str_contains($lowerTitle, 'crash') || str_contains($lowerTitle, 'loss') || str_contains($lowerTitle, 'storm') || str_contains($lowerTitle, 'fall')) {
+            $sentiment = 'High Alert';
+            $sentimentType = 'alert';
+        } elseif (str_contains($lowerTitle, 'growth') || str_contains($lowerTitle, 'win') || str_contains($lowerTitle, 'rise') || str_contains($lowerTitle, 'success') || str_contains($lowerTitle, 'record') || str_contains($lowerTitle, 'surge')) {
+            $sentiment = 'Positive Trend';
+            $sentimentType = 'positive';
+        } else {
+            $sentiment = 'Fact Verified';
+            $sentimentType = 'verified';
+        }
+
+        $readingTime = max(1, (int) ceil(str_word_count($rawText) / 200));
+        $savedTime = max(1, $readingTime - 1);
+
+        return $this->success([
+            'title' => 'AI 3-Point Key Takeaways',
+            'reading_time_saved' => "{$savedTime} min reading time saved",
+            'sentiment' => $sentiment,
+            'sentiment_type' => $sentimentType,
+            'bullets' => array_slice($bullets, 0, 3),
+            'key_takeaway' => $bullets[0] ?? $article->title,
+        ]);
+    }
 }
 

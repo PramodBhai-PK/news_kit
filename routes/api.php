@@ -31,6 +31,7 @@ Route::prefix('v1')->middleware(['throttle:60,1'])->group(function () {
     Route::get('/articles/featured', [ArticleController::class, 'featured']);
     Route::get('/articles/videos', [ArticleController::class, 'videos']);
     Route::get('/articles/{slug}', [ArticleController::class, 'show']);
+    Route::get('/articles/{slug}/ai-summary', [ArticleController::class, 'aiSummary']);
     Route::get('/articles/{slug}/comments', [CommentController::class, 'index']);
     Route::post('/articles/{slug}/comments', [CommentController::class, 'store'])->middleware('throttle:10,1');
 

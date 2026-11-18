@@ -4,6 +4,7 @@ import 'bookmarks_screen.dart';
 import 'category_news_screen.dart';
 import 'home_screen.dart';
 import 'profile_screen.dart';
+import 'short_news_screen.dart';
 import 'videos_screen.dart';
 
 class MainNavigationScreen extends StatefulWidget {
@@ -18,9 +19,9 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
 
   final List<Widget> _screens = const [
     HomeScreen(),
+    ShortNewsScreen(),
     CategoryNewsScreen(),
     VideosScreen(),
-    BookmarksScreen(),
     ProfileScreen(),
   ];
 
@@ -49,6 +50,11 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
             label: 'Home',
           ),
           BottomNavigationBarItem(
+            icon: Icon(Icons.bolt_outlined),
+            activeIcon: Icon(Icons.bolt),
+            label: 'Shorts',
+          ),
+          BottomNavigationBarItem(
             icon: Icon(Icons.grid_view_outlined),
             activeIcon: Icon(Icons.grid_view),
             label: 'Categories',
@@ -57,11 +63,6 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
             icon: Icon(Icons.play_circle_outline),
             activeIcon: Icon(Icons.play_circle_filled),
             label: 'Videos',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.bookmark_border),
-            activeIcon: Icon(Icons.bookmark),
-            label: 'Saved',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person_outline),

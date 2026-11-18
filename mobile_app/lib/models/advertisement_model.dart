@@ -60,3 +60,4 @@ class AdvertisementModel {
     'clicks_count': clicksCount,
   };
 }
+

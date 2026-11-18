@@ -394,5 +394,22 @@ class ApiService {
     }
     return null;
   }
+
+  /// 15. Fetch AI 3-Point Takeaways Summary
+  Future<Map<String, dynamic>?> fetchAiSummary(String slug) async {
+    try {
+      final response = await http.get(
+        Uri.parse('$baseUrl/articles/$slug/ai-summary'),
+        headers: await _getHeaders(),
+      );
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+        return data['data'] as Map<String, dynamic>?;
+      }
+    } catch (e) {
+      debugPrint('Error fetching AI summary: $e');
+    }
+    return null;
+  }
 }
 

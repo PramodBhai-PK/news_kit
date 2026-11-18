@@ -11,9 +11,11 @@ import '../providers/app_provider.dart';
 import '../providers/bookmark_provider.dart';
 import '../services/api_service.dart';
 import '../services/tts_service.dart';
+import '../widgets/ai_summary_card.dart';
 import '../widgets/article_card.dart';
 import '../widgets/audio_player_bar.dart';
 import '../widgets/custom_ad_card.dart';
+import '../widgets/story_poster_dialog.dart';
 import 'comments_sheet.dart';
 
 class ArticleDetailScreen extends StatefulWidget {
@@ -94,6 +96,13 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
                   );
                 }
               },
+            ),
+          // Generate WhatsApp Story Poster
+          if (_article != null)
+            IconButton(
+              icon: const Icon(Icons.auto_awesome, color: Color(0xFFF59E0B)),
+              tooltip: 'Generate WhatsApp Status Poster',
+              onPressed: () => StoryPosterDialog.show(context, _article!),
             ),
           // Share
           if (_article != null)
@@ -273,6 +282,12 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
                                   ),
                                 ),
                               ),
+
+                            // 5b. AI 3-Point Executive Takeaways
+                            AiSummaryCard(
+                              slug: _article!.slug,
+                              articleTitle: _article!.title,
+                            ),
 
                             // 6. Article HTML Body Content
                             if (_article!.content != null)

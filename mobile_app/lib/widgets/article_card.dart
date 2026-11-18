@@ -4,6 +4,7 @@ import '../config/app_config.dart';
 import '../config/app_constants.dart';
 import '../models/article_model.dart';
 import '../screens/article_detail_screen.dart';
+import 'story_poster_dialog.dart';
 
 class FeaturedArticleCard extends StatelessWidget {
   final ArticleModel article;
@@ -270,6 +271,15 @@ class ArticleListItem extends StatelessWidget {
                         style: TextStyle(
                           fontSize: 11,
                           color: isDark ? Colors.grey.shade400 : Colors.grey.shade500,
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      InkWell(
+                        onTap: () => StoryPosterDialog.show(context, article),
+                        borderRadius: BorderRadius.circular(12),
+                        child: const Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+                          child: Icon(Icons.auto_awesome, size: 14, color: Color(0xFFF59E0B)),
                         ),
                       ),
                     ],

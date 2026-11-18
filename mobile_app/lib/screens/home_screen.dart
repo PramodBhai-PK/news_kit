@@ -13,6 +13,7 @@ import '../widgets/custom_ad_card.dart';
 import '../widgets/shimmer_loading.dart';
 import 'citizen_tip_screen.dart';
 import 'search_screen.dart';
+import 'short_news_screen.dart';
 import 'whatsapp_channel_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -106,6 +107,17 @@ class _HomeScreenState extends State<HomeScreen> {
             },
           ),
           const SizedBox(width: 6),
+          // 60-Word Shorts Quick Launcher
+          IconButton(
+            icon: const Icon(Icons.bolt, color: Color(0xFFF59E0B)),
+            tooltip: '60-Word Shorts Feed',
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => const ShortNewsScreen()),
+              );
+            },
+          ),
           // Search Icon
           IconButton(
             icon: const Icon(Icons.search),
