@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\V1\CategoryController;
 use App\Http\Controllers\Api\V1\CitizenTipController;
 use App\Http\Controllers\Api\V1\CommentController;
 use App\Http\Controllers\Api\V1\ConfigController;
+use App\Http\Controllers\Api\V1\EpaperController;
 use App\Http\Controllers\Api\V1\LocationController;
 use App\Http\Controllers\Api\V1\NewsletterController;
 use Illuminate\Support\Facades\Route;
@@ -57,6 +58,13 @@ Route::prefix('v1')->middleware(['throttle:60,1'])->group(function () {
     Route::post('/ads/{id}/impression', [AdvertisementController::class, 'impression']);
     Route::post('/ads/{id}/view', [AdvertisementController::class, 'impression']);
     Route::post('/ads/{id}/click', [AdvertisementController::class, 'click']);
+
+    // Digital E-Paper & Daily Newspaper Editions
+    Route::get('/epaper/today', [EpaperController::class, 'today']);
+    Route::get('/epaper/editions', [EpaperController::class, 'index']);
+    Route::get('/epaper/{idOrSlug}', [EpaperController::class, 'show']);
+    Route::post('/epaper/{id}/view', [EpaperController::class, 'view']);
+    Route::post('/epaper/{id}/download', [EpaperController::class, 'download']);
 
     // Authentication (Sanctum) - Strict rate-limit to prevent brute-force attacks
     Route::post('/auth/login', [AuthController::class, 'login'])->middleware('throttle:5,1');

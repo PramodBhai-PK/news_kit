@@ -5,21 +5,21 @@
         <div class="flex justify-between flex-1 sm:hidden gap-2">
             @if ($paginator->onFirstPage())
                 <span class="relative inline-flex items-center px-4 py-2 text-xs font-bold text-slate-400 bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700/80 cursor-not-allowed rounded-xl shadow-2xs">
-                    ← {{ __('पिछला') }}
+                    ← {{ __('Previous') }}
                 </span>
             @else
                 <a href="{{ $paginator->previousPageUrl() }}" class="relative inline-flex items-center px-4 py-2 text-xs font-bold text-slate-700 dark:text-slate-200 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl hover:bg-brand-primary hover:text-white dark:hover:bg-brand-primary transition-all shadow-2xs">
-                    ← {{ __('पिछला') }}
+                    ← {{ __('Previous') }}
                 </a>
             @endif
 
             @if ($paginator->hasMorePages())
                 <a href="{{ $paginator->nextPageUrl() }}" class="relative inline-flex items-center px-4 py-2 text-xs font-bold text-slate-700 dark:text-slate-200 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl hover:bg-brand-primary hover:text-white dark:hover:bg-brand-primary transition-all shadow-2xs">
-                    {{ __('अगला') }} →
+                    {{ __('Next') }} →
                 </a>
             @else
                 <span class="relative inline-flex items-center px-4 py-2 text-xs font-bold text-slate-400 bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700/80 cursor-not-allowed rounded-xl shadow-2xs">
-                    {{ __('अगला') }} →
+                    {{ __('Next') }} →
                 </span>
             @endif
         </div>
@@ -29,13 +29,13 @@
             <!-- Results Counter Info -->
             <div>
                 <p class="text-xs font-semibold text-slate-500 dark:text-slate-400">
-                    <span>{{ __('कुल') }}</span>
-                    <span class="font-extrabold text-slate-900 dark:text-white font-mono">{{ $paginator->total() }}</span>
-                    <span>{{ __('में से') }}</span>
+                    <span>{{ __('Showing') }}</span>
                     <span class="font-bold text-slate-800 dark:text-slate-200 font-mono">{{ $paginator->firstItem() }}</span>
                     <span>-</span>
                     <span class="font-bold text-slate-800 dark:text-slate-200 font-mono">{{ $paginator->lastItem() }}</span>
-                    <span>{{ __('दिखाए जा रहे हैं') }}</span>
+                    <span>{{ __('of') }}</span>
+                    <span class="font-extrabold text-slate-900 dark:white font-mono">{{ $paginator->total() }}</span>
+                    <span>{{ __('results') }}</span>
                 </p>
             </div>
 

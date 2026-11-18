@@ -426,3 +426,4 @@ class _ShortNewsScreenState extends State<ShortNewsScreen> {
     );
   }
 }
+

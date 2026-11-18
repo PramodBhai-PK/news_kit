@@ -7,6 +7,7 @@ import '../models/app_config_model.dart';
 import '../models/article_model.dart';
 import '../models/category_model.dart';
 import '../models/comment_model.dart';
+import '../models/epaper_model.dart';
 import '../models/location_model.dart';
 import '../models/user_model.dart';
 import 'auth_service.dart';
@@ -410,6 +411,92 @@ class ApiService {
       debugPrint('Error fetching AI summary: $e');
     }
     return null;
+  }
+
+  /// 16. Fetch Today's Digital E-Paper Edition
+  Future<EpaperEditionModel?> fetchTodayEpaper({String? citySlug}) async {
+    try {
+      final query = citySlug != null ? '?city=$citySlug' : '';
+      final response = await http.get(
+        Uri.parse('$baseUrl/epaper/today$query'),
+        headers: await _getHeaders(),
+      );
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+        if (data['data'] != null) {
+          return EpaperEditionModel.fromJson(data['data']);
+        }
+      }
+    } catch (e) {
+      debugPrint('Error fetching today epaper: $e');
+    }
+    return null;
+  }
+
+  /// 17. Fetch E-Paper Editions Archive
+  Future<List<EpaperEditionModel>> fetchEpaperEditions({String? date}) async {
+    try {
+      final query = date != null ? '?date=$date' : '';
+      final response = await http.get(
+        Uri.parse('$baseUrl/epaper/editions$query'),
+        headers: await _getHeaders(),
+      );
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+        final list = data['data'] as List<dynamic>? ?? [];
+        return list.map((item) => EpaperEditionModel.fromJson(item)).toList();
+      }
+    } catch (e) {
+      debugPrint('Error fetching epaper editions: $e');
+    }
+    return [];
+  }
+
+  /// 18. Fetch Single E-Paper Edition with Pages
+  Future<EpaperEditionModel?> fetchEpaperEdition(int id) async {
+    try {
+      final response = await http.get(
+        Uri.parse('$baseUrl/epaper/$id'),
+        headers: await _getHeaders(),
+      );
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+        if (data['data'] != null) {
+          return EpaperEditionModel.fromJson(data['data']);
+        }
+      }
+    } catch (e) {
+      debugPrint('Error fetching epaper edition #$id: $e');
+    }
+    return null;
+  }
+
+  /// Record E-Paper View Count
+  Future<bool> recordEpaperView(int id) async {
+    try {
+      final response = await http.post(
+        Uri.parse('$baseUrl/epaper/$id/view'),
+        headers: await _getHeaders(),
+      );
+      return response.statusCode == 200;
+    } catch (e) {
+      debugPrint('Error recording epaper view: $e');
+      return false;
+    }
+  }
+
+  /// Record E-Paper Download Count
+  Future<bool> recordEpaperDownload(int id) async {
+    try {
+      final response = await http.post(
+        Uri.parse('$baseUrl/epaper/$id/download'),
+        headers: await _getHeaders(),
+      );
+      return response.statusCode == 200;
+    } catch (e) {
+      debugPrint('Error recording epaper download: $e');
+      return false;
+    }
   }
 }
 

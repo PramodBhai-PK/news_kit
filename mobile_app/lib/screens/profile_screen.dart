@@ -5,6 +5,7 @@ import '../config/app_config.dart';
 import '../providers/app_provider.dart';
 import '../providers/auth_provider.dart';
 import 'bookmarks_screen.dart';
+import 'epaper_screen.dart';
 import 'login_screen.dart';
 import 'whatsapp_channel_screen.dart';
 
@@ -227,6 +228,16 @@ class ProfileScreen extends StatelessWidget {
                   title: const Text('Dark Mode', style: TextStyle(fontWeight: FontWeight.w700)),
                   value: appProvider.isDarkMode,
                   onChanged: (val) => appProvider.toggleDarkMode(),
+                ),
+                const Divider(height: 1),
+                ListTile(
+                  leading: const Icon(Icons.newspaper, color: AppConfig.primaryColor),
+                  title: const Text('Digital E-Paper', style: TextStyle(fontWeight: FontWeight.w700)),
+                  subtitle: const Text('Daily flipbook print editions'),
+                  trailing: const Icon(Icons.chevron_right),
+                  onTap: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (_) => const EpaperScreen()));
+                  },
                 ),
                 const Divider(height: 1),
                 ListTile(

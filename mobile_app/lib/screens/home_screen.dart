@@ -12,6 +12,7 @@ import '../widgets/city_selector_sheet.dart';
 import '../widgets/custom_ad_card.dart';
 import '../widgets/shimmer_loading.dart';
 import 'citizen_tip_screen.dart';
+import 'epaper_screen.dart';
 import 'search_screen.dart';
 import 'short_news_screen.dart';
 import 'whatsapp_channel_screen.dart';
@@ -107,6 +108,17 @@ class _HomeScreenState extends State<HomeScreen> {
             },
           ),
           const SizedBox(width: 6),
+          // Digital E-Paper Quick Launcher
+          IconButton(
+            icon: const Icon(Icons.newspaper, color: AppConfig.primaryColor),
+            tooltip: 'Digital E-Paper',
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => const EpaperScreen()),
+              );
+            },
+          ),
           // 60-Word Shorts Quick Launcher
           IconButton(
             icon: const Icon(Icons.bolt, color: Color(0xFFF59E0B)),
@@ -204,6 +216,119 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                   ),
+
+                  // 3a. Digital E-Paper Banner
+                  if (newsProvider.activeCategorySlug == null)
+                    SliverToBoxAdapter(
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(16, 2, 16, 10),
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (_) => const EpaperScreen()),
+                            );
+                          },
+                          borderRadius: BorderRadius.circular(16),
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: isDark
+                                    ? [const Color(0xFF1E293B), const Color(0xFF0F172A)]
+                                    : [const Color(0xFFEFF6FF), const Color(0xFFDBEAFE)],
+                              ),
+                              borderRadius: BorderRadius.circular(16),
+                              border: Border.all(
+                                color: isDark ? const Color(0xFF3B82F6).withOpacity(0.3) : const Color(0xFF93C5FD),
+                              ),
+                            ),
+                            child: Row(
+                              children: [
+                                Container(
+                                  padding: const EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                    color: AppConfig.primaryColor.withOpacity(0.15),
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: const Icon(Icons.newspaper, color: AppConfig.primaryColor, size: 22),
+                                ),
+                                const SizedBox(width: 12),
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Container(
+                                            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                                            decoration: BoxDecoration(
+                                              color: AppConfig.primaryColor,
+                                              borderRadius: BorderRadius.circular(4),
+                                            ),
+                                            child: const Text(
+                                              'TODAY\'S EDITION',
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 9,
+                                                fontWeight: FontWeight.w900,
+                                                letterSpacing: 0.5,
+                                              ),
+                                            ),
+                                          ),
+                                          const SizedBox(width: 6),
+                                          Text(
+                                            'Digital Flipbook',
+                                            style: TextStyle(
+                                              fontSize: 11,
+                                              fontWeight: FontWeight.w600,
+                                              color: isDark ? Colors.white70 : const Color(0xFF475569),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      const SizedBox(height: 4),
+                                      Text(
+                                        'Read today\'s full print newspaper page-by-page',
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w700,
+                                          color: isDark ? Colors.white : const Color(0xFF0F172A),
+                                        ),
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                const SizedBox(width: 8),
+                                Container(
+                                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                                  decoration: BoxDecoration(
+                                    color: AppConfig.primaryColor,
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                  child: const Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Text(
+                                        'Read',
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w800,
+                                          fontSize: 11,
+                                        ),
+                                      ),
+                                      Icon(Icons.chevron_right, size: 14, color: Colors.white),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
 
                   // 3b. Header / Top Sponsored Banner Slot
                   if (newsProvider.advertisements.isNotEmpty)

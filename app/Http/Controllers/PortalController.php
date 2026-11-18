@@ -7,6 +7,7 @@ use App\Models\Article;
 use App\Models\Category;
 use App\Models\City;
 use App\Models\Comment;
+use App\Models\EpaperEdition;
 use App\Models\State;
 use App\Models\Tag;
 use Illuminate\Http\Request;
@@ -449,6 +450,45 @@ class PortalController extends Controller
         }
 
         return redirect()->away('https://github.com/PramodBhai-PK/news_kit/releases/download/v1.0.0/app-release.apk');
+    }
+
+    public function epaper(Request $request, ?string $date = null)
+    {
+        $query = EpaperEdition::published()->with('pages');
+
+        if ($date) {
+            $edition = (clone $query)->whereDate('edition_date', $date)->first();
+        } else {
+            $edition = (clone $query)->latest('edition_date')->first();
+        }
+
+        if ($edition) {
+            $edition->increment('views_count');
+        }
+
+        $recentEditions = EpaperEdition::published()
+            ->latest('edition_date')
+            ->take(14)
+            ->get();
+
+        return view('portal.epaper', compact('edition', 'recentEditions', 'date'));
+    }
+
+    public function downloadEpaperPdf(EpaperEdition $edition)
+    {
+        $edition->increment('downloads_count');
+
+        if ($edition->pdf_file) {
+            if (str_starts_with($edition->pdf_file, 'http://') || str_starts_with($edition->pdf_file, 'https://')) {
+                return redirect()->away($edition->pdf_file);
+            }
+            $local = public_path($edition->pdf_file);
+            if (file_exists($local)) {
+                return response()->download($local);
+            }
+        }
+
+        return back()->with('error', 'PDF not available for this edition.');
     }
 }
 

@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CitizenTipController as AdminCitizenTipController;
 use App\Http\Controllers\Admin\CommentController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\EpaperController as AdminEpaperController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\SubscriberController;
@@ -51,6 +52,10 @@ Route::get('/sitemap.xml', [PortalController::class, 'sitemap'])->name('portal.s
 Route::get('/news-sitemap.xml', [PortalController::class, 'newsSitemap'])->name('portal.news-sitemap');
 Route::get('/feed', [PortalController::class, 'feed'])->name('portal.feed');
 Route::get('/rss.xml', fn () => redirect()->route('portal.feed', [], 301));
+
+// Digital Newspaper E-Paper Routes
+Route::get('/epaper/{date?}', [PortalController::class, 'epaper'])->name('portal.epaper');
+Route::get('/epaper/download/{edition}', [PortalController::class, 'downloadEpaperPdf'])->name('portal.epaper.download');
 
 // Mobile Application Download Hub & APK Direct Download
 Route::get('/download-app', [PortalController::class, 'downloadApp'])->name('portal.download-app');
@@ -125,6 +130,10 @@ Route::middleware(['auth', \App\Http\Middleware\EnsureUserIsStaff::class])->pref
     // Advertisements Management (Custom Image & Google AdSense HTML)
     Route::resource('advertisements', AdvertisementController::class)->except(['create', 'show', 'edit']);
     Route::post('/advertisements/{advertisement}/toggle', [AdvertisementController::class, 'toggle'])->name('advertisements.toggle');
+
+    // E-Paper Editions Management
+    Route::resource('epaper', AdminEpaperController::class);
+    Route::post('/epaper/{epaper}/toggle', [AdminEpaperController::class, 'toggle'])->name('epaper.toggle');
 
     // Single-File & Single-Page Branding Hub
     Route::get('/settings', [SettingsController::class, 'index'])->name('settings.index');
