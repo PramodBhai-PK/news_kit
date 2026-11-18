@@ -27,3 +27,4 @@ Homestead.yaml
 Thumbs.db
 *.zip
 /public/downloads/*.apk
+/public/app/
