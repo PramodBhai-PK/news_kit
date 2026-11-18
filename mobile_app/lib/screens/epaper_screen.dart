@@ -279,7 +279,7 @@ class _EpaperScreenState extends State<EpaperScreen> {
               'Loading Digital E-Paper Edition...',
               style: TextStyle(
                 fontWeight: FontWeight.w700,
-                color: isDark ? Colors.white70 : Colors.black80,
+                color: isDark ? Colors.white70 : Colors.black87,
               ),
             ),
           ],
