@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -204,6 +205,138 @@ class _EpaperScreenState extends State<EpaperScreen> {
     Share.share(shareText, subject: '${_edition!.title} - ${page.pageTitle}');
   }
 
+  void _showClippingSheet() {
+    if (_edition == null || _edition!.pages.isEmpty) return;
+    final page = _edition!.pages[_currentPageIndex];
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (ctx) {
+        return Container(
+          padding: const EdgeInsets.all(20),
+          decoration: BoxDecoration(
+            color: isDark ? const Color(0xFF1E293B) : Colors.white,
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                width: 40,
+                height: 4,
+                decoration: BoxDecoration(
+                  color: Colors.grey.withOpacity(0.4),
+                  borderRadius: BorderRadius.circular(2),
+                ),
+              ),
+              const SizedBox(height: 16),
+              Row(
+                children: [
+                  const Text('✂️', style: TextStyle(fontSize: 20)),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'OFFICIAL ARTICLE CLIPPING',
+                          style: TextStyle(fontWeight: FontWeight.w900, fontSize: 13, letterSpacing: 0.5),
+                        ),
+                        Text(
+                          '${_edition!.title} • ${page.pageTitle}',
+                          style: const TextStyle(fontSize: 11, color: Colors.grey),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 16),
+              Container(
+                height: 220,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(color: Colors.redAccent.withOpacity(0.5), width: 2),
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: Stack(
+                    fit: StackFit.expand,
+                    children: [
+                      CachedNetworkImage(
+                        imageUrl: page.pageImage,
+                        fit: BoxFit.cover,
+                      ),
+                      Positioned(
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                          color: Colors.redAccent.withOpacity(0.85),
+                          child: Text(
+                            'CLIPPED STORY • ${_edition!.formattedDate}',
+                            style: const TextStyle(color: Colors.white, fontSize: 9, fontWeight: FontWeight.w900),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(height: 16),
+              Row(
+                children: [
+                  Expanded(
+                    child: ElevatedButton.icon(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFF25D366),
+                        foregroundColor: Colors.white,
+                        padding: const EdgeInsets.symmetric(vertical: 12),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                      ),
+                      icon: const Icon(Icons.chat, size: 16),
+                      label: const Text('WhatsApp', style: TextStyle(fontWeight: FontWeight.w800, fontSize: 12)),
+                      onPressed: () {
+                        Navigator.pop(ctx);
+                        final text = '🗞️ Read ${page.pageTitle} on ${AppConfig.appName}: ${page.pageImage}';
+                        launchUrl(Uri.parse('whatsapp://send?text=${Uri.encodeComponent(text)}'), mode: LaunchMode.externalApplication).catchError((_) {
+                          Share.share(text);
+                          return true;
+                        });
+                      },
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: OutlinedButton.icon(
+                      style: OutlinedButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(vertical: 12),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                      ),
+                      icon: const Icon(Icons.share, size: 16),
+                      label: const Text('Share All', style: TextStyle(fontWeight: FontWeight.w800, fontSize: 12)),
+                      onPressed: () {
+                        Navigator.pop(ctx);
+                        _shareCurrentPage();
+                      },
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 12),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
@@ -250,11 +383,18 @@ class _EpaperScreenState extends State<EpaperScreen> {
               tooltip: 'Download PDF Edition',
               onPressed: _downloadPdf,
             ),
-          // Share Page Clipping
+          // Clip & Share Article Tool
+          if (_edition != null && _edition!.pages.isNotEmpty)
+            IconButton(
+              icon: const Icon(Icons.content_cut, color: Colors.amberAccent),
+              tooltip: 'Clip & Share Story',
+              onPressed: _showClippingSheet,
+            ),
+          // Share Page Link
           if (_edition != null && _edition!.pages.isNotEmpty)
             IconButton(
               icon: const Icon(Icons.share_outlined),
-              tooltip: 'Share Page Clipping',
+              tooltip: 'Share Page Link',
               onPressed: _shareCurrentPage,
             ),
           const SizedBox(width: 4),
@@ -420,6 +560,7 @@ class _EpaperScreenState extends State<EpaperScreen> {
             controller: _pageController,
             itemCount: _edition!.pages.length,
             onPageChanged: (index) {
+              HapticFeedback.lightImpact();
               setState(() {
                 _currentPageIndex = index;
               });
@@ -443,10 +584,22 @@ class _EpaperScreenState extends State<EpaperScreen> {
                     maxScale: 5.0,
                     clipBehavior: Clip.none,
                     child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(8),
-                        child: CachedNetworkImage(
+                      padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(8),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(isDark ? 0.6 : 0.22),
+                              blurRadius: 18,
+                              offset: const Offset(0, 8),
+                            ),
+                          ],
+                        ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(8),
+                          child: CachedNetworkImage(
                           imageUrl: page.pageImage,
                           fit: BoxFit.contain,
                           placeholder: (context, url) => Container(
@@ -474,6 +627,7 @@ class _EpaperScreenState extends State<EpaperScreen> {
                         ),
                       ),
                     ),
+                  ),
                   ),
                 ),
               );
