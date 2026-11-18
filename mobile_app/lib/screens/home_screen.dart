@@ -9,6 +9,7 @@ import '../widgets/article_card.dart';
 import '../widgets/breaking_news_ticker.dart';
 import '../widgets/category_pill.dart';
 import '../widgets/city_selector_sheet.dart';
+import '../widgets/custom_ad_card.dart';
 import '../widgets/shimmer_loading.dart';
 import 'citizen_tip_screen.dart';
 import 'search_screen.dart';
@@ -192,6 +193,16 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
 
+                  // 3b. Header / Top Sponsored Banner Slot
+                  if (newsProvider.advertisements.isNotEmpty)
+                    const SliverToBoxAdapter(
+                      child: CustomAdCard(
+                        placement: 'header',
+                        seed: 42,
+                        margin: EdgeInsets.fromLTRB(16, 4, 16, 10),
+                      ),
+                    ),
+
                   // 4. Trending Stories Section Header (if no category selected)
                   if (newsProvider.trendingNews.isNotEmpty && newsProvider.activeCategorySlug == null) ...[
                     SliverToBoxAdapter(
@@ -286,9 +297,23 @@ class _HomeScreenState extends State<HomeScreen> {
                     SliverList(
                       delegate: SliverChildBuilderDelegate(
                         (context, index) {
-                          return ArticleListItem(article: newsProvider.articles[index]);
+                          final hasAds = newsProvider.advertisements.isNotEmpty;
+                          if (hasAds && (index + 1) % 5 == 0) {
+                            return CustomAdCard(
+                              placement: 'in_feed',
+                              seed: index,
+                              margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                            );
+                          }
+                          final articleIndex = hasAds ? index - (index ~/ 5) : index;
+                          if (articleIndex < newsProvider.articles.length) {
+                            return ArticleListItem(article: newsProvider.articles[articleIndex]);
+                          }
+                          return const SizedBox.shrink();
                         },
-                        childCount: newsProvider.articles.length,
+                        childCount: newsProvider.advertisements.isNotEmpty
+                            ? newsProvider.articles.length + (newsProvider.articles.length ~/ 4)
+                            : newsProvider.articles.length,
                       ),
                     ),
 

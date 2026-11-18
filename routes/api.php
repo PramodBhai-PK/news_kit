@@ -52,6 +52,9 @@ Route::prefix('v1')->middleware(['throttle:60,1'])->group(function () {
 
     // Advertisements & Sponsored Content
     Route::get('/ads', [AdvertisementController::class, 'index']);
+    Route::post('/ads/impressions', [AdvertisementController::class, 'batchImpressions']);
+    Route::post('/ads/{id}/impression', [AdvertisementController::class, 'impression']);
+    Route::post('/ads/{id}/view', [AdvertisementController::class, 'impression']);
     Route::post('/ads/{id}/click', [AdvertisementController::class, 'click']);
 
     // Authentication (Sanctum) - Strict rate-limit to prevent brute-force attacks

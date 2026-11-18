@@ -22,6 +22,35 @@ class AdvertisementController extends ApiController
         return $this->success(AdvertisementResource::collection($ads));
     }
 
+    public function impression(int $id): JsonResponse
+    {
+        $ad = Advertisement::where('id', $id)->first();
+
+        if (!$ad) {
+            return $this->notFound('Advertisement not found.');
+        }
+
+        $ad->increment('views_count');
+
+        return $this->success([
+            'id' => $ad->id,
+            'views_count' => $ad->views_count,
+        ]);
+    }
+
+    public function batchImpressions(Request $request): JsonResponse
+    {
+        $ids = $request->input('ids', []);
+
+        if (is_array($ids) && !empty($ids)) {
+            Advertisement::whereIn('id', $ids)->increment('views_count');
+        }
+
+        return $this->success([
+            'recorded_count' => count($ids),
+        ]);
+    }
+
     public function click(int $id): JsonResponse
     {
         $ad = Advertisement::where('id', $id)->first();

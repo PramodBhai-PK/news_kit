@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import '../config/app_config.dart';
+import '../models/advertisement_model.dart';
 import '../models/app_config_model.dart';
 import '../models/article_model.dart';
 import '../models/category_model.dart';
@@ -343,6 +344,55 @@ class ApiService {
       return {'success': true, 'user': user};
     }
     return {'success': false, 'message': data['message'] ?? 'Registration failed'};
+  }
+
+  /// 14. Advertisements & Sponsored Campaigns
+  Future<List<AdvertisementModel>> fetchAdvertisements({String? placement}) async {
+    try {
+      final queryParams = placement != null ? {'placement': placement} : null;
+      final uri = Uri.parse('$baseUrl/ads').replace(queryParameters: queryParams);
+      final response = await http.get(uri, headers: await _getHeaders());
+
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+        final list = data['data'] as List<dynamic>? ?? [];
+        return list.map((json) => AdvertisementModel.fromJson(json)).toList();
+      }
+    } catch (e) {
+      debugPrint('Error fetching advertisements: $e');
+    }
+    return [];
+  }
+
+  /// Record Ad Impression Analytics (Views Count)
+  Future<bool> recordAdImpression(int id) async {
+    try {
+      final response = await http.post(
+        Uri.parse('$baseUrl/ads/$id/impression'),
+        headers: await _getHeaders(),
+      );
+      return response.statusCode == 200;
+    } catch (e) {
+      debugPrint('Error recording ad impression: $e');
+      return false;
+    }
+  }
+
+  /// Record Ad Click Analytics (Clicks Count)
+  Future<String?> recordAdClick(int id) async {
+    try {
+      final response = await http.post(
+        Uri.parse('$baseUrl/ads/$id/click'),
+        headers: await _getHeaders(),
+      );
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+        return data['data']?['destination_url'] as String?;
+      }
+    } catch (e) {
+      debugPrint('Error recording ad click: $e');
+    }
+    return null;
   }
 }
 

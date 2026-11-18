@@ -13,6 +13,7 @@ import '../services/api_service.dart';
 import '../services/tts_service.dart';
 import '../widgets/article_card.dart';
 import '../widgets/audio_player_bar.dart';
+import '../widgets/custom_ad_card.dart';
 import 'comments_sheet.dart';
 
 class ArticleDetailScreen extends StatefulWidget {
@@ -302,6 +303,12 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
                                     ),
                                   ),
                                 ),
+                              )
+                            else
+                              const CustomAdCard(
+                                placement: 'sidebar',
+                                seed: 77,
+                                margin: EdgeInsets.symmetric(vertical: 20),
                               ),
 
                             const Divider(height: 40),
@@ -335,6 +342,13 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
                                   ],
                                 ),
                               ),
+                            ),
+
+                            // 8b. Pre-Related Bottom Ad Banner
+                            const CustomAdCard(
+                              placement: 'in_feed',
+                              seed: 88,
+                              margin: EdgeInsets.only(top: 24, bottom: 8),
                             ),
 
                             // 9. Related News Stories

@@ -6,6 +6,7 @@ import '../models/category_model.dart';
 import '../providers/app_provider.dart';
 import '../providers/news_provider.dart';
 import '../widgets/article_card.dart';
+import '../widgets/custom_ad_card.dart';
 
 class CategoryNewsScreen extends StatefulWidget {
   const CategoryNewsScreen({super.key});
@@ -174,11 +175,32 @@ class _CategoryNewsScreenState extends State<CategoryNewsScreen> {
               ? const Center(child: CircularProgressIndicator())
               : _categoryArticles.isEmpty
                   ? const Center(child: Text('No articles found in this category.'))
-                  : ListView.builder(
-                      padding: const EdgeInsets.symmetric(vertical: 8),
-                      itemCount: _categoryArticles.length,
-                      itemBuilder: (context, index) {
-                        return ArticleListItem(article: _categoryArticles[index]);
+                  : Builder(
+                      builder: (context) {
+                        final news = Provider.of<NewsProvider>(context, listen: false);
+                        final hasAds = news.advertisements.isNotEmpty;
+                        final totalCount = hasAds
+                            ? _categoryArticles.length + (_categoryArticles.length ~/ 4)
+                            : _categoryArticles.length;
+
+                        return ListView.builder(
+                          padding: const EdgeInsets.symmetric(vertical: 8),
+                          itemCount: totalCount,
+                          itemBuilder: (context, index) {
+                            if (hasAds && (index + 1) % 5 == 0) {
+                              return CustomAdCard(
+                                placement: 'in_feed',
+                                seed: index + 20,
+                                margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                              );
+                            }
+                            final articleIndex = hasAds ? index - (index ~/ 5) : index;
+                            if (articleIndex < _categoryArticles.length) {
+                              return ArticleListItem(article: _categoryArticles[articleIndex]);
+                            }
+                            return const SizedBox.shrink();
+                          },
+                        );
                       },
                     ),
     );

@@ -1,4 +1,6 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
+import '../models/advertisement_model.dart';
 import '../models/article_model.dart';
 import '../models/category_model.dart';
 import '../services/api_service.dart';
@@ -13,6 +15,9 @@ class NewsProvider with ChangeNotifier {
   List<ArticleModel> _articles = [];
   List<CategoryModel> _categories = [];
   List<ArticleModel> _videos = [];
+  List<AdvertisementModel> _advertisements = [];
+
+  final Set<int> _recordedImpressionIds = {};
 
   bool _isInitialLoading = true;
   bool _isLoadingMore = false;
@@ -27,6 +32,7 @@ class NewsProvider with ChangeNotifier {
   List<ArticleModel> get articles => _articles;
   List<CategoryModel> get categories => _categories;
   List<ArticleModel> get videos => _videos;
+  List<AdvertisementModel> get advertisements => _advertisements;
 
   bool get isInitialLoading => _isInitialLoading;
   bool get isLoadingMore => _isLoadingMore;
@@ -72,6 +78,10 @@ class NewsProvider with ChangeNotifier {
         debugPrint('Error loading videos: $e');
         return <ArticleModel>[];
       });
+      final adsFuture = _apiService.fetchAdvertisements().catchError((e) {
+        debugPrint('Error loading advertisements: $e');
+        return <AdvertisementModel>[];
+      });
 
       final results = await Future.wait([
         breakingFuture,
@@ -80,6 +90,7 @@ class NewsProvider with ChangeNotifier {
         categoriesFuture,
         articlesFuture,
         videosFuture,
+        adsFuture,
       ]);
 
       _breakingNews = results[0] as List<ArticleModel>;
@@ -88,6 +99,7 @@ class NewsProvider with ChangeNotifier {
       _categories = results[3] as List<CategoryModel>;
       _articles = results[4] as List<ArticleModel>;
       _videos = results[5] as List<ArticleModel>;
+      _advertisements = results[6] as List<AdvertisementModel>;
     } catch (e) {
       debugPrint('Error fetching home data: $e');
     }
@@ -148,6 +160,34 @@ class NewsProvider with ChangeNotifier {
 
   Future<void> refresh() async {
     await initHomeData(citySlug: _activeCitySlug);
+  }
+
+  /// Get a random or placement-targeted active advertisement
+  AdvertisementModel? getRandomAd({String? placement, int? seed}) {
+    if (_advertisements.isEmpty) return null;
+
+    var candidates = placement != null
+        ? _advertisements.where((a) => a.placement == placement).toList()
+        : _advertisements;
+
+    if (candidates.isEmpty) {
+      candidates = _advertisements;
+    }
+
+    if (candidates.isEmpty) return null;
+
+    if (seed != null) {
+      return candidates[seed.abs() % candidates.length];
+    }
+    return candidates[Random().nextInt(candidates.length)];
+  }
+
+  /// Record ad impression only once per session/view
+  void recordAdImpressionOnce(int adId) {
+    if (!_recordedImpressionIds.contains(adId)) {
+      _recordedImpressionIds.add(adId);
+      _apiService.recordAdImpression(adId);
+    }
   }
 }
 
