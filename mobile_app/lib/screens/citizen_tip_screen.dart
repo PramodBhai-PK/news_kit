@@ -1,4 +1,4 @@
-import 'dart:io';
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
@@ -21,7 +21,8 @@ class _CitizenTipScreenState extends State<CitizenTipScreen> {
   final TextEditingController _phoneController = TextEditingController();
 
   bool _isAnonymous = false;
-  File? _selectedMedia;
+  XFile? _selectedMedia;
+  Uint8List? _mediaBytes;
   bool _isSubmitting = false;
 
   final ImagePicker _picker = ImagePicker();
@@ -29,7 +30,11 @@ class _CitizenTipScreenState extends State<CitizenTipScreen> {
   Future<void> _pickImage(ImageSource source) async {
     final picked = await _picker.pickImage(source: source, imageQuality: 80);
     if (picked != null) {
-      setState(() => _selectedMedia = File(picked.path));
+      final bytes = await picked.readAsBytes();
+      setState(() {
+        _selectedMedia = picked;
+        _mediaBytes = bytes;
+      });
     }
   }
 
@@ -48,7 +53,8 @@ class _CitizenTipScreenState extends State<CitizenTipScreen> {
         witnessName: _isAnonymous ? null : _nameController.text.trim(),
         witnessPhone: _isAnonymous ? null : _phoneController.text.trim(),
         isAnonymous: _isAnonymous,
-        mediaFile: _selectedMedia,
+        mediaBytes: _mediaBytes,
+        mediaName: _selectedMedia?.name,
       );
 
       if (mounted) {
@@ -178,19 +184,22 @@ class _CitizenTipScreenState extends State<CitizenTipScreen> {
               // Media Upload
               const Text('Attach Photo or Proof', style: TextStyle(fontWeight: FontWeight.w700)),
               const SizedBox(height: 8),
-              if (_selectedMedia != null)
+              if (_mediaBytes != null)
                 Stack(
                   children: [
                     ClipRRect(
                       borderRadius: BorderRadius.circular(12),
-                      child: Image.file(_selectedMedia!, height: 180, width: double.infinity, fit: BoxFit.cover),
+                      child: Image.memory(_mediaBytes!, height: 180, width: double.infinity, fit: BoxFit.cover),
                     ),
                     Positioned(
                       top: 8,
                       right: 8,
                       child: IconButton(
                         icon: const Icon(Icons.cancel, color: Colors.white, size: 28),
-                        onPressed: () => setState(() => _selectedMedia = null),
+                        onPressed: () => setState(() {
+                          _selectedMedia = null;
+                          _mediaBytes = null;
+                        }),
                       ),
                     ),
                   ],

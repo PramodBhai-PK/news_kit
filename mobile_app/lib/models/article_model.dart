@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import '../config/app_config.dart';
 
 class ArticleModel {
@@ -61,10 +62,16 @@ class ArticleModel {
     if (url == null || url.isEmpty) return url;
     if (url.contains('localhost:8000') || url.contains('127.0.0.1:8000')) {
       try {
-        final baseUri = Uri.parse(AppConfig.apiBaseUrl);
-        final host = baseUri.host;
-        final port = baseUri.port;
-        final hostWithPort = port != 80 && port != 443 && port != 0 ? '$host:$port' : host;
+        final hostWithPort = kIsWeb
+            ? (Uri.base.port != 80 && Uri.base.port != 443 && Uri.base.port != 0
+                ? '${Uri.base.host}:${Uri.base.port}'
+                : Uri.base.host)
+            : (() {
+                final baseUri = Uri.parse(AppConfig.apiBaseUrl);
+                final host = baseUri.host;
+                final port = baseUri.port;
+                return (port != 80 && port != 443 && port != 0) ? '$host:$port' : host;
+              })();
         return url
             .replaceAll('localhost:8000', hostWithPort)
             .replaceAll('127.0.0.1:8000', hostWithPort);

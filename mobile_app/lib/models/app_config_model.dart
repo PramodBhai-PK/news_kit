@@ -1,3 +1,5 @@
+import 'article_model.dart';
+
 class AppConfigModel {
   final String appName;
   final String appTagline;
@@ -55,8 +57,8 @@ class AppConfigModel {
       appName: json['app_name'] ?? 'NewsKit Portal',
       appTagline: json['app_tagline'] ?? '',
       shortName: json['short_name'] ?? 'NK',
-      logoUrl: json['logo_url'] ?? '',
-      faviconUrl: json['favicon_url'] ?? '',
+      logoUrl: ArticleModel.sanitizeUrl(json['logo_url']) ?? '',
+      faviconUrl: ArticleModel.sanitizeUrl(json['favicon_url']) ?? '',
       primaryColor: theme['primary_color'] ?? '#E11D48',
       accentColor: theme['accent_color'] ?? '#F59E0B',
       enableBreakingTicker: features['breaking_ticker'] ?? true,
@@ -67,7 +69,7 @@ class AppConfigModel {
       enableCitizenJournalism: features['citizen_journalism'] ?? true,
       whatsAppChannelUrl: wa['channel_url'] ?? '',
       whatsAppFollowers: wa['followers_count'] ?? '250,000+',
-      whatsAppQrUrl: wa['qr_code_url'],
+      whatsAppQrUrl: ArticleModel.sanitizeUrl(wa['qr_code_url']),
       socialLinks: Map<String, String>.from(social),
       defaultLocale: loc['default_locale'] ?? 'en',
       rtlLocales: (loc['rtl_locales'] as List<dynamic>?)?.map((e) => e.toString()).toList() ?? ['ar', 'ur'],

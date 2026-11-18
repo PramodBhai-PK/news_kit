@@ -56,6 +56,38 @@ Route::get('/rss.xml', fn () => redirect()->route('portal.feed', [], 301));
 Route::get('/download-app', [PortalController::class, 'downloadApp'])->name('portal.download-app');
 Route::get('/download-apk', [PortalController::class, 'downloadApkFile'])->name('portal.download-apk');
 
+// Mobile Application Web Viewer & Browser Inspection
+Route::get('/mobile-preview', function () {
+    return view('portal.mobile-preview');
+})->name('portal.mobile-preview');
+
+Route::get('/app/{any?}', function ($any = null) {
+    $file = public_path('app/' . ($any ?: 'index.html'));
+    if ($any && file_exists($file) && !is_dir($file)) {
+        $ext = strtolower(pathinfo($file, PATHINFO_EXTENSION));
+        $mime = match ($ext) {
+            'js', 'mjs' => 'application/javascript',
+            'json' => 'application/json',
+            'css' => 'text/css',
+            'png' => 'image/png',
+            'jpg', 'jpeg' => 'image/jpeg',
+            'svg' => 'image/svg+xml',
+            'wasm' => 'application/wasm',
+            'otf' => 'font/otf',
+            'ttf' => 'font/ttf',
+            'woff' => 'font/woff',
+            'woff2' => 'font/woff2',
+            default => mime_content_type($file) ?: 'text/plain',
+        };
+        return response()->file($file, ['Content-Type' => $mime]);
+    }
+    $indexPath = public_path('app/index.html');
+    if (file_exists($indexPath)) {
+        return response()->file($indexPath, ['Content-Type' => 'text/html; charset=UTF-8']);
+    }
+    return response('Flutter Web App is deploying. Please wait for the build to finish.', 404);
+})->where('any', '.*')->name('portal.app');
+
 /*
 |--------------------------------------------------------------------------
 | Authentication Routes

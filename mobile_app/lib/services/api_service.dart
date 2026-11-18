@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import '../config/app_config.dart';
 import '../models/app_config_model.dart';
@@ -17,7 +17,7 @@ class ApiService {
   ApiService({
     String? baseUrl,
     this.currentLocale = AppConfig.defaultLocale,
-  }) : baseUrl = baseUrl ?? AppConfig.apiBaseUrl;
+  }) : baseUrl = baseUrl ?? (kIsWeb ? '${Uri.base.origin}/api/v1' : AppConfig.apiBaseUrl);
 
   Future<Map<String, String>> _getHeaders({bool requireAuth = false}) async {
     final headers = {
@@ -264,7 +264,8 @@ class ApiService {
     String? witnessName,
     String? witnessPhone,
     bool isAnonymous = false,
-    File? mediaFile,
+    List<int>? mediaBytes,
+    String? mediaName,
   }) async {
     final request = http.MultipartRequest('POST', Uri.parse('$baseUrl/citizen-tips'));
     request.headers.addAll(await _getHeaders());
@@ -278,8 +279,8 @@ class ApiService {
     if (witnessPhone != null) request.fields['witness_phone'] = witnessPhone;
     request.fields['is_anonymous'] = isAnonymous ? '1' : '0';
 
-    if (mediaFile != null) {
-      request.files.add(await http.MultipartFile.fromPath('media', mediaFile.path));
+    if (mediaBytes != null && mediaName != null) {
+      request.files.add(http.MultipartFile.fromBytes('media', mediaBytes, filename: mediaName));
     }
 
     final streamedResponse = await request.send();

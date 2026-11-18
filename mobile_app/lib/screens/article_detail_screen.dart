@@ -4,7 +4,6 @@ import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import '../config/app_config.dart';
 import '../config/app_constants.dart';
 import '../models/article_model.dart';
@@ -30,7 +29,6 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
   List<ArticleModel> _related = [];
   bool _isLoading = true;
   double _fontSizeScale = 1.0;
-  YoutubePlayerController? _youtubeController;
 
   @override
   void initState() {
@@ -48,23 +46,10 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
           _related = res['related'];
           _isLoading = false;
         });
-
-        if (_article?.youtubeId != null && _article!.youtubeId!.isNotEmpty) {
-          _youtubeController = YoutubePlayerController(
-            initialVideoId: _article!.youtubeId!,
-            flags: const YoutubePlayerFlags(autoPlay: false, mute: false),
-          );
-        }
       }
     } catch (e) {
       if (mounted) setState(() => _isLoading = false);
     }
-  }
-
-  @override
-  void dispose() {
-    _youtubeController?.dispose();
-    super.dispose();
   }
 
   @override
@@ -140,9 +125,15 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       // 1. Featured Media: YouTube or Image
-                      if (_youtubeController != null)
-                        YoutubePlayer(
-                          controller: _youtubeController!,
+                      if (_article?.youtubeId != null && _article!.youtubeId!.isNotEmpty)
+                        AspectRatio(
+                          aspectRatio: 16 / 9,
+                          child: Container(
+                            color: Colors.black,
+                            child: HtmlWidget(
+                              '<iframe width="100%" height="100%" src="https://www.youtube.com/embed/${_article!.youtubeId}?rel=0" frameborder="0" allowfullscreen></iframe>',
+                            ),
+                          ),
                         )
                       else if (_article!.featuredImage != null)
                         AspectRatio(
