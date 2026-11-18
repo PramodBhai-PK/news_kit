@@ -114,10 +114,10 @@ class _CustomAdCardState extends State<CustomAdCard> {
                         Container(
                           padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                           decoration: BoxDecoration(
-                            color: isDark ? Colors.slate.shade800 : Colors.slate.shade100,
+                            color: isDark ? const Color(0xFF1E293B) : const Color(0xFFF1F5F9),
                             borderRadius: BorderRadius.circular(6),
                             border: Border.all(
-                              color: isDark ? Colors.slate.shade700 : Colors.slate.shade300,
+                              color: isDark ? const Color(0xFF334155) : const Color(0xFFCBD5E1),
                             ),
                           ),
                           child: Row(
@@ -134,7 +134,7 @@ class _CustomAdCardState extends State<CustomAdCard> {
                                   fontSize: 9,
                                   fontWeight: FontWeight.w800,
                                   letterSpacing: 0.5,
-                                  color: isDark ? Colors.slate.shade300 : Colors.slate.shade600,
+                                  color: isDark ? const Color(0xFFCBD5E1) : const Color(0xFF475569),
                                 ),
                               ),
                             ],
@@ -145,7 +145,7 @@ class _CustomAdCardState extends State<CustomAdCard> {
                     Icon(
                       Icons.open_in_new,
                       size: 13,
-                      color: isDark ? Colors.slate.shade400 : Colors.slate.shade500,
+                      color: isDark ? const Color(0xFF94A3B8) : const Color(0xFF64748B),
                     ),
                   ],
                 ),
@@ -169,9 +169,9 @@ class _CustomAdCardState extends State<CustomAdCard> {
                         ),
                         errorWidget: (_, __, ___) => Container(
                           height: 120,
-                          color: isDark ? Colors.slate.shade900 : Colors.slate.shade100,
+                          color: isDark ? const Color(0xFF0F172A) : const Color(0xFFF1F5F9),
                           alignment: Alignment.center,
-                          child: Icon(Icons.broken_image, color: Colors.slate.shade500),
+                          child: const Icon(Icons.broken_image, color: Color(0xFF64748B)),
                         ),
                       ),
                       Positioned(
@@ -240,7 +240,7 @@ class _CustomAdCardState extends State<CustomAdCard> {
                     },
                     textStyle: TextStyle(
                       fontSize: 12,
-                      color: isDark ? Colors.slate.shade200 : Colors.slate.shade800,
+                      color: isDark ? const Color(0xFFE2E8F0) : const Color(0xFF1E293B),
                     ),
                   ),
                 ),
