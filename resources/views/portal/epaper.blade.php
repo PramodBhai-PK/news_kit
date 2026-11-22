@@ -242,10 +242,11 @@
                             <div class="spine-shadow"></div>
 
                             <!-- Page Image -->
-                            <img src="{{ $page->page_image }}" 
+                            <img src="{{ parse_url($page->page_image, PHP_URL_PATH) ?: $page->page_image }}" 
                                  alt="{{ $page->page_title }}" 
                                  id="page-img-{{ $index + 1 }}"
-                                 class="w-full h-full object-contain pointer-events-none select-none"
+                                 crossorigin="anonymous"
+                                 class="epaper-page-img w-full h-full object-contain pointer-events-none select-none"
                                  loading="eager">
 
                             <!-- Subtle Newsprint Texture Overlay -->
@@ -298,29 +299,33 @@
         </footer>
 
         <!-- 4. Interactive Article Clipping Overlay (Crop Tool) -->
-        <div id="clippingOverlay" class="fixed inset-0 z-50 hidden bg-black/40 backdrop-blur-[2px] cursor-crosshair">
+        <div id="clippingOverlay" class="fixed inset-0 z-50 hidden bg-black/45 backdrop-blur-[2px] cursor-crosshair select-none touch-none">
             <!-- Top Instruction Bar -->
-            <div class="absolute top-4 inset-x-0 mx-auto max-w-lg glass-panel px-4 py-2.5 rounded-2xl flex items-center justify-between shadow-2xl border border-rose-500/40">
-                <div class="flex items-center gap-2">
-                    <span class="text-lg">✂️</span>
+            <div class="absolute top-4 inset-x-0 mx-auto max-w-lg glass-panel px-4 py-2.5 rounded-2xl flex items-center justify-between shadow-2xl border border-rose-500/50">
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-xl bg-rose-600 flex items-center justify-center text-white text-base font-black shadow-md shadow-rose-600/30">
+                        ✂️
+                    </div>
                     <div>
-                        <div class="text-xs font-black text-white">ARTICLE CLIPPING TOOL</div>
-                        <div class="text-[10px] text-slate-300">Click and drag over any article, headline or photo to crop.</div>
+                        <div class="text-xs font-black text-white tracking-wide">ARTICLE CLIPPING TOOL</div>
+                        <div class="text-[11px] text-slate-300">Click and drag over any article, photo, or headline to clip.</div>
                     </div>
                 </div>
-                <button onclick="cancelClipping()" class="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-white rounded-lg text-xs font-bold transition">
+                <button type="button" onclick="cancelClipping()" class="px-3.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-white rounded-xl text-xs font-bold transition border border-slate-700">
                     Cancel (Esc)
                 </button>
             </div>
 
-            <!-- Selection Box (Dynamically resized by mouse) -->
-            <div id="cropBox" class="crop-selection hidden">
-                <div class="absolute top-1 left-2 text-[9px] font-black uppercase text-white bg-rose-600 px-1 rounded">Clipped Area</div>
+            <!-- Selection Box (Dynamically resized by pointer) -->
+            <div id="cropBox" class="crop-selection hidden pointer-events-none">
+                <div id="cropBadge" class="absolute -top-7 left-0 px-2 py-0.5 rounded-md bg-rose-600 text-white text-[10px] font-mono font-bold shadow-md whitespace-nowrap">
+                    ✂️ Dragging...
+                </div>
             </div>
         </div>
 
         <!-- 5. Clipping Result & Share Modal -->
-        <div id="clippingModal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
+        <div id="clippingModal" class="fixed inset-0 z-50 hidden bg-black/85 backdrop-blur-md flex items-center justify-center p-4">
             <div class="glass-panel max-w-xl w-full rounded-3xl p-6 border border-slate-700/80 shadow-2xl animate-in fade-in zoom-in-95 duration-200">
                 <div class="flex items-center justify-between pb-4 border-b border-slate-800">
                     <div class="flex items-center gap-2">
@@ -341,17 +346,24 @@
                 </div>
 
                 <!-- Share & Download Actions -->
-                <div class="flex flex-wrap items-center justify-between gap-3 pt-2">
+                <div class="flex flex-wrap items-center justify-between gap-2.5 pt-2">
                     <button onclick="clipAgain()" class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold transition">
                         ✂️ Clip Another
                     </button>
 
                     <div class="flex items-center gap-2">
-                        <!-- Download PNG -->
+                        <!-- Copy to Clipboard -->
+                        <button type="button" onclick="copyClipToClipboard()" id="copyClipBtn"
+                                class="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold transition border border-slate-700">
+                            <span>📋</span>
+                            <span>Copy Image</span>
+                        </button>
+
+                        <!-- Download JPG -->
                         <a id="downloadClipLink" href="#" download="newskit_clipping.jpg"
                            class="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold transition border border-slate-700">
                             <svg class="w-3.5 h-3.5 text-rose-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
-                            <span>Download Image</span>
+                            <span>Download</span>
                         </a>
 
                         <!-- Share WhatsApp -->
@@ -406,7 +418,7 @@
                         index: {{ $index }},
                         number: {{ $index + 1 }},
                         title: "{{ addslashes($page->page_title) }}",
-                        url: "{{ $page->page_image }}"
+                        url: "{{ parse_url($page->page_image, PHP_URL_PATH) ?: $page->page_image }}"
                     },
                 @endforeach
             ];
@@ -550,35 +562,64 @@
             }
 
             // 3. Interactive Article Clipping Tool
-            let startX, startY, endX, endY, isMouseDown = false;
+            let startX = 0, startY = 0, endX = 0, endY = 0, isDragging = false;
+            let currentClipPageEl = null;
             const overlay = document.getElementById('clippingOverlay');
             const cropBox = document.getElementById('cropBox');
+            const cropBadge = document.getElementById('cropBadge');
 
             function startClipping() {
                 isClipping = true;
                 overlay.classList.remove('hidden');
+                showNotification('Click and drag over any article, photo, or column to clip.');
             }
 
             function cancelClipping() {
                 isClipping = false;
+                isDragging = false;
                 overlay.classList.add('hidden');
                 cropBox.classList.add('hidden');
+                currentClipPageEl = null;
             }
 
-            overlay.addEventListener('mousedown', (e) => {
+            overlay.addEventListener('pointerdown', (e) => {
                 if (!isClipping) return;
-                isMouseDown = true;
+                e.preventDefault();
+                isDragging = true;
                 startX = e.clientX;
                 startY = e.clientY;
+                endX = e.clientX;
+                endY = e.clientY;
+
+                // Detect which page was clicked
+                overlay.style.pointerEvents = 'none';
+                const elUnder = document.elementFromPoint(startX, startY);
+                overlay.style.pointerEvents = 'auto';
+
+                let targetPageEl = elUnder ? elUnder.closest('.page') : null;
+                if (!targetPageEl) {
+                    const visiblePages = Array.from(document.querySelectorAll('.page')).filter(p => {
+                        const r = p.getBoundingClientRect();
+                        return r.width > 50 && r.height > 50 && r.right > 0 && r.left < window.innerWidth;
+                    });
+                    targetPageEl = visiblePages.find(p => {
+                        const r = p.getBoundingClientRect();
+                        return startX >= r.left && startX <= r.right && startY >= r.top && startY <= r.bottom;
+                    }) || visiblePages[0];
+                }
+                currentClipPageEl = targetPageEl;
+
                 cropBox.style.left = startX + 'px';
                 cropBox.style.top = startY + 'px';
                 cropBox.style.width = '0px';
                 cropBox.style.height = '0px';
                 cropBox.classList.remove('hidden');
+                if (cropBadge) cropBadge.innerText = '✂️ Dragging...';
             });
 
-            overlay.addEventListener('mousemove', (e) => {
-                if (!isMouseDown || !isClipping) return;
+            overlay.addEventListener('pointermove', (e) => {
+                if (!isDragging || !isClipping) return;
+                e.preventDefault();
                 endX = e.clientX;
                 endY = e.clientY;
 
@@ -591,92 +632,160 @@
                 cropBox.style.top = top + 'px';
                 cropBox.style.width = width + 'px';
                 cropBox.style.height = height + 'px';
-            });
 
-            overlay.addEventListener('mouseup', () => {
-                if (!isMouseDown) return;
-                isMouseDown = false;
-
-                const width = parseInt(cropBox.style.width) || 0;
-                const height = parseInt(cropBox.style.height) || 0;
-
-                if (width > 60 && height > 60) {
-                    captureClipping();
-                } else {
-                    cropBox.classList.add('hidden');
+                if (cropBadge) {
+                    cropBadge.innerText = `✂️ ${Math.round(width)} × ${Math.round(height)} px`;
                 }
             });
 
-            function captureClipping() {
-                const boxRect = cropBox.getBoundingClientRect();
-                cancelClipping();
+            overlay.addEventListener('pointerup', (e) => {
+                if (!isDragging) return;
+                isDragging = false;
 
-                // Find active visible page image
-                const activeIndex = pageFlip ? pageFlip.getCurrentPageIndex() : 0;
-                const pageData = pagesData[activeIndex] || pagesData[0];
-                const activeImg = document.getElementById(`page-img-${pageData.number}`);
-                if (!activeImg) return;
+                const left = Math.min(startX, endX);
+                const top = Math.min(startY, endY);
+                const width = Math.abs(endX - startX);
+                const height = Math.abs(endY - startY);
 
-                const imgRect = activeImg.getBoundingClientRect();
+                if (width < 35 || height < 35) {
+                    cropBox.classList.add('hidden');
+                    showNotification('Please drag a larger box over the story (min 35x35px).');
+                    return;
+                }
 
-                // Compute crop coordinates relative to actual rendered image
-                const scaleX = activeImg.naturalWidth / imgRect.width;
-                const scaleY = activeImg.naturalHeight / imgRect.height;
+                captureClipping({ left, top, width, height }, currentClipPageEl);
+            });
 
-                const relX = Math.max(0, boxRect.left - imgRect.left) * scaleX;
-                const relY = Math.max(0, boxRect.top - imgRect.top) * scaleY;
-                const relW = Math.min(boxRect.width * scaleX, activeImg.naturalWidth - relX);
-                const relH = Math.min(boxRect.height * scaleY, activeImg.naturalHeight - relY);
+            overlay.addEventListener('pointercancel', () => {
+                isDragging = false;
+                cropBox.classList.add('hidden');
+            });
 
-                // Create Offscreen Canvas with Newspaper Masthead Watermark
-                const bannerHeight = 85;
-                const footerHeight = 45;
-                const canvas = document.createElement('canvas');
-                canvas.width = Math.max(relW, 600);
-                canvas.height = relH + bannerHeight + footerHeight;
-                const ctx = canvas.getContext('2d');
+            function captureClipping(box, pageEl) {
+                if (!pageEl) {
+                    const activeIdx = pageFlip ? pageFlip.getCurrentPageIndex() : 0;
+                    pageEl = document.querySelector(`.page[data-page="${activeIdx + 1}"]`) || document.querySelector('.page');
+                }
+                if (!pageEl) {
+                    alert('Could not find active page image.');
+                    cancelClipping();
+                    return;
+                }
 
-                // White Paper Background
-                ctx.fillStyle = '#FFFFFF';
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                const pageNum = parseInt(pageEl.getAttribute('data-page')) || 1;
+                const pageTitle = pageEl.getAttribute('data-title') || ('Page ' + pageNum);
+                const targetImg = document.getElementById('page-img-' + pageNum);
 
-                // Top Crimson Header Bar
-                ctx.fillStyle = '#E11D48';
-                ctx.fillRect(0, 0, canvas.width, 36);
+                if (!targetImg) {
+                    alert('Page image not loaded yet.');
+                    cancelClipping();
+                    return;
+                }
 
-                ctx.fillStyle = '#FFFFFF';
-                ctx.font = 'bold 16px "Plus Jakarta Sans", sans-serif';
-                ctx.fillText('NEWSKIT DIGITAL ARCHIVE • OFFICIAL ARTICLE CLIPPING', 16, 24);
+                const imgRect = targetImg.getBoundingClientRect();
 
-                // Subheader with Date & Page
-                ctx.fillStyle = '#F8FAFC';
-                ctx.fillRect(0, 36, canvas.width, 49);
+                // Intersect crop box with image boundary
+                const selLeft = Math.max(imgRect.left, Math.min(box.left, imgRect.right));
+                const selTop = Math.max(imgRect.top, Math.min(box.top, imgRect.bottom));
+                const selRight = Math.min(imgRect.right, Math.max(box.left + box.width, imgRect.left));
+                const selBottom = Math.min(imgRect.bottom, Math.max(box.top + box.height, imgRect.top));
 
-                ctx.fillStyle = '#0F172A';
-                ctx.font = 'bold 14px "Plus Jakarta Sans", sans-serif';
-                ctx.fillText(`{{ $edition->title }} — {{ $edition->formatted_date }}`, 16, 62);
+                const cropW = selRight - selLeft;
+                const cropH = selBottom - selTop;
 
-                ctx.fillStyle = '#64748B';
-                ctx.font = '12px "Plus Jakarta Sans", sans-serif';
-                ctx.fillText(`Section: ${pageData.title}`, 16, 78);
+                if (cropW < 25 || cropH < 25) {
+                    cancelClipping();
+                    showNotification('Please drag within the newspaper page area.');
+                    return;
+                }
 
-                // Draw Cropped Image Content
-                ctx.drawImage(activeImg, relX, relY, relW, relH, 0, bannerHeight, canvas.width, relH);
+                const scaleX = targetImg.naturalWidth / imgRect.width;
+                const scaleY = targetImg.naturalHeight / imgRect.height;
 
-                // Bottom Footer
-                ctx.fillStyle = '#0F172A';
-                ctx.fillRect(0, canvas.height - footerHeight, canvas.width, footerHeight);
+                const srcX = Math.round((selLeft - imgRect.left) * scaleX);
+                const srcY = Math.round((selTop - imgRect.top) * scaleY);
+                const srcW = Math.round(cropW * scaleX);
+                const srcH = Math.round(cropH * scaleY);
 
-                ctx.fillStyle = '#E2E8F0';
-                ctx.font = '11px "Plus Jakarta Sans", sans-serif';
-                ctx.fillText('Verified Digital Broadsheet Clipping • {{ config("app.name") }} Network', 16, canvas.height - 18);
-                ctx.fillText('www.newskit.com', canvas.width - 120, canvas.height - 18);
+                renderClippedCanvas(targetImg, srcX, srcY, srcW, srcH, pageNum, pageTitle);
+            }
 
-                // Show Modal
-                const dataUrl = canvas.toDataURL('image/jpeg', 0.92);
-                document.getElementById('clippedImagePreview').src = dataUrl;
-                document.getElementById('downloadClipLink').href = dataUrl;
-                document.getElementById('clippingModal').classList.remove('hidden');
+            function renderClippedCanvas(img, sx, sy, sw, sh, pageNum, pageTitle) {
+                try {
+                    const minCardWidth = 560;
+                    const cardWidth = Math.max(sw, minCardWidth);
+                    const bannerHeight = 85;
+                    const footerHeight = 44;
+                    const padding = 12;
+                    const cardHeight = bannerHeight + sh + footerHeight + (padding * 2);
+
+                    const canvas = document.createElement('canvas');
+                    canvas.width = cardWidth;
+                    canvas.height = cardHeight;
+                    const ctx = canvas.getContext('2d');
+
+                    // 1. Pure White Card Background
+                    ctx.fillStyle = '#FFFFFF';
+                    ctx.fillRect(0, 0, cardWidth, cardHeight);
+
+                    // 2. Top Crimson Masthead Ribbon
+                    ctx.fillStyle = '#E11D48';
+                    ctx.fillRect(0, 0, cardWidth, 38);
+
+                    ctx.fillStyle = '#FFFFFF';
+                    ctx.font = 'bold 15px "Plus Jakarta Sans", sans-serif';
+                    ctx.fillText('✂️  NEWSKIT DIGITAL ARCHIVE • OFFICIAL ARTICLE CLIPPING', 16, 24);
+
+                    // 3. Sub-header Metadata Bar
+                    ctx.fillStyle = '#F8FAFC';
+                    ctx.fillRect(0, 38, cardWidth, 47);
+                    ctx.fillStyle = '#E2E8F0';
+                    ctx.fillRect(0, 84, cardWidth, 1);
+
+                    ctx.fillStyle = '#0F172A';
+                    ctx.font = 'bold 13px "Plus Jakarta Sans", sans-serif';
+                    ctx.fillText(`{{ $edition->title }} — {{ $edition->formatted_date }}`, 16, 58);
+
+                    ctx.fillStyle = '#64748B';
+                    ctx.font = '11px "Plus Jakarta Sans", sans-serif';
+                    ctx.fillText(`Section: ${pageTitle}`, 16, 75);
+
+                    // 4. Draw Cropped Area Centered with 1:1 Exact Aspect Ratio
+                    const drawX = Math.round((cardWidth - sw) / 2);
+                    const drawY = bannerHeight + padding;
+                    ctx.drawImage(img, sx, sy, sw, sh, drawX, drawY, sw, sh);
+
+                    // Subtle border around cropped clipping
+                    ctx.strokeStyle = '#E2E8F0';
+                    ctx.lineWidth = 1;
+                    ctx.strokeRect(drawX, drawY, sw, sh);
+
+                    // 5. Deep Charcoal Footer
+                    const footerY = cardHeight - footerHeight;
+                    ctx.fillStyle = '#0F172A';
+                    ctx.fillRect(0, footerY, cardWidth, footerHeight);
+
+                    ctx.fillStyle = '#F8FAFC';
+                    ctx.font = 'bold 11px "Plus Jakarta Sans", sans-serif';
+                    ctx.fillText('Verified Digital Broadsheet Clipping • {{ config("app.name", "NewsKit") }} Network', 16, footerY + 26);
+
+                    ctx.fillStyle = '#FB7185';
+                    ctx.font = 'bold 11px "Plus Jakarta Sans", sans-serif';
+                    ctx.fillText('www.newskit.com', cardWidth - 120, footerY + 26);
+
+                    // 6. Generate Data URL
+                    const dataUrl = canvas.toDataURL('image/jpeg', 0.95);
+                    document.getElementById('clippedImagePreview').src = dataUrl;
+                    document.getElementById('downloadClipLink').href = dataUrl;
+                    document.getElementById('downloadClipLink').setAttribute('download', `newskit_clipping_page_${pageNum}_${Date.now()}.jpg`);
+
+                    cancelClipping();
+                    document.getElementById('clippingModal').classList.remove('hidden');
+                } catch (err) {
+                    console.error('Clipping error:', err);
+                    cancelClipping();
+                    alert('Could not generate clipping: ' + err.message);
+                }
             }
 
             function closeClippingModal() {
@@ -688,9 +797,48 @@
                 startClipping();
             }
 
+            async function copyClipToClipboard() {
+                const copyBtn = document.getElementById('copyClipBtn');
+                try {
+                    const preview = document.getElementById('clippedImagePreview');
+                    const res = await fetch(preview.src);
+                    const blob = await res.blob();
+                    await navigator.clipboard.write([
+                        new ClipboardItem({ [blob.type]: blob })
+                    ]);
+                    if (copyBtn) {
+                        const oldHtml = copyBtn.innerHTML;
+                        copyBtn.innerHTML = '<span>✅ Copied!</span>';
+                        setTimeout(() => { copyBtn.innerHTML = oldHtml; }, 2000);
+                    }
+                    showNotification('Clipping image copied to clipboard!');
+                } catch (e) {
+                    await navigator.clipboard.writeText(window.location.href);
+                    if (copyBtn) {
+                        const oldHtml = copyBtn.innerHTML;
+                        copyBtn.innerHTML = '<span>✅ Link Copied!</span>';
+                        setTimeout(() => { copyBtn.innerHTML = oldHtml; }, 2000);
+                    }
+                    showNotification('Edition link copied to clipboard!');
+                }
+            }
+
             function shareClipWhatsApp() {
                 const text = encodeURIComponent(`🗞️ Check out this news clipping from *{{ $edition->title }}* ({{ $edition->formatted_date }}) on {{ config('app.name') }}!\n\nRead full digital edition here: ${window.location.href}`);
                 window.open(`https://api.whatsapp.com/send?text=${text}`, '_blank');
+            }
+
+            function showNotification(msg) {
+                let toast = document.getElementById('toastNotice');
+                if (!toast) {
+                    toast = document.createElement('div');
+                    toast.id = 'toastNotice';
+                    toast.className = 'fixed bottom-24 left-1/2 -translate-x-1/2 z-50 px-4 py-2 rounded-xl bg-slate-900 border border-slate-700 text-white text-xs font-bold shadow-2xl transition-opacity duration-300 pointer-events-none opacity-0';
+                    document.body.appendChild(toast);
+                }
+                toast.innerText = msg;
+                toast.style.opacity = '1';
+                setTimeout(() => { toast.style.opacity = '0'; }, 3000);
             }
 
             // 4. High-Res Zoom Modal

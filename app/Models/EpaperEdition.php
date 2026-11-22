@@ -34,6 +34,26 @@ class EpaperEdition extends Model
         'is_published' => 'boolean',
     ];
 
+    public function getCoverImageAttribute(?string $value): ?string
+    {
+        if (empty($value)) return $value;
+        if (str_contains($value, '/demo/epaper/') || str_contains($value, '/storage/')) {
+            $parsed = parse_url($value);
+            return url($parsed['path'] ?? $value);
+        }
+        return $value;
+    }
+
+    public function getPdfFileAttribute(?string $value): ?string
+    {
+        if (empty($value)) return $value;
+        if (str_contains($value, '/demo/epaper/') || str_contains($value, '/storage/')) {
+            $parsed = parse_url($value);
+            return url($parsed['path'] ?? $value);
+        }
+        return $value;
+    }
+
     public static function boot()
     {
         parent::boot();

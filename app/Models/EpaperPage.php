@@ -22,6 +22,26 @@ class EpaperPage extends Model
         'page_number' => 'integer',
     ];
 
+    public function getPageImageAttribute(?string $value): ?string
+    {
+        if (empty($value)) return $value;
+        if (str_contains($value, '/demo/epaper/') || str_contains($value, '/storage/')) {
+            $parsed = parse_url($value);
+            return url($parsed['path'] ?? $value);
+        }
+        return $value;
+    }
+
+    public function getPdfUrlAttribute(?string $value): ?string
+    {
+        if (empty($value)) return $value;
+        if (str_contains($value, '/demo/epaper/') || str_contains($value, '/storage/')) {
+            $parsed = parse_url($value);
+            return url($parsed['path'] ?? $value);
+        }
+        return $value;
+    }
+
     public function edition(): BelongsTo
     {
         return $this->belongsTo(EpaperEdition::class, 'epaper_edition_id');
