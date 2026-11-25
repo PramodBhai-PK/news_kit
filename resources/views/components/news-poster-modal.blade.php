@@ -57,24 +57,51 @@
                     </div>
 
                     <!-- Primary Export Actions Bar -->
-                    <div class="w-full mt-4 grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+                    <div class="w-full mt-4 grid grid-cols-2 sm:grid-cols-4 gap-2">
                         <!-- Download HD PNG -->
-                        <button type="button" id="poster-download-png-btn" class="flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-gradient-to-r from-rose-600 to-brand-primary hover:brightness-110 text-white font-extrabold text-xs shadow-lg shadow-rose-600/30 transition-all">
+                        <button type="button" id="poster-download-png-btn" class="flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl bg-gradient-to-r from-rose-600 to-brand-primary hover:brightness-110 text-white font-extrabold text-xs shadow-lg shadow-rose-600/30 transition-all cursor-pointer">
                             <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
-                            <span>{{ __('Download HD Image') }}</span>
+                            <span>{{ __('Download HD') }}</span>
                         </button>
 
-                        <!-- Copy to Clipboard -->
-                        <button type="button" id="poster-copy-btn" class="flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs border border-slate-700 transition-all">
+                        <!-- Copy Image to Clipboard -->
+                        <button type="button" id="poster-copy-btn" class="flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs border border-slate-700 transition-all cursor-pointer">
                             <svg class="w-4 h-4 shrink-0 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
-                            <span>{{ __('Copy to Clipboard') }}</span>
+                            <span>{{ __('Copy Card') }}</span>
+                        </button>
+
+                        <!-- Copy Article Link -->
+                        <button type="button" id="poster-copy-link-btn" class="flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-cyan-300 font-bold text-xs border border-cyan-500/30 transition-all cursor-pointer" title="{{ __('Copy article link to clipboard') }}">
+                            <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
+                            <span>{{ __('Copy Link') }}</span>
                         </button>
 
                         <!-- WhatsApp Share -->
-                        <button type="button" id="poster-share-whatsapp-btn" class="flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs shadow-md shadow-emerald-600/20 transition-all">
+                        <button type="button" id="poster-share-whatsapp-btn" class="flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs shadow-md shadow-emerald-600/20 transition-all cursor-pointer">
                             <svg class="w-4 h-4 shrink-0 fill-current" viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2M12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 15 3.81 13.47 3.81 11.91C3.81 7.37 7.5 3.67 12.05 3.67Z"/></svg>
-                            <span>{{ __('Share on WhatsApp') }}</span>
+                            <span>{{ __('WhatsApp') }}</span>
                         </button>
+                    </div>
+
+                    <!-- Attached Article Link Banner (Guarantees link travels with card) -->
+                    <div class="w-full mt-3 p-3 rounded-2xl bg-slate-900/90 border border-slate-800 flex items-center justify-between gap-3 text-xs shadow-inner">
+                        <div class="flex items-center gap-2.5 min-w-0">
+                            <span class="w-8 h-8 rounded-xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center shrink-0 border border-cyan-500/20">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
+                            </span>
+                            <div class="min-w-0">
+                                <div class="flex items-center gap-1.5">
+                                    <span class="text-[10px] font-black uppercase tracking-wider text-slate-400">{{ __('Article Link (Sent with Card)') }}</span>
+                                    <span class="px-1.5 py-0.2 rounded text-[9px] font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">{{ __('Attached') }}</span>
+                                </div>
+                                <a id="poster-article-link-preview" href="#" target="_blank" rel="noopener noreferrer" class="text-cyan-400 hover:text-cyan-300 hover:underline font-mono text-[11px] truncate block max-w-[240px] sm:max-w-[340px]" title="{{ __('Open article link') }}"></a>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-1.5 shrink-0">
+                            <button type="button" id="poster-web-share-btn" class="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700 transition-colors" title="{{ __('More share options (Web Share)') }}">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/></svg>
+                            </button>
+                        </div>
                     </div>
 
                     <!-- Notification Feedback Toast -->
@@ -242,6 +269,29 @@
                         </div>
                     </div>
 
+                    <!-- 8. Target Article URL / Story Link (Attached to Card & Shares) -->
+                    <div class="space-y-1.5 pt-1">
+                        <div class="flex items-center justify-between">
+                            <label for="poster-ctrl-url" class="block text-[11px] font-black uppercase tracking-wider text-slate-400">{{ __('8. Target Article Link (Included in Share)') }}</label>
+                            <label class="inline-flex items-center cursor-pointer gap-1.5 text-[10px] text-slate-400">
+                                <span>{{ __('Show on Card:') }}</span>
+                                <input type="checkbox" id="poster-ctrl-show-link" checked class="sr-only peer">
+                                <div class="w-7 h-4 bg-slate-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-3 after:w-3 after:transition-all peer-checked:bg-cyan-600"></div>
+                            </label>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <div class="relative flex-1">
+                                <span class="absolute inset-y-0 left-0 pl-2.5 flex items-center pointer-events-none text-slate-500">
+                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
+                                </span>
+                                <input type="url" id="poster-ctrl-url" class="w-full bg-slate-950 border border-slate-800 rounded-lg pl-8 pr-2.5 py-1.5 text-xs font-mono text-cyan-300 focus:border-cyan-500 outline-none" placeholder="https://newskit.test/article/...">
+                            </div>
+                            <button type="button" id="poster-ctrl-copy-url-btn" class="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs text-slate-300 hover:text-white font-bold border border-slate-700 transition-colors shrink-0 cursor-pointer" title="{{ __('Copy URL') }}">
+                                {{ __('Copy') }}
+                            </button>
+                        </div>
+                    </div>
+
                     <!-- Reset to defaults button -->
                     <div class="pt-2 text-right">
                         <button type="button" id="poster-ctrl-reset-btn" class="text-xs text-slate-500 hover:text-slate-300 font-semibold transition-colors">
@@ -282,6 +332,7 @@
         badgeText: '🔴 BREAKING NEWS',
         dateText: @json(now()->format('d M, Y')),
         articleUrl: @json(url('/')),
+        showLink: true,
         bgImageSrc: null,
         bgImageObj: null,
         darkness: 0.75, // scrim opacity
@@ -310,13 +361,19 @@
     const showWatermarkCheck = document.getElementById('poster-ctrl-show-watermark');
     const badgeInput = document.getElementById('poster-ctrl-badge');
     const dateInput = document.getElementById('poster-ctrl-date');
+    const urlInput = document.getElementById('poster-ctrl-url');
+    const showLinkCheck = document.getElementById('poster-ctrl-show-link');
+    const copyUrlBtn = document.getElementById('poster-ctrl-copy-url-btn');
+    const articleLinkPreview = document.getElementById('poster-article-link-preview');
     const darknessInput = document.getElementById('poster-ctrl-darkness');
     const darknessVal = document.getElementById('poster-ctrl-darkness-val');
     const imageFileInput = document.getElementById('poster-ctrl-image-file');
     const clearImgBtn = document.getElementById('poster-ctrl-clear-img');
     const downloadPngBtn = document.getElementById('poster-download-png-btn');
     const copyBtn = document.getElementById('poster-copy-btn');
+    const copyLinkBtn = document.getElementById('poster-copy-link-btn');
     const shareWhatsappBtn = document.getElementById('poster-share-whatsapp-btn');
+    const webShareBtn = document.getElementById('poster-web-share-btn');
     const resetBtn = document.getElementById('poster-ctrl-reset-btn');
 
     // Ratio dimensions map
@@ -633,20 +690,88 @@
             ctx.fillText('Published: ' + (posterState.dateText || ''), padX, footerY);
         }
 
-        // Right side: Web Domain / Read More CTA
-        ctx.textAlign = 'right';
-        ctx.textBaseline = 'middle';
-        ctx.font = '800 20px "Outfit", sans-serif';
-        ctx.fillStyle = '#F1F5F9';
-        ctx.shadowColor = 'rgba(0, 0, 0, 0.8)';
-        ctx.shadowBlur = 6;
-        
-        let displayHost = 'newskit.test';
-        try {
-            const parsed = new URL(posterState.articleUrl);
-            displayHost = parsed.hostname.replace('www.', '');
-        } catch(e) {}
-        ctx.fillText(displayHost + ' • Read Full Story →', width - padX, footerY);
+        // Right side: Web Domain / Read More CTA / Direct Article Link Pill
+        if (posterState.showLink) {
+            let cleanDisplay = 'newskit.test';
+            try {
+                const parsed = new URL(posterState.articleUrl);
+                const host = parsed.hostname.replace('www.', '');
+                const path = (parsed.pathname && parsed.pathname !== '/') ? parsed.pathname : '';
+                cleanDisplay = host + path;
+                if (cleanDisplay.length > 34) {
+                    cleanDisplay = cleanDisplay.substring(0, 31) + '...';
+                }
+            } catch(e) {
+                cleanDisplay = (posterState.articleUrl || 'newskit.test').replace(/^https?:\/\//, '').substring(0, 34);
+            }
+
+            ctx.font = 'bold 18px "Outfit", sans-serif';
+            const linkText = '🔗 ' + cleanDisplay;
+            const metrics = ctx.measureText(linkText);
+            const pillW = metrics.width + 32;
+            const pillH = 38;
+            const pillX = width - padX - pillW;
+            const pillY = footerY - (pillH / 2);
+
+            drawRoundRect(ctx, pillX, pillY, pillW, pillH, 19);
+            ctx.fillStyle = 'rgba(15, 23, 42, 0.9)';
+            ctx.fill();
+            ctx.strokeStyle = 'rgba(56, 189, 248, 0.6)';
+            ctx.lineWidth = 1.5;
+            ctx.stroke();
+
+            ctx.fillStyle = '#38BDF8';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.shadowColor = 'rgba(0, 0, 0, 0.9)';
+            ctx.shadowBlur = 4;
+            ctx.fillText(linkText, pillX + (pillW / 2), footerY);
+        } else {
+            ctx.textAlign = 'right';
+            ctx.textBaseline = 'middle';
+            ctx.font = '800 20px "Outfit", sans-serif';
+            ctx.fillStyle = '#F1F5F9';
+            ctx.shadowColor = 'rgba(0, 0, 0, 0.8)';
+            ctx.shadowBlur = 6;
+            
+            let displayHost = 'newskit.test';
+            try {
+                const parsed = new URL(posterState.articleUrl);
+                displayHost = parsed.hostname.replace('www.', '');
+            } catch(e) {}
+            ctx.fillText(displayHost + ' • Read Full Story →', width - padX, footerY);
+        }
+
+        // Special 9:16 vertical story format (WhatsApp Status / Instagram Story)
+        if (posterState.ratio === '9:16' && posterState.showLink) {
+            const ctaY = height * 0.78;
+            const ctaW = width - (padX * 2);
+            const ctaH = 64;
+
+            drawRoundRect(ctx, padX, ctaY, ctaW, ctaH, 16);
+            ctx.fillStyle = 'rgba(15, 23, 42, 0.88)';
+            ctx.fill();
+            ctx.strokeStyle = 'rgba(56, 189, 248, 0.4)';
+            ctx.lineWidth = 1.5;
+            ctx.stroke();
+
+            let displayStoryUrl = posterState.articleUrl || 'newskit.test';
+            try {
+                const p = new URL(displayStoryUrl);
+                displayStoryUrl = p.hostname.replace('www.', '') + (p.pathname !== '/' ? p.pathname : '');
+                if (displayStoryUrl.length > 44) {
+                    displayStoryUrl = displayStoryUrl.substring(0, 41) + '...';
+                }
+            } catch(e) {}
+
+            ctx.font = 'bold 22px "Outfit", sans-serif';
+            ctx.fillStyle = '#38BDF8';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.shadowColor = 'rgba(0, 0, 0, 0.8)';
+            ctx.shadowBlur = 6;
+            ctx.fillText('🔗 Read Full Story: ' + displayStoryUrl, width / 2, ctaY + (ctaH / 2));
+        }
 
         ctx.restore();
     }
@@ -813,6 +938,76 @@
         });
     }
 
+    if (urlInput) {
+        urlInput.addEventListener('input', function() {
+            posterState.articleUrl = this.value;
+            if (articleLinkPreview) {
+                articleLinkPreview.textContent = this.value;
+                articleLinkPreview.href = this.value;
+            }
+            renderPoster();
+        });
+    }
+
+    if (showLinkCheck) {
+        showLinkCheck.addEventListener('change', function() {
+            posterState.showLink = this.checked;
+            renderPoster();
+        });
+    }
+
+    // Helper: Build rich formatted share text with headline, category, location, and article link
+    function getShareText() {
+        const headline = (posterState.headline || 'Top Story').trim();
+        const url = posterState.articleUrl || window.location.href;
+        const cat = posterState.category ? `🏷️ *Category:* ${posterState.category.toUpperCase()}\n` : '';
+        const loc = (posterState.location && posterState.showLocation) ? `📍 *Location:* ${posterState.location}\n` : '';
+        const brand = posterState.watermark || 'NewsKit Portal';
+
+        return `🔴 *${headline}*\n\n` +
+               cat +
+               loc +
+               `👉 *Read the full detailed report here:*\n🔗 ${url}\n\n` +
+               `📰 *${brand}* - Stay informed 24/7.`;
+    }
+
+    // Helper: Copy article link to clipboard
+    function copyArticleLink() {
+        const url = posterState.articleUrl || window.location.href;
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(url).then(function() {
+                showToast('🔗 Article link copied to clipboard!');
+            }).catch(function() {
+                fallbackCopyText(url);
+            });
+        } else {
+            fallbackCopyText(url);
+        }
+    }
+
+    function fallbackCopyText(text) {
+        const temp = document.createElement('textarea');
+        temp.value = text;
+        temp.style.position = 'fixed';
+        temp.style.opacity = '0';
+        document.body.appendChild(temp);
+        temp.select();
+        try {
+            document.execCommand('copy');
+            showToast('🔗 Article link copied to clipboard!');
+        } catch(e) {
+            showToast('Link: ' + text);
+        }
+        document.body.removeChild(temp);
+    }
+
+    if (copyLinkBtn) {
+        copyLinkBtn.addEventListener('click', copyArticleLink);
+    }
+    if (copyUrlBtn) {
+        copyUrlBtn.addEventListener('click', copyArticleLink);
+    }
+
     // Custom Image File Upload via FileReader (NEVER taints canvas)
     if (imageFileInput) {
         imageFileInput.addEventListener('change', function(e) {
@@ -854,6 +1049,8 @@
             if (showAuthorCheck) showAuthorCheck.checked = true;
             posterState.showWatermark = true;
             if (showWatermarkCheck) showWatermarkCheck.checked = true;
+            posterState.showLink = true;
+            if (showLinkCheck) showLinkCheck.checked = true;
             renderPoster();
             showToast('Settings reset to defaults');
         });
@@ -894,7 +1091,7 @@
                         await navigator.clipboard.write([
                             new ClipboardItem({ 'image/png': blob })
                         ]);
-                        showToast('📋 Image copied to clipboard! Paste with Ctrl+V.');
+                        showToast('📋 Image copied! Article link is also ready to share.');
                     } catch(err) {
                         console.warn('ClipboardItem write failed:', err);
                         showToast('Clipboard access not granted. Please download the image.');
@@ -907,11 +1104,12 @@
         });
     }
 
-    // WhatsApp Share Action
+    // WhatsApp Share Action (Rich text with article link guaranteed)
     if (shareWhatsappBtn) {
         shareWhatsappBtn.addEventListener('click', async function() {
             const shareTitle = posterState.headline || 'Top Story';
             const shareUrl = posterState.articleUrl || window.location.href;
+            const waShareText = getShareText();
 
             // Attempt Native File Web Share API (Mobile Support)
             if (navigator.canShare && canvas.toBlob) {
@@ -922,7 +1120,8 @@
                             try {
                                 await navigator.share({
                                     title: shareTitle,
-                                    text: `${shareTitle}\n\nRead full story: ${shareUrl}`,
+                                    text: waShareText,
+                                    url: shareUrl,
                                     files: [file]
                                 });
                                 showToast('Shared successfully!');
@@ -933,12 +1132,64 @@
                         }
                     }
                     // Web URL Fallback
-                    const waText = encodeURIComponent(`🔴 *${shareTitle}*\n\nRead full story:\n${shareUrl}`);
+                    const waText = encodeURIComponent(waShareText);
                     window.open(`https://api.whatsapp.com/send?text=${waText}`, '_blank');
+                    showToast('Opening WhatsApp with article link...');
                 }, 'image/png');
             } else {
-                const waText = encodeURIComponent(`🔴 *${shareTitle}*\n\nRead full story:\n${shareUrl}`);
+                const waText = encodeURIComponent(waShareText);
                 window.open(`https://api.whatsapp.com/send?text=${waText}`, '_blank');
+                showToast('Opening WhatsApp with article link...');
+            }
+        });
+    }
+
+    // Native Web Share API Action (for multi-app sharing: Telegram, X, Facebook, Email)
+    if (webShareBtn) {
+        webShareBtn.addEventListener('click', async function() {
+            const shareTitle = posterState.headline || 'Top Story';
+            const shareUrl = posterState.articleUrl || window.location.href;
+            const waShareText = getShareText();
+
+            if (navigator.share) {
+                if (canvas.toBlob) {
+                    canvas.toBlob(async function(blob) {
+                        if (blob) {
+                            const file = new File([blob], 'news-poster.png', { type: 'image/png' });
+                            if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                                try {
+                                    await navigator.share({
+                                        title: shareTitle,
+                                        text: waShareText,
+                                        url: shareUrl,
+                                        files: [file]
+                                    });
+                                    showToast('Shared successfully!');
+                                    return;
+                                } catch(e) {}
+                            }
+                        }
+                        try {
+                            await navigator.share({
+                                title: shareTitle,
+                                text: waShareText,
+                                url: shareUrl
+                            });
+                            showToast('Shared successfully!');
+                        } catch(e) {}
+                    }, 'image/png');
+                } else {
+                    try {
+                        await navigator.share({
+                            title: shareTitle,
+                            text: waShareText,
+                            url: shareUrl
+                        });
+                        showToast('Shared successfully!');
+                    } catch(e) {}
+                }
+            } else {
+                copyArticleLink();
             }
         });
     }
@@ -1002,6 +1253,13 @@
         if (watermarkInput) watermarkInput.value = posterState.watermark;
         if (showWatermarkCheck) showWatermarkCheck.checked = posterState.showWatermark;
         if (dateInput) dateInput.value = posterState.dateText;
+        if (urlInput) urlInput.value = posterState.articleUrl;
+        if (articleLinkPreview) {
+            articleLinkPreview.textContent = posterState.articleUrl;
+            articleLinkPreview.href = posterState.articleUrl;
+        }
+        posterState.showLink = true;
+        if (showLinkCheck) showLinkCheck.checked = true;
 
         // Open modal
         modal.classList.remove('hidden');

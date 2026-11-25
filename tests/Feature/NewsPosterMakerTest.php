@@ -83,10 +83,15 @@ class NewsPosterMakerTest extends TestCase
         $response->assertSee('data-theme="golden_impact"', false);
         $response->assertSee('data-theme="quote_statement"', false);
 
-        // Assert Export Buttons
+        // Assert Export Buttons & Article Link Controls
         $response->assertSee('id="poster-download-png-btn"', false);
         $response->assertSee('id="poster-copy-btn"', false);
+        $response->assertSee('id="poster-copy-link-btn"', false);
         $response->assertSee('id="poster-share-whatsapp-btn"', false);
+        $response->assertSee('id="poster-web-share-btn"', false);
+        $response->assertSee('id="poster-article-link-preview"', false);
+        $response->assertSee('id="poster-ctrl-url"', false);
+        $response->assertSee('Target Article Link', false);
     }
 
     public function test_admin_articles_index_includes_poster_action_button()
